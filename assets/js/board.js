@@ -96,6 +96,7 @@
       case "circle": return el("circle", { cx: args[0], cy: args[1], r: args[2] / 2, ...st }, target);
       case "line": return el("line", { x1: args[0], y1: args[1], x2: args[2], y2: args[3], ...st }, target);
       case "path": return el("path", { d: args[0], ...st }, target);
+      case "linearPath": return el("polyline", { points: args[0].map((q) => q.join(",")).join(" "), ...st, fill: "none" }, target);
     }
   }
 
@@ -354,75 +355,68 @@
   }
 
   /* =======================================================================
-     5b. DiG-bench A vs B race (Spohn card extension)
-         Per game and arm: actions at each level-up, lives lost, refresh bursts.
-         Source: runs/digbench_gpt_t123_001 (P-1, P-2, P-4, P-6, P-8) and
-         runs/digbench_gpt_p3_004 (P-3, 400-action cap, stopped on request), read
-         from level_reach.json / per-turn logs / refresh.json.
+     5b. Harness extension: level reached against actions, A (no help) vs B
+         (world model), for the DiG-bench games where B went faster and farther.
+         Source: runs/digbench_gpt_p3_004 (P-3, 400-action cap, both arms stopped
+         on request) and runs/digbench_gpt_t123_001 (P-6, 200-action cap); level-ups
+         from the per-turn logs / level_reach.json, refresh from refresh.json.
      ======================================================================= */
-  const DIG_GAMES = [
-    { id: "P-1", tier: 1, verdict: "tie", note: "B faster to L3–L6",
-      A: { end: 200, ups: [5, 40, 69, 102, 131, 170], lives: [], how: "cap" },
-      B: { end: 200, ups: [5, 32, 60, 96, 128, 174], lives: [], how: "cap", refresh: [[139, 170, true]] } },
-    { id: "P-2", tier: 1, verdict: "tie", note: "neither cleared",
-      A: { end: 200, ups: [], lives: [100, 200], how: "cap" },
-      B: { end: 200, ups: [], lives: [100, 200], how: "cap" } },
-    { id: "P-3", tier: 1, verdict: "B", note: "400 cap, stopped",
-      A: { end: 343, ups: [251, 294], lives: [126, 242], how: "stopped" },
-      B: { end: 234, ups: [40, 73, 167], lives: [112], how: "stopped", refresh: [[123, 159, true]] } },
-    { id: "P-4", tier: 2, verdict: "A", note: "refresh failed",
-      A: { end: 166, ups: [37, 47, 70, 103, 131, 140], lives: [23, 65, 86, 120, 150, 166], how: "game over" },
-      B: { end: 142, ups: [40, 86, 96], lives: [30, 58, 77, 109, 126, 142], how: "game over", refresh: [[106, 109, false]] } },
-    { id: "P-6", tier: 2, verdict: "B", note: "L1 in 15 vs 27",
-      A: { end: 200, ups: [27], lives: [157], how: "cap" },
-      B: { end: 200, ups: [15, 164], lives: [108], how: "cap" } },
-    { id: "P-8", tier: 3, verdict: "tie", note: "neither cleared",
-      A: { end: 200, ups: [], lives: [147], how: "cap" },
-      B: { end: 200, ups: [], lives: [], how: "cap" } },
+  const STEP_GAMES = [
+    { svg: "#stepsP3", id: "P-3", sub: "tier 1 · 400-action cap, both arms stopped early", xmax: 350, levels: 4,
+      A: { ups: [251, 294], end: 343 }, B: { ups: [40, 73, 167], end: 234, refresh: [123, 159] },
+      note: { level: 3, text: "level 3: 221 actions sooner" } },
+    { svg: "#stepsP6", id: "P-6", sub: "tier 2 · 200-action cap", xmax: 200, levels: 3,
+      A: { ups: [27], end: 200 }, B: { ups: [15, 164], end: 200 },
+      note: { level: 3, text: "only B reaches level 3" } },
   ];
 
-  function drawRace(sel, games) {
-    const svg = $(sel); if (!svg) return;
-    const X0 = 92, X1 = 716, MAX = 350, ROW = 40, TOP = 22;
-    const x = (a) => X0 + (a / MAX) * (X1 - X0);
+  function drawSteps(game) {
+    const svg = $(game.svg); if (!svg) return;
+    const W = 440, H = 226, ML = 40, MR = 92, T = 44, B = 194;
+    const x = (a) => ML + (a / game.xmax) * (W - ML - MR);
+    const y = (l) => B - ((l - 1) / (game.levels - 0.6)) * (B - T);
     const col = { A: "#8b8477", B: tok("--series-1", "#2a78d6") };
     const g = el("g", {}, svg);
-    const bottom = TOP + games.length * ROW;
-    [0, 100, 200, 300].forEach((a) => {
-      el("line", { x1: x(a), x2: x(a), y1: TOP - 4, y2: bottom, stroke: C.rule, "stroke-width": 1, "stroke-dasharray": "2 5" }, g);
-      el("text", { x: x(a), y: bottom + 16, text: a, "text-anchor": "middle", "font-size": 12, fill: C.ink2 }, g);
-    });
-    el("text", { x: X1, y: bottom + 16, text: "actions", "text-anchor": "end", "font-size": 12, fill: C.ink2 }, g);
-    sketch(svg, "line", [x(200), TOP - 12, x(200), bottom], { stroke: C.ink3, strokeWidth: 1.3, roughness: 0.6, strokeLineDash: [6, 4] }, g);
-    el("text", { x: x(200) + 4, y: TOP - 8, text: "200-action cap", "font-size": 12, fill: C.ink3, "font-family": "Caveat, cursive" }, g);
-
-    games.forEach((game, i) => {
-      const y0 = TOP + i * ROW;
-      if (i) el("line", { x1: 0, x2: 960, y1: y0, y2: y0, stroke: C.rule, "stroke-width": 0.8, "stroke-dasharray": "1 4" }, g);
-      el("text", { x: 4, y: y0 + 21, text: game.id, "font-size": 17, fill: C.ink, "font-family": "Caveat, cursive", "font-weight": 700 }, g);
-      el("text", { x: 4, y: y0 + 35, text: `tier ${game.tier}`, "font-size": 11.5, fill: C.ink3 }, g);
-      [["A", y0 + 12], ["B", y0 + 28]].forEach(([arm, y]) => {
-        const r = game[arm];
-        el("text", { x: X0 - 10, y: y + 4, text: arm, "text-anchor": "end", "font-size": 12, fill: col[arm], "font-weight": 700 }, g);
-        (r.refresh || []).forEach(([a, b, ok]) => {
-          sketch(svg, "rectangle", [x(a), y - 6, Math.max(4, x(b) - x(a)), 12], { stroke: ok ? col.B : C.warn, strokeWidth: 1.2, fill: ok ? col.B : C.warn, fillStyle: "hachure", hachureGap: 2.6, fillWeight: 0.8, roughness: 0.6 }, g);
-        });
-        sketch(svg, "line", [x(0), y, x(r.end), y], { stroke: col[arm], strokeWidth: 3, roughness: 0.5, bowing: 0.2 }, g);
-        r.ups.forEach((a, k) => {
-          sketch(svg, "circle", [x(a), y, 15], { stroke: "#fffdf7", strokeWidth: 1.2, fill: col[arm], fillStyle: "solid", roughness: 0.4 }, g);
-          el("text", { x: x(a), y: y + 3.5, text: k + 2, "text-anchor": "middle", "font-size": 9.5, fill: "#ffffff", "font-weight": 700 }, g);
-        });
-        r.lives.forEach((a) => el("text", { x: x(a), y: y + 4.5, text: "×", "text-anchor": "middle", "font-size": 14, fill: C.warn, "font-weight": 700, stroke: "#fffdf7", "stroke-width": 3, "paint-order": "stroke" }, g));
-        const level = r.ups.length + 1;
-        el("text", { x: x(r.end) + 7, y: y + 4, text: `L${level}${r.how === "game over" ? " · game over" : r.how === "stopped" ? " · stopped" : ""}`, "font-size": 11.5, fill: col[arm], "font-weight": 700 }, g);
-        const hit = el("rect", { x: x(0), y: y - 8, width: x(r.end) - x(0), height: 16, fill: "transparent" }, g);
-        bindTip(hit, `<b>${game.id} · ${arm === "A" ? "A, no help" : "B, with world model"}</b>${r.ups.length ? "level-ups at actions " + r.ups.join(", ") : "no level cleared"}; ended at L${level} after ${r.end} actions (${r.how})${r.lives.length ? "; " + r.lives.length + " lives lost" : ""}`);
+    el("text", { x: 0, y: 17, text: game.id, "font-size": 21, fill: C.ink, "font-family": "Caveat, cursive", "font-weight": 700 }, g);
+    el("text", { x: 34, y: 17, text: game.sub, "font-size": 12, fill: C.ink3 }, g);
+    for (let l = 1; l <= game.levels; l++) {
+      el("line", { x1: ML, x2: W - MR, y1: y(l), y2: y(l), stroke: C.rule, "stroke-width": 1, "stroke-dasharray": l === 1 ? null : "2 5" }, g);
+      el("text", { x: ML - 8, y: y(l) + 4, text: `L${l}`, "text-anchor": "end", "font-size": 12, fill: C.ink2 }, g);
+    }
+    const step = game.xmax > 250 ? 100 : 50;
+    for (let a = 0; a <= game.xmax; a += step) el("text", { x: x(a), y: B + 17, text: a, "text-anchor": "middle", "font-size": 11.5, fill: C.ink2 }, g);
+    el("text", { x: W - MR, y: B + 30, text: "actions", "text-anchor": "end", "font-size": 11.5, fill: C.ink2 }, g);
+    if (game.B.refresh) {
+      const [a, b] = game.B.refresh;
+      sketch(svg, "rectangle", [x(a), T - 6, x(b) - x(a), B - T + 6], { stroke: col.B, strokeWidth: 1, fill: col.B, fillStyle: "hachure", hachureGap: 5, fillWeight: 0.6, roughness: 0.6 }, g);
+      el("text", { x: (x(a) + x(b)) / 2, y: T - 10, text: "refresh", "text-anchor": "middle", "font-size": 11, fill: col.B }, g);
+    }
+    ["A", "B"].forEach((arm) => {
+      const r = game[arm];
+      const pts = [[x(0), y(1)]];
+      r.ups.forEach((a, k) => { pts.push([x(a), y(k + 1)], [x(a), y(k + 2)]); });
+      const last = r.ups.length + 1;
+      pts.push([x(r.end), y(last)]);
+      sketch(svg, "linearPath", [pts], { stroke: col[arm], strokeWidth: arm === "B" ? 3 : 2.6, roughness: 0.5, bowing: 0.2 }, g);
+      r.ups.forEach((a, k) => {
+        sketch(svg, "circle", [x(a), y(k + 2), 9], { stroke: col[arm], strokeWidth: 1.2, fill: col[arm], fillStyle: "solid", roughness: 0.4 }, g);
+        const hit = el("circle", { cx: x(a), cy: y(k + 2), r: 9, fill: "transparent" }, g);
+        bindTip(hit, `<b>${game.id} · ${arm === "A" ? "A, no help" : "B, with world model"}</b>level ${k + 2} at action ${a}`);
       });
-      const badge = { B: ["B ahead", col.B, "#d3e6f4"], A: ["A ahead", "#57524a", "#ebe7de"], tie: ["tie", C.ink2, "#fffdf7"] }[game.verdict];
-      sketch(svg, "rectangle", [812, y0 + 7, 70, 20], { stroke: badge[1], strokeWidth: 1.4, fill: badge[2], fillStyle: "solid", roughness: 0.7 }, g);
-      el("text", { x: 847, y: y0 + 21, text: badge[0], "text-anchor": "middle", "font-size": 13, fill: badge[1], "font-weight": 700 }, g);
-      el("text", { x: 847, y: y0 + 37, text: game.note, "text-anchor": "middle", "font-size": 11, fill: C.ink3 }, g);
+      el("text", { x: x(r.end) + 6, y: y(last) + 4, text: `${arm}: L${last}`, "font-size": 13, fill: col[arm], "font-weight": 700 }, g);
+      el("text", { x: x(r.end) + 6, y: y(last) + 17, text: `after ${r.end} actions`, "font-size": 11, fill: col[arm] }, g);
     });
+    // the gap at the highlighted level
+    const lvl = game.note.level, bx = x(game.B.ups[lvl - 2]), aUp = game.A.ups[lvl - 2];
+    if (aUp !== undefined) {
+      const ax = x(aUp);
+      const gy = y(lvl) + 13;   // below the level line, clear of both tracks
+      sketch(svg, "line", [bx + 4, gy, ax - 4, gy], { stroke: C.ink2, strokeWidth: 1.2, roughness: 0.7, strokeLineDash: [4, 3] }, g);
+      arrowhead(svg, ax - 4, gy, 0, C.ink2, 6, 1.2, g);
+      el("text", { x: (bx + ax) / 2, y: gy + 16, text: game.note.text, "text-anchor": "middle", "font-size": 15, fill: C.ink, "font-family": "Caveat, cursive", "font-weight": 700, stroke: "#fffdf7", "stroke-width": 4, "paint-order": "stroke" }, g);
+    } else {
+      el("text", { x: bx - 10, y: y(lvl) - 8, text: game.note.text, "text-anchor": "end", "font-size": 15, fill: C.ink, "font-family": "Caveat, cursive", "font-weight": 700 }, g);
+    }
   }
 
   /* =======================================================================
@@ -443,7 +437,7 @@
   // CausalPrio-TimeRecency MAP@3 and edge F1 (B1_summary / benchmark_comparison.json)
   drawBars("#chartMap", SERIES, [[0.4485, 0.7439, 0.8333], [0.5833, 0.7439, 1.0], [0.3676, 0.4797, 0.8667]], 128);
   drawBars("#chartF1", [SERIES[0], SERIES[2]], [[0.5333, 0.5806, 0.5714], [0.3704, 0.4, 0.3]], 112);
-  drawRace("#raceDig", DIG_GAMES);
+  STEP_GAMES.forEach(drawSteps);
   reveal();
   let t;
   window.addEventListener("resize", () => { clearTimeout(t); t = setTimeout(layoutGoal, 120); });

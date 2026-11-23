@@ -509,8 +509,11 @@ footer .wrap { border-top: 2px dashed var(--rule); padding-top: 18px; display: f
   background: var(--note-lilac); box-shadow: var(--shadow-note); transform: rotate(-1.5deg);
 }
 .card-head .ext-title { font-size: clamp(24px, 3vw, 30px); }
-#raceDig { display: block; width: 100%; height: auto; overflow: visible; margin-top: 2px; }
-#raceDig text { font-family: var(--font-hand); }
+.steps-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; margin-top: 4px; }
+.steps-pair figure { margin: 0; min-width: 0; }
+.steps-pair svg { display: block; width: 100%; height: auto; overflow: visible; }
+.steps-pair svg text { font-family: var(--font-hand); }
+.know-row.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .race-legend { margin-top: 2px; }
 .legend i.trk { width: 22px; height: 4px; border-radius: 2px; }
 .legend i.trk-a { background: #8b8477; } .legend i.trk-b { background: var(--series-1); }
@@ -541,15 +544,15 @@ footer .wrap { border-top: 2px dashed var(--rule); padding-top: 18px; display: f
 
 @media (max-width: 760px) {
   .rca-wide { grid-template-columns: 1fr; }
-  .know-row { grid-template-columns: 1fr; }
+  .know-row, .know-row.two, .steps-pair { grid-template-columns: 1fr; }
   .env-wide { grid-template-columns: 136px minmax(0, 1fr); }
   .env-stats { grid-column: 1 / -1; border-left: 0; padding-left: 0; border-top: 1.5px dashed var(--rule); padding-top: 10px; }
 }
 @media (max-width: 480px) {
   .env-wide { grid-template-columns: 1fr; justify-items: center; }
   .mini-dag, .rca-charts figure { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .card-ext .env { overflow-x: auto; }
-  #raceDig { min-width: 640px; }
+  .steps-pair figure { overflow-x: auto; }
+  .steps-pair svg { min-width: 380px; }
   .mini-dag svg { min-width: 380px; }
   .rca-charts svg { min-width: 360px; }
   .env-stats { justify-self: stretch; }
@@ -567,6 +570,9 @@ footer .wrap { border-top: 2px dashed var(--rule); padding-top: 18px; display: f
   .card-ext { break-before: page; border-top: 0; }
   .ext-tab { display: none; }
   .know-row { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+  .know-row.two, .steps-pair { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  #refs { break-before: page; zoom: .8; }
+  .refs-card { box-shadow: none; }
   .project-card.compact { width: 960px; max-width: none; zoom: .74; box-shadow: none; break-inside: avoid; }
   /* keep the desktop card layout even though the printed page is narrow */
   .card-row { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
@@ -578,3 +584,16 @@ footer .wrap { border-top: 2px dashed var(--rule); padding-top: 18px; display: f
   .reveal { opacity: 1 !important; transform: none !important; }
   .note, .env, .tabs a { box-shadow: none; }
 }
+
+/* references */
+#refs { padding-top: 40px; }
+.refs-card {
+  background: var(--note-white); box-shadow: var(--shadow-note); padding: 22px clamp(16px, 3vw, 34px) 18px;
+  border-radius: 3px; max-width: 960px; margin-inline: auto;
+}
+.refs-group + .refs-group { margin-top: 14px; }
+.refs-group h3 { font-size: 26px; margin-bottom: 4px; }
+.refs { margin: 0; padding-left: 30px; font-size: 15.5px; line-height: 1.45; }
+.refs li { margin: 3px 0; padding-left: 4px; }
+.refs li::marker { font-family: var(--font-script); font-weight: 700; color: var(--ink-3); }
+.refs a { word-break: break-word; }

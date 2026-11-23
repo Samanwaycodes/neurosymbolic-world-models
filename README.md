@@ -4,7 +4,7 @@ A single-page, hand-drawn GitHub Pages site that showcases the auto-didactic neu
 
 - **§1 The goal**: a reproduction of the original board page, including the classical and autodidactic teacher–learner diagrams.
 - **§2 Recent models**: one compact card per model, sized to print on about ¾ of an A4 sheet (What → How → How does it perform? → Known limitations). Current cards: **TOKW** (forced pendulum) and **Spohn Bayesian Model Discovery** (causRCA root-cause analysis).
-- **§3 Up next**: placeholders.
+- **§3 References**: papers, datasets and manuscripts the work builds on.
 
 No build step is needed: it's plain HTML, CSS and JS. rough.js (from jsDelivr) gives shapes their hand-drawn look. Without it, the same shapes render as clean SVG.
 

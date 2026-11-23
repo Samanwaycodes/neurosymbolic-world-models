@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Courier+Prime&family=Patrick+Hand&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css?v=20261124b">
+<link rel="stylesheet" href="assets/css/style.css?v=20261124c">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='6' width='52' height='52' rx='4' fill='%23fbf1a9' stroke='%232b2925' stroke-width='3'/%3E%3Ccircle cx='32' cy='30' r='10' fill='none' stroke='%232b2925' stroke-width='3'/%3E%3Cpath d='M20 50h24' stroke='%232b2925' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
 </head>
 <body>
@@ -36,7 +36,7 @@
       <a href="#goal">The goal</a>
       <a href="#tokw">TOKW</a>
       <a href="#spohnCard">Spohn</a>
-      <a href="#next">Up next</a>
+      <a href="#refs">References</a>
     </nav>
   </div>
 </header>
@@ -466,11 +466,11 @@
       <section class="card-ext" id="spohnDig" aria-labelledby="digTitle">
         <span class="ext-tab">extension</span>
         <div class="card-head">
-          <h2 id="digTitle" class="ext-title">DiG-bench: a knowledge-organising harness for LLMs</h2>
+          <h2 id="digTitle" class="ext-title">The world model as a knowledge-organising harness for LLMs</h2>
           <div class="chips">
             <span class="chip k">same discovery loop</span>
             <span class="chip">gpt-6-sol players</span>
-            <span class="chip">A vs B on 6 games</span>
+            <span class="chip">tested on DiG-bench</span>
           </div>
         </div>
 
@@ -531,7 +531,7 @@
             <h3>How</h3>
             <ol class="how-steps tight">
               <li>An explorer plays 2 × 100 actions; the core discovers screen variables (the encoder) and laws, checked on sealed transitions.</li>
-              <li>Player B gets the world model as text; player A, the same gpt-6-sol, gets nothing; 200-action cap each.</li>
+              <li>Player B gets the world model as text; player A, the same gpt-6-sol, gets nothing; both get the same action cap.</li>
               <li>If B stalls on a level, an explorer burst and a rediscovery refresh the model.</li>
             </ol>
           </div>
@@ -539,27 +539,31 @@
 
         <h3 class="card-h">How does it perform?</h3>
         <section class="env" aria-labelledby="envDig">
-          <div class="env-head"><h4 id="envDig">A vs B on six DiG-bench games</h4><span>one session per arm · tiers 1–3 · actions until each level-up</span></div>
+          <div class="env-head"><h4 id="envDig">Faster and farther with the world model</h4><span>DiG-bench games · same LLM in both arms · level reached against actions spent</span></div>
           <div class="legend mini-legend race-legend">
             <span><i class="trk trk-a"></i>A: no help</span>
             <span><i class="trk trk-b"></i>B: with the world model</span>
-            <span><i class="lvl"></i>level reached</span>
-            <span><b class="x">×</b>life lost</span>
-            <span><i class="rf"></i>refresh: burst + rediscovery (red = failed)</span>
+            <span><i class="rf"></i>B's refresh (burst + rediscovery)</span>
           </div>
-          <svg id="raceDig" width="960" height="286" viewBox="0 0 960 286" role="img" aria-label="Level-up timelines for six games. P-1: both reach level 7, B reaches levels 3 to 6 sooner. P-2: neither clears a level. P-3: A reaches level 3 in 343 actions, B level 4 in 234. P-4: A reaches level 7, B level 4 after a failed refresh; both game over. P-6: A level 2, B level 3. P-8: neither clears a level."></svg>
-          <div class="know-row">
-            <div class="rule-card"><span class="formula">level ↑ if Q ≥ 95% of goal</span><span class="eng"><b>P-1</b> completion law · hold-out 1.00</span><span class="meta">B reached levels 3–6 three to nine actions sooner</span></div>
-            <div class="rule-card"><span class="formula">level ↑ if stars ≥ 3 ∧ g on ★</span><span class="eng"><b>P-6</b> completion law · hold-out 0.94</span><span class="meta">B cleared level 1 in 15 actions vs 27</span></div>
+          <div class="steps-pair">
+            <figure>
+              <svg id="stepsP3" width="440" height="226" viewBox="0 0 440 226" role="img" aria-label="P-3: B reaches level 2 at 40 actions, level 3 at 73 and level 4 at 167, finishing at level 4 after 234 actions. A reaches level 2 at 251 actions and level 3 at 294, finishing at level 3 after 343 actions."></svg>
+            </figure>
+            <figure>
+              <svg id="stepsP6" width="440" height="226" viewBox="0 0 440 226" role="img" aria-label="P-6: B reaches level 2 at 15 actions and level 3 at 164. A reaches level 2 at 27 actions and stays there until the 200-action cap."></svg>
+            </figure>
+          </div>
+          <div class="know-row two">
             <div class="rule-card"><span class="formula">yes ⇔ word has a, no b</span><span class="eng"><b>P-3</b> refresh on level 3 · hold-out 0.88</span><span class="meta">B cleared level 3 eight actions after resuming</span></div>
+            <div class="rule-card"><span class="formula">level ↑ if stars ≥ 3 ∧ g on ★</span><span class="eng"><b>P-6</b> completion law · hold-out 0.94</span><span class="meta">B cleared level 1 in 15 actions vs 27</span></div>
           </div>
         </section>
 
         <div class="note pink limits-mini">
           <h3>Known limitations</h3>
           <ul>
-            <li><b>One session per arm and game,</b> so these are descriptive; over all six games the totals are level (B cleared 14 levels, A 15).</li>
-            <li>It helps when the model captures how a level is completed. Rules that change every level need a refresh (P-4's failed on 13 transitions), and hidden history (P-2) is beyond the fully observed core.</li>
+            <li><b>Showcased:</b> the DiG-bench games where the assisted player went both faster and farther, with one session per arm, so these are examples rather than averages.</li>
+            <li>It helps when the world model captures how a level is completed. Rules that change every level need a successful refresh, and history that never appears on screen is beyond the fully observed core.</li>
           </ul>
         </div>
       </section>
@@ -568,18 +572,49 @@
 </section>
 
 <!-- ======================================================================
-     §3  UP NEXT
+     REFERENCES
      ====================================================================== -->
-<section id="next">
+<section id="refs">
   <div class="wrap">
     <div class="section-head">
       <span class="num">3</span>
-      <h2>Up next on the board</h2>
-      <span class="aside">space reserved</span>
+      <h2>References</h2>
+      <span class="aside">papers and datasets the work above builds on</span>
     </div>
-    <div class="coming">
-      <div class="note blue reveal" style="--tilt:1.2deg"><span class="pin" aria-hidden="true"></span><h3>Next model</h3><p>Each new model gets its own card: diagram, what, how, figures, limitations.</p></div>
-      <div class="note pink reveal" style="--tilt:-.6deg"><span class="pin" aria-hidden="true"></span><h3>Closing the loop</h3><p>Self-taught theories tested against naturally shifting data.</p></div>
+    <div class="refs-card">
+      <div class="refs-group">
+        <h3>World models and TOKW</h3>
+        <ol class="refs">
+          <li>Maes, L., Le Lidec, Q., Scieur, D., LeCun, Y., &amp; Balestriero, R. (2026). LeWorldModel: Stable End-to-End Joint-Embedding Predictive Architecture from Pixels. <a href="https://arxiv.org/abs/2603.19312">arXiv:2603.19312</a>.</li>
+          <li>Oquab, M., Darcet, T., Moutakanni, T., et al. (2024). DINOv2: Learning Robust Visual Features without Supervision. <i>Transactions on Machine Learning Research.</i> <a href="https://arxiv.org/abs/2304.07193">arXiv:2304.07193</a>.</li>
+          <li>Bai, S., Chen, K., Liu, X., et al. (2025). Qwen2.5-VL Technical Report. <a href="https://arxiv.org/abs/2502.13923">arXiv:2502.13923</a>.</li>
+          <li>Kripke, S. A. (1963). Semantical Considerations on Modal Logic. <i>Acta Philosophica Fennica</i>, 16, 83–94.</li>
+          <li>Clarke, E. M., &amp; Emerson, E. A. (1981). Design and Synthesis of Synchronization Skeletons Using Branching-Time Temporal Logic. In <i>Logic of Programs</i>, LNCS 131, 52–71. Springer.</li>
+          <li>Towers, M., Kwiatkowski, A., Terry, J., et al. (2024). Gymnasium: A Standard Interface for Reinforcement Learning Environments. <a href="https://arxiv.org/abs/2407.17032">arXiv:2407.17032</a>.</li>
+        </ol>
+      </div>
+      <div class="refs-group">
+        <h3>Spohn Bayesian Model Discovery</h3>
+        <ol class="refs" start="7">
+          <li>Spohn, W. (1988). Ordinal Conditional Functions: A Dynamic Theory of Epistemic States. In W. L. Harper &amp; B. Skyrms (Eds.), <i>Causation in Decision, Belief Change, and Statistics</i>, vol. II, 105–134. Kluwer.</li>
+          <li>Spohn, W. (2012). <i>The Laws of Belief: Ranking Theory and Its Philosophical Applications.</i> Oxford University Press.</li>
+          <li><i>Invariant Encoding and Bayesian Measure Revision: An End-to-End Algorithm with Explicit Costs and Prompt Files.</i> Algorithm draft (unpublished); the LEARN_AND_REVISE loop.</li>
+          <li><i>Anytime-Anywhere-Valid PAC–Bayes: Certifying Improvement Under Continual Self-Modification.</i> Manuscript (unpublished).</li>
+          <li><i>Calibrated for Which Policy? Conformal Uncertainty for Fixed World Models Under Intervention.</i> Manuscript (unpublished).</li>
+          <li><i>Audit CP</i> manuscript with Lean files, and the <i>Eidometry</i> source on target-relative encoding. Unpublished.</li>
+          <li>Mehling, C. W., Pieper, S., Lüke, T., Döbelt, J., &amp; Ihlenfeldt, S. (2026). Enabling Joint Benchmarking of Automated Root Cause Analysis and Causal Discovery in Manufacturing Using the causRCA Dataset. <i>Procedia CIRP</i>, 139, 114–120. <a href="https://doi.org/10.1016/j.procir.2025.09.010">doi:10.1016/j.procir.2025.09.010</a>.</li>
+          <li>Spirtes, P., Glymour, C., &amp; Scheines, R. (2000). <i>Causation, Prediction, and Search</i> (2nd ed.). MIT Press. (PC and FCI)</li>
+          <li>Ramsey, J., Glymour, M., Sanchez-Romero, R., &amp; Glymour, C. (2017). A Million Variables and More: The Fast Greedy Equivalence Search Algorithm for Learning High-Dimensional Graphical Causal Models. <i>International Journal of Data Science and Analytics</i>, 3(2), 121–129. (FGES)</li>
+          <li>Runge, J., Nowack, P., Kretschmer, M., Flaxman, S., &amp; Sejdinovic, D. (2019). Detecting and Quantifying Causal Associations in Large Nonlinear Time Series Datasets. <i>Science Advances</i>, 5(11), eaau4996. (PCMCI)</li>
+          <li>Page, L., Brin, S., Motwani, R., &amp; Winograd, T. (1999). The PageRank Citation Ranking: Bringing Order to the Web. Stanford InfoLab Technical Report. (PageRank ranker)</li>
+        </ol>
+      </div>
+      <div class="refs-group">
+        <h3>Knowledge-organising harness</h3>
+        <ol class="refs" start="18">
+          <li>Battleday, R. M., Sandbrink, K., Cullen-Drohan, J., Yan, Z., Muller, T., Maguire, C., Kubicek, A., Greenlee-Scott, F., Sumant, S., Dao, T., Schmidhuber, J., Valko, M., Tenenbaum, J., Griffiths, T. L., Kurth-Nelson, Z., &amp; Whittington, J. C. R. (2026). DiG-bench: Discovery in Games. <a href="https://arxiv.org/abs/2608.12593">arXiv:2608.12593</a>.</li>
+        </ol>
+      </div>
     </div>
   </div>
 </section>
@@ -588,7 +623,7 @@
 
 <footer>
   <div class="wrap">
-    <span>Figures from TOKW v0.4.0 Gymnasium runs · design notes from artpark-hub/neuro-sym-wm</span>
+    <span>Figures from the TOKW v0.4.0 Gymnasium runs, the causRCA B1 runs and the DiG-bench A/B runs · design notes from artpark-hub/neuro-sym-wm</span>
     <span>hand-drawn with rough.js</span>
   </div>
 </footer>
@@ -596,6 +631,6 @@
 <div class="tip" id="tip" role="tooltip"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.js"></script>
-<script src="assets/js/board.js?v=20261124b"></script>
+<script src="assets/js/board.js?v=20261124c"></script>
 </body>
 </html>
