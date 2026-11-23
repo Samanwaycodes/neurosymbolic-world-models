@@ -92,6 +92,7 @@
     const st = { stroke: opts.stroke || C.ink, "stroke-width": opts.strokeWidth || 1.5, fill: opts.fill || "none" };
     if (opts.strokeLineDash) st["stroke-dasharray"] = opts.strokeLineDash.join(" ");
     switch (kind) {
+      case "rectangle": return el("rect", { x: args[0], y: args[1], width: args[2], height: args[3], ...st }, target);
       case "circle": return el("circle", { cx: args[0], cy: args[1], r: args[2] / 2, ...st }, target);
       case "line": return el("line", { x1: args[0], y1: args[1], x2: args[2], y2: args[3], ...st }, target);
       case "path": return el("path", { d: args[0], ...st }, target);
@@ -248,7 +249,103 @@
   }
 
   /* =======================================================================
-     4. Reveal on scroll
+     4. Learnt-vs-expert causal graph (Spohn card, coolant subsystem)
+        Edge status follows the B1 report: correct / reversed (drawn in the
+        learnt direction) / extra (learnt, not in expert) / missed (expert only).
+     ======================================================================= */
+  const EDGE_STYLE = {
+    ok: { stroke: "#1a9e6a", width: 2, label: "matches the expert graph" },
+    rev: { stroke: "#d08a00", width: 2, label: "learnt, but reversed" },
+    extra: { stroke: "#d14b4b", width: 1.8, dash: [5, 4], label: "learnt, not in the expert graph" },
+    miss: { stroke: "#8b8477", width: 1.6, dash: [2, 4], label: "expert edge the model missed" },
+  };
+  const DAG_COOLANT = {
+    svg: "#dagCoolant",
+    nodes: {
+      F_Filter_Ok: [62, 22], CLF_Filter_Ok: [206, 22], CLF_A_700307: [352, 22, "alarm"], F_A_700313: [352, 62, "alarm"],
+      LT_Level_Ok: [62, 120], LT_Pump_Ok: [206, 106], LT_A_700317: [352, 106, "alarm"],
+      CLT_Level_lt_Min: [206, 148], CLT_A_700310: [352, 148, "alarm"],
+      LP_Pump_On: [62, 196], LP_Pump_Ok: [206, 196], LP_A_700301: [352, 196, "alarm"],
+      HP_Pump_isOff: [62, 240], HP_Pump_Ok: [206, 240], HP_A_700304: [352, 240, "alarm"],
+    },
+    // [from, to, status, optional curve control point]
+    edges: [
+      ["CLF_Filter_Ok", "CLF_A_700307", "ok"], ["F_Filter_Ok", "F_A_700313", "ok", [200, 66]],
+      ["LT_Level_Ok", "LT_Pump_Ok", "ok"], ["CLT_Level_lt_Min", "CLT_A_700310", "ok"],
+      ["LP_Pump_Ok", "LP_A_700301", "ok"], ["HP_Pump_Ok", "HP_A_700304", "ok"],
+      ["HP_Pump_isOff", "HP_Pump_Ok", "rev"], ["LP_Pump_On", "LP_Pump_Ok", "rev"],
+      ["F_Filter_Ok", "CLF_Filter_Ok", "extra"], ["LT_Level_Ok", "CLT_Level_lt_Min", "extra"], ["LT_Pump_Ok", "LT_A_700317", "extra"],
+      ["LP_Pump_On", "HP_Pump_isOff", "miss"], ["LT_Level_Ok", "LT_A_700317", "miss", [210, 70]],
+    ],
+  };
+
+  function drawDag(spec) {
+    const svg = $(spec.svg); if (!svg) return;
+    const box = {};
+    const ng = el("g", {}, svg), eg = el("g", {}, svg);
+    svg.insertBefore(eg, ng); // edges under nodes
+    for (const [name, [x, y, kind]] of Object.entries(spec.nodes)) {
+      const w = name.length * 6.3 + 14, h = 20;
+      box[name] = { x, y, w, h };
+      const g = el("g", {}, ng);
+      sketch(svg, "rectangle", [x - w / 2, y - h / 2, w, h], { stroke: C.ink, strokeWidth: 1.1, fill: kind === "alarm" ? "#efe9dc" : "#ffffff", fillStyle: "solid", roughness: 0.7 }, g);
+      el("text", { x, y: y + 4, text: name, "text-anchor": "middle", "font-size": 11.5, fill: C.ink }, g);
+    }
+    // point on a box edge in the direction of (tx, ty)
+    const clip = (b, tx, ty, pad) => {
+      const dx = tx - b.x, dy = ty - b.y;
+      const sx = dx ? (b.w / 2 + pad) / Math.abs(dx) : Infinity, sy = dy ? (b.h / 2 + pad) / Math.abs(dy) : Infinity;
+      const s = Math.min(sx, sy);
+      return [b.x + dx * s, b.y + dy * s];
+    };
+    spec.edges.forEach(([a, b, status, ctrl]) => {
+      const st = EDGE_STYLE[status], A = box[a], B = box[b];
+      const c = ctrl || [(A.x + B.x) / 2, (A.y + B.y) / 2];
+      const p1 = clip(A, c[0], c[1], 1), p2 = clip(B, c[0], c[1], 3);
+      const d = ctrl ? `M${p1[0]},${p1[1]} Q${c[0]},${c[1]} ${p2[0]},${p2[1]}` : `M${p1[0]},${p1[1]} L${p2[0]},${p2[1]}`;
+      sketch(svg, "path", [d], { stroke: st.stroke, strokeWidth: st.width, roughness: 0.6, bowing: 0.3, strokeLineDash: st.dash }, eg);
+      arrowhead(svg, p2[0], p2[1], Math.atan2(p2[1] - c[1], p2[0] - c[0]), st.stroke, 7, 1.6, eg);
+      const hit = el("path", { d, fill: "none", stroke: "transparent", "stroke-width": 10 }, eg);
+      bindTip(hit, `<b>${a} → ${b}</b>${st.label}`);
+    });
+  }
+
+  /* =======================================================================
+     5. Small hand-drawn grouped bar charts (Spohn card)
+     ======================================================================= */
+  const SERIES = [
+    { name: "learnt graph", color: tok("--series-1", "#2a78d6"), angle: -45 },
+    { name: "expert graph", color: tok("--series-2", "#eb6834"), angle: 45 },
+    { name: "PC / FCI", color: tok("--series-3", "#1baf7a"), angle: 90 },
+  ];
+  const GROUPS = ["probe", "hydraulics", "coolant"];
+
+  function drawBars(sel, series, values, H) {
+    const svg = $(sel); if (!svg) return;
+    const W = 430, ML = 30, MR = 6, T = 8, B = H - 18;
+    const y = (v) => B - v * (B - T);
+    const g = el("g", {}, svg);
+    [0, 0.5, 1].forEach((v) => {
+      el("line", { x1: ML, x2: W - MR, y1: y(v), y2: y(v), stroke: v ? C.rule : C.ink3, "stroke-width": 1, "stroke-dasharray": v ? "2 5" : null }, g);
+      el("text", { x: ML - 6, y: y(v) + 4, text: v ? v.toFixed(1) : "0", "text-anchor": "end", "font-size": 11.5, fill: C.ink2 }, g);
+    });
+    const gw = (W - ML - MR) / GROUPS.length, bw = 26, gap = 5;
+    GROUPS.forEach((name, gi) => {
+      const span = series.length * bw + (series.length - 1) * gap;
+      const x0 = ML + gi * gw + (gw - span) / 2;
+      series.forEach((s, si) => {
+        const v = values[si][gi], bx = x0 + si * (bw + gap);
+        sketch(svg, "rectangle", [bx, y(v), bw, B - y(v)], { stroke: s.color, strokeWidth: 1.4, fill: s.color, fillStyle: "hachure", hachureAngle: s.angle, hachureGap: 4, fillWeight: 1.2, roughness: 0.8 }, g);
+        if (si === 0) el("text", { x: bx + bw / 2, y: y(v) - 4, text: v.toFixed(2), "text-anchor": "middle", "font-size": 11.5, fill: C.ink }, g);
+        const hit = el("rect", { x: bx - 2, y: Math.min(y(v), B - 24), width: bw + 4, height: Math.max(B - y(v), 24), fill: "transparent" }, g);
+        bindTip(hit, `<b>${name}</b>${s.name}: ${v.toFixed(3)}`);
+      });
+      el("text", { x: ML + gi * gw + gw / 2, y: H - 3, text: name, "text-anchor": "middle", "font-size": 12.5, fill: C.ink }, g);
+    });
+  }
+
+  /* =======================================================================
+     6. Reveal on scroll
      ======================================================================= */
   function reveal() {
     const items = $$(".reveal");
@@ -261,6 +358,10 @@
 
   /* ---------- boot ---------- */
   drawKripke(KRIPKE);
+  drawDag(DAG_COOLANT);
+  // CausalPrio-TimeRecency MAP@3 and edge F1 (B1_summary / benchmark_comparison.json)
+  drawBars("#chartMap", SERIES, [[0.4485, 0.7439, 0.8333], [0.5833, 0.7439, 1.0], [0.3676, 0.4797, 0.8667]], 128);
+  drawBars("#chartF1", [SERIES[0], SERIES[2]], [[0.5333, 0.5806, 0.5714], [0.3704, 0.4, 0.3]], 112);
   reveal();
   let t;
   window.addEventListener("resize", () => { clearTimeout(t); t = setTimeout(layoutGoal, 120); });

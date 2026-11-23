@@ -36,6 +36,7 @@
   /* data series (validated categorical slots 1 + 2) */
   --series-1: #2a78d6;
   --series-2: #eb6834;
+  --series-3: #1baf7a;
   --physics: #1a6e3c;
   --vlm: #c4541e;
   --warn: #b8323f;
@@ -98,7 +99,8 @@ sub { font-size: .7em; }
 }
 .tabs a:nth-child(1) { --r: -2deg; background: var(--note-pink); }
 .tabs a:nth-child(2) { --r: 1.5deg; background: var(--note-blue); }
-.tabs a:nth-child(3) { --r: -1deg; background: var(--note-green); }
+.tabs a:nth-child(3) { --r: -1deg; background: var(--note-yellow); }
+.tabs a:nth-child(4) { --r: 1deg; background: var(--note-green); }
 .tabs a:hover { transform: rotate(0) translateY(-3px); box-shadow: var(--shadow-lift); }
 
 /* --------------------------------------------------------------------------
@@ -499,12 +501,33 @@ footer .wrap { border-top: 2px dashed var(--rule); padding-top: 18px; display: f
   .card-row, .card-row.wh { grid-template-columns: 1fr; }
   .limits-mini { grid-template-columns: 1fr; }
 }
+/* Spohn card: learnt DAG + two small charts */
+.project-card.compact + .project-card.compact { margin-top: 44px; scroll-margin-top: 12px; }
+#spohnCard { scroll-margin-top: 12px; }
+.rca-wide { display: grid; grid-template-columns: minmax(0, 420px) minmax(0, 1fr); gap: 22px; align-items: start; }
+.rca-wide figure { margin: 0; min-width: 0; }
+.mini-dag svg, .rca-charts svg { display: block; width: 100%; height: auto; overflow: visible; }
+.mini-dag svg text, .rca-charts svg text { font-family: var(--font-hand); }
+.mini-dag figcaption { font-size: 12.5px; line-height: 1.25; color: var(--ink-2); margin-top: 4px; text-align: center; }
+.e-ok { color: #1a9e6a; } .e-rev { color: #b07400; } .e-extra { color: #c03c3c; } .e-miss { color: var(--ink-3); }
+.rca-charts { display: grid; gap: 8px; }
+.mini-title { font-family: var(--font-script); font-weight: 700; font-size: 20px; line-height: 1.1; }
+.mini-legend { font-size: 12.5px; margin: 1px 0 2px; gap: 2px 14px; }
+.legend i.sw { width: 15px; height: 11px; border-radius: 2px; }
+.legend i.s1 { background: repeating-linear-gradient(45deg, var(--series-1) 0 2px, transparent 2px 4px); border: 1.5px solid var(--series-1); }
+.legend i.s2 { background: repeating-linear-gradient(-45deg, var(--series-2) 0 2px, transparent 2px 4px); border: 1.5px solid var(--series-2); }
+.legend i.s3 { background: repeating-linear-gradient(90deg, var(--series-3) 0 2px, transparent 2px 4px); border: 1.5px solid var(--series-3); }
+
 @media (max-width: 760px) {
+  .rca-wide { grid-template-columns: 1fr; }
   .env-wide { grid-template-columns: 136px minmax(0, 1fr); }
   .env-stats { grid-column: 1 / -1; border-left: 0; padding-left: 0; border-top: 1.5px dashed var(--rule); padding-top: 10px; }
 }
 @media (max-width: 480px) {
   .env-wide { grid-template-columns: 1fr; justify-items: center; }
+  .mini-dag, .rca-charts figure { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .mini-dag svg { min-width: 380px; }
+  .rca-charts svg { min-width: 360px; }
   .env-stats { justify-self: stretch; }
 }
 
@@ -515,12 +538,14 @@ footer .wrap { border-top: 2px dashed var(--rule); padding-top: 18px; display: f
   .masthead, #next, footer, .tip, .section-head .aside { display: none !important; }
   section { padding: 0; }
   #tokw { break-before: page; }
+  #spohnCard { break-before: page; margin-top: 0; }
   .project-card.compact { width: 960px; max-width: none; zoom: .74; box-shadow: none; break-inside: avoid; }
   /* keep the desktop card layout even though the printed page is narrow */
   .card-row { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
   .card-row.wh { grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr) !important; }
   .limits-mini { grid-template-columns: auto minmax(0, 1fr) !important; }
   .env-wide { grid-template-columns: 136px minmax(0, 290px) minmax(0, 1fr) !important; }
+  .rca-wide { grid-template-columns: minmax(0, 420px) minmax(0, 1fr) !important; }
   .env-stats { grid-column: auto !important; border-top: 0 !important; padding-top: 0 !important; border-left: 1.5px dashed var(--rule) !important; padding-left: 18px !important; }
   .reveal { opacity: 1 !important; transform: none !important; }
   .note, .env, .tabs a { box-shadow: none; }

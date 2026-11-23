@@ -3,7 +3,7 @@
 A single-page, hand-drawn GitHub Pages site that showcases the auto-didactic neuro-symbolic world-model work.
 
 - **§1 The goal**: a reproduction of the original board page, including the classical and autodidactic teacher–learner diagrams.
-- **§2 Recent models**: one compact card per model, sized to print on about ¾ of an A4 sheet (What → How → How does it perform? → Known limitations). TOKW is the first, shown on the forced pendulum.
+- **§2 Recent models**: one compact card per model, sized to print on about ¾ of an A4 sheet (What → How → How does it perform? → Known limitations). Current cards: **TOKW** (forced pendulum) and **Spohn Bayesian Model Discovery** (causRCA root-cause analysis).
 - **§3 Up next**: placeholders.
 
 No build step is needed: it's plain HTML, CSS and JS. rough.js (from jsDelivr) gives shapes their hand-drawn look. Without it, the same shapes render as clean SVG.
@@ -23,7 +23,7 @@ GitHub Pages lets browsers cache files for 10 minutes. After editing `style.css`
 ```
 index.html                  all content
 assets/css/style.css        paper, sticky notes, tape, highlighters, layout
-assets/js/board.js          rough.js pass, goal-board connectors, the Kripke graph
+assets/js/board.js          rough.js pass, goal-board connectors, Kripke graph, learnt-vs-expert DAG, bar charts
 assets/img/tokw/*.gif       pendulum episode with physics vs VLM labels overlaid
 tools/make_pendulum_assets.py  regenerates the GIFs from the local TOKW v0.4.0 run folders
 ```
@@ -40,6 +40,7 @@ title + chips → architecture diagram (`.pipeline` SVG, with `class="rk"` on an
 ## Data sources
 
 - Architecture and design notes: `artpark-hub/neuro-sym-wm` (`explainable_kripke/README.md`, phyre-benchmark branch).
+- Spohn RCA results: `artpark-hub/neuro-sym-wm`, `Spohn-Bayesian-Model-Discovery/results/causrca_b1/` (B1 summary, per-subsystem `benchmark_comparison.json` and `results_log.json`).
 - Pendulum results: local TOKW v0.4.0 runs:
   - `runs/pendulum`: 200 × 10 s, Qwen2.5-VL-3B
   - `runs/pendulum_15s/…_grounded_final`: 30 × 15 s, Qwen2.5-VL-7B

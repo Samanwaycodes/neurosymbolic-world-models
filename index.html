@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Courier+Prime&family=Patrick+Hand&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css?v=20261123d">
+<link rel="stylesheet" href="assets/css/style.css?v=20261123f">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='6' width='52' height='52' rx='4' fill='%23fbf1a9' stroke='%232b2925' stroke-width='3'/%3E%3Ccircle cx='32' cy='30' r='10' fill='none' stroke='%232b2925' stroke-width='3'/%3E%3Cpath d='M20 50h24' stroke='%232b2925' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
 </head>
 <body>
@@ -35,6 +35,7 @@
     <nav class="tabs" aria-label="Sections">
       <a href="#goal">The goal</a>
       <a href="#tokw">TOKW</a>
+      <a href="#spohnCard">Spohn RCA</a>
       <a href="#next">Up next</a>
     </nav>
   </div>
@@ -327,6 +328,124 @@
         </ul>
       </div>
     </article>
+
+    <article class="project-card compact" id="spohnCard" aria-labelledby="spohnTitle">
+      <header class="card-head">
+        <h2 id="spohnTitle">Spohn Bayesian Model Discovery</h2>
+        <div class="chips">
+          <span class="chip k">non-linear core</span>
+          <span class="chip">categorical Bayesian network</span>
+          <span class="chip">Spohn ranking priors</span>
+          <span class="chip">DeepSeek-V4-Pro proposer</span>
+        </div>
+      </header>
+
+      <!-- the discovery loop -->
+      <div class="pipeline compact">
+        <svg viewBox="0 0 960 182" role="img" aria-labelledby="st sd">
+          <title id="st">Spohn Bayesian model discovery loop</title>
+          <desc id="sd">Variable documentation and state snapshots go to an LLM that proposes competing mechanism sets. Spohn ranks become Dirichlet priors, categorical DAGs are fitted, and a sealed audit picks a champion by paired CP. Aggregate feedback loops back to the LLM for evolutionary rewrites over five rounds. The champion DAG goes to a root-cause ranker that returns the top three causes.</desc>
+          <g class="lbl">
+            <rect class="rk" x="134" y="18" width="564" height="134" fill="none" stroke="#e0848f" stroke-width="2" data-rough="0.9"/>
+            <text class="frame-label" x="140" y="13" style="font-size:20px">LEARN_AND_REVISE</text>
+
+            <ellipse class="rk" cx="64" cy="62" rx="58" ry="36" fill="#ebe7de" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="64" y="57" text-anchor="middle" class="sm">variable docs</text>
+            <text x="64" y="73" text-anchor="middle" class="sm">+ 5 s snapshots</text>
+            <path class="rk" d="M122,62 H142" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+            <rect class="rk" x="144" y="30" width="118" height="64" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="203" y="52" text-anchor="middle" class="sm">LLM proposes</text>
+            <text x="203" y="67" text-anchor="middle" class="sm">competing</text>
+            <text x="203" y="82" text-anchor="middle" class="sm">mechanism sets</text>
+            <path class="rk" d="M262,62 H284" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+            <rect class="rk" x="286" y="30" width="118" height="64" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="345" y="52" text-anchor="middle" class="sm">Spohn ranks</text>
+            <text x="345" y="67" text-anchor="middle" class="sm">→ Dirichlet</text>
+            <text x="345" y="82" text-anchor="middle" class="sm">priors</text>
+            <path class="rk" d="M404,62 H426" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+            <rect class="rk" x="428" y="30" width="118" height="64" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="487" y="52" text-anchor="middle" class="sm">Fit categorical</text>
+            <text x="487" y="67" text-anchor="middle" class="sm">DAGs</text>
+            <text x="487" y="82" text-anchor="middle" class="xs">(conditional tables)</text>
+            <path class="rk" d="M546,62 H568" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+            <rect class="rk" x="570" y="30" width="118" height="64" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="629" y="52" text-anchor="middle" class="sm">Sealed audit:</text>
+            <text x="629" y="67" text-anchor="middle" class="sm">paired CP</text>
+            <text x="629" y="82" text-anchor="middle" class="sm">→ champion</text>
+            <path class="rk" d="M688,62 H710" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+            <ellipse class="rk" cx="760" cy="62" rx="48" ry="30" fill="#ebe7de" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="760" y="58" text-anchor="middle" class="sm">champion</text>
+            <text x="760" y="73" text-anchor="middle" class="sm">DAG</text>
+            <path class="rk" d="M808,62 H830" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+            <rect class="rk" x="832" y="30" width="122" height="64" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="893" y="52" text-anchor="middle" class="sm">RCA ranker</text>
+            <text x="893" y="67" text-anchor="middle" class="sm">→ top-3</text>
+            <text x="893" y="82" text-anchor="middle" class="sm">root causes</text>
+
+            <!-- evolutionary loop back to the LLM -->
+            <path class="rk" d="M629,94 V140 H203 V96" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+            <text class="note-txt" x="416" y="132" text-anchor="middle">aggregate feedback → evolutionary rewrite, 5 rounds</text>
+            <text class="note-txt" x="203" y="174" text-anchor="middle">LLM weights stay fixed</text>
+            <text class="note-txt" x="629" y="174" text-anchor="middle">sealed labels never reach the LLM</text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- What / How -->
+      <div class="card-row wh">
+        <div class="note yellow mini" style="--tilt:.4deg">
+          <h3>What</h3>
+          <p>A world model that writes its own causal graph. An LLM proposes competing mechanisms; Spohn ranking functions turn its plausibility ranks into priors; the data decide. The model is a <b>categorical Bayesian network</b>, so every mechanism is a full conditional table and can be non-linear. Here: root-cause analysis on an industrial machine.</p>
+        </div>
+        <div class="note green mini" style="--tilt:-.4deg">
+          <h3>How</h3>
+          <ol class="how-steps tight">
+            <li>Seeing only the variable docs, the LLM proposes sets of competing mechanisms (parents per variable), ranked by plausibility.</li>
+            <li>Spohn ranks become Dirichlet priors; each candidate DAG is fitted to the state snapshots.</li>
+            <li>Candidates are frozen and scored on sealed audit rows; the best paired CP becomes champion.</li>
+            <li>Only aggregate feedback goes back for rewrites; after 5 rounds the champion graph goes to causRCA's root-cause rankers.</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- How does it perform? -->
+      <h3 class="card-h">How does it perform?</h3>
+      <section class="env" aria-labelledby="envRca">
+        <div class="env-head"><h4 id="envRca">causRCA root-cause analysis</h4><span>CNC vertical lathe · probe, hydraulics, coolant · 170 real + 100 simulated fault runs · expert graph and causes held out</span></div>
+        <div class="rca-wide">
+          <figure class="mini-dag">
+            <svg id="dagCoolant" width="420" height="262" viewBox="0 0 420 262" role="img" aria-label="Coolant subsystem: learnt causal graph against the expert graph. 6 edges match, 2 are reversed, 3 are extra and 2 expert edges are missed."></svg>
+            <figcaption>Coolant, learnt vs expert graph: <span class="e-ok">6 correct</span> · <span class="e-rev">2 reversed</span> · <span class="e-extra">3 extra</span> · <span class="e-miss">2 missed</span></figcaption>
+          </figure>
+          <div class="rca-charts">
+            <figure>
+              <div class="mini-title">Injected root cause in the top 3 (MAP@3)</div>
+              <div class="legend mini-legend"><span><i class="sw s1"></i>learnt graph</span><span><i class="sw s2"></i>expert graph</span><span><i class="sw s3"></i>PC / FCI</span></div>
+              <svg id="chartMap" width="430" height="128" viewBox="0 0 430 128" role="img" aria-label="MAP@3 with the CausalPrio-TimeRecency ranker. Probe: learnt 0.45, expert 0.58, PC/FCI 0.37. Hydraulics: learnt 0.74, expert 0.74, PC/FCI 0.48. Coolant: learnt 0.83, expert 1.00, PC/FCI 0.87."></svg>
+            </figure>
+            <figure>
+              <div class="mini-title">Edge F1 against the expert graph</div>
+              <svg id="chartF1" width="430" height="112" viewBox="0 0 430 112" role="img" aria-label="Edge F1 against the expert graph. Probe: learnt 0.53, PC/FCI 0.37. Hydraulics: learnt 0.58, PC/FCI 0.40. Coolant: learnt 0.57, PC/FCI 0.30."></svg>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- Known limitations -->
+      <div class="note pink limits-mini">
+        <h3>Known limitations</h3>
+        <ul>
+          <li><b>The RCA ranker matters:</b> with PageRank or RandomWalk instead of CausalPrio, the learnt graphs score below the baselines in all three subsystems, because those rankers reward hubs and roots that a correctly oriented graph gives to commands.</li>
+          <li>One completed run per subsystem (probe took six attempts, hydraulics three); recall of expert edges is 0.50–0.60, and the audit bounds are not certified because snapshots within a run are autocorrelated.</li>
+        </ul>
+      </div>
+    </article>
   </div>
 </section>
 
@@ -359,6 +478,6 @@
 <div class="tip" id="tip" role="tooltip"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.js"></script>
-<script src="assets/js/board.js?v=20261123d"></script>
+<script src="assets/js/board.js?v=20261123f"></script>
 </body>
 </html>
