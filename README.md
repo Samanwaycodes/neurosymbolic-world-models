@@ -3,7 +3,7 @@
 A single-page, hand-drawn GitHub Pages site that showcases the auto-didactic neuro-symbolic world-model work.
 
 - **§1 The goal**: a reproduction of the original board page, including the classical and autodidactic teacher–learner diagrams.
-- **§2 Recent models**: one compact card per model, sized to print on about ¾ of an A4 sheet (What → How → How does it perform? → Known limitations). TOKW is the first: forced pendulum filled in, mountain car waiting for its results.
+- **§2 Recent models**: one compact card per model, sized to print on about ¾ of an A4 sheet (What → How → How does it perform? → Known limitations). TOKW is the first, shown on the forced pendulum.
 - **§3 Up next**: placeholders.
 
 No build step is needed: it's plain HTML, CSS and JS. rough.js (from jsDelivr) gives shapes their hand-drawn look. Without it, the same shapes render as clean SVG.
@@ -15,6 +15,8 @@ No build step is needed: it's plain HTML, CSS and JS. rough.js (from jsDelivr) g
 3. `.nojekyll` is already included, so the files are served as-is.
 
 To preview locally, run `python -m http.server 8765` and open http://localhost:8765.
+
+GitHub Pages lets browsers cache files for 10 minutes. After editing `style.css` or `board.js`, bump the `?v=` tag on their `<link>` / `<script>` lines in `index.html` so visitors get the new files together with the new page.
 
 ## Layout
 

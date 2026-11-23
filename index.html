@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Courier+Prime&family=Patrick+Hand&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/style.css?v=20261123d">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='6' width='52' height='52' rx='4' fill='%23fbf1a9' stroke='%232b2925' stroke-width='3'/%3E%3Ccircle cx='32' cy='30' r='10' fill='none' stroke='%232b2925' stroke-width='3'/%3E%3Cpath d='M20 50h24' stroke='%232b2925' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
 </head>
 <body>
@@ -29,7 +29,7 @@
   <div class="wrap">
     <div>
       <div class="kicker">neuro-sym-wm · project board</div>
-      <h1>Auto-Didactic <span class="squiggle">Neuro-Symbolic<svg viewBox="0 0 300 18" preserveAspectRatio="none" aria-hidden="true"><path class="rk" d="M2,10 C40,2 70,16 110,9 S180,3 220,10 S280,14 298,6" fill="none" stroke="#e0848f" stroke-width="3" data-rough="1.4"/></svg></span> World&nbsp;Models</h1>
+      <h1>Auto-Didactic <span class="squiggle">Neuro-Symbolic<svg width="300" height="18" viewBox="0 0 300 18" preserveAspectRatio="none" aria-hidden="true"><path class="rk" d="M2,10 C40,2 70,16 110,9 S180,3 220,10 S280,14 298,6" fill="none" stroke="#e0848f" stroke-width="3" data-rough="1.4"/></svg></span> World&nbsp;Models</h1>
       <p class="lede">A working board for the framework and the models we build with it. Everything here is pinned up straight from the experiment logs, warts and all.</p>
     </div>
     <nav class="tabs" aria-label="Sections">
@@ -54,7 +54,7 @@
     </div>
 
     <div class="goal-board" id="goalBoard">
-      <svg class="connectors" id="goalConnectors" aria-hidden="true"></svg>
+      <svg class="connectors" id="goalConnectors" width="0" height="0" aria-hidden="true"></svg>
 
       <aside class="note tan-note" id="tanNote">
         <span class="pin" aria-hidden="true"></span>
@@ -172,7 +172,7 @@
       <!-- the yellow "world model" note -->
       <aside class="note wm-note" id="wmNote">
         <span class="tape" aria-hidden="true"></span>
-        <h3>What's in a <span class="strike">name<svg viewBox="0 0 60 10" preserveAspectRatio="none" aria-hidden="true"><path class="rk" d="M1,6 C15,3 30,8 59,4" fill="none" stroke="#2b2925" stroke-width="2.2" data-rough="1.2"/></svg></span> World Model?</h3>
+        <h3>What's in a <span class="strike">name<svg width="60" height="10" viewBox="0 0 60 10" preserveAspectRatio="none" aria-hidden="true"><path class="rk" d="M1,6 C15,3 30,8 59,4" fill="none" stroke="#2b2925" stroke-width="2.2" data-rough="1.2"/></svg></span> World Model?</h3>
         <p>People can't seem to agree what is a world model: so let us agree with the following properties :p</p>
         <p style="margin:18px 0 0">A world model:</p>
         <ol>
@@ -298,52 +298,25 @@
 
       <!-- How does it perform? -->
       <h3 class="card-h">How does it perform?</h3>
-      <div class="card-row">
-        <section class="env" aria-labelledby="envPend">
-          <div class="env-head"><h4 id="envPend">Forced pendulum</h4><span>Pendulum-v1 · random torque · 30 × 15 s episodes</span></div>
-          <div class="env-vis">
-            <figure class="mini-gif">
-              <img src="assets/img/tokw/pendulum15s_ep09.gif" width="256" height="272" alt="A forced pendulum swinging for 15 seconds. Captions compare the true quadrant and rotation, which keep changing, with the VLM's label, which stays 'pointing up, swinging left'.">
-              <figcaption>physics (green) vs VLM label (orange)</figcaption>
-            </figure>
-            <figure class="mini-kripke">
-              <svg id="kripkeGT" viewBox="0 0 300 270" role="img" aria-label="Kripke structure for the forced pendulum: an outer ring of four anticlockwise quadrant states and an inner ring of four clockwise ones, linked by reversal transitions."></svg>
-              <figcaption>Kripke, labels from θ, ω: <span class="k-ccw">↺ outer</span> / <span class="k-cw">↻ inner</span> ring, spokes = reversals</figcaption>
-            </figure>
-          </div>
+      <section class="env" aria-labelledby="envPend">
+        <div class="env-head"><h4 id="envPend">Forced pendulum</h4><span>Gymnasium Pendulum-v1 · random torque · 30 × 15 s episodes</span></div>
+        <div class="env-wide">
+          <figure class="mini-gif">
+            <img src="assets/img/tokw/pendulum15s_ep09.gif" width="256" height="272" alt="A forced pendulum swinging for 15 seconds. Captions compare the true quadrant and rotation, which keep changing, with the VLM's label, which stays 'pointing up, swinging left'.">
+            <figcaption>physics (green) vs VLM label (orange)</figcaption>
+          </figure>
+          <figure class="mini-kripke">
+            <svg id="kripkeGT" width="300" height="270" viewBox="0 0 300 270" role="img" aria-label="Kripke structure for the forced pendulum: an outer ring of four anticlockwise quadrant states and an inner ring of four clockwise ones, linked by reversal transitions."></svg>
+            <figcaption>Kripke, labels from θ, ω: <span class="k-ccw">↺ outer</span> / <span class="k-cw">↻ inner</span> ring, spokes = reversals</figcaption>
+          </figure>
           <div class="env-stats">
-            <div><b>99%</b><span>reversals seen as latent-speed dips</span></div>
-            <div><b>0.58</b><span>accuracy where the truth flips</span></div>
+            <div><b>99%</b><span>of swing reversals seen as dips in latent speed</span></div>
+            <div><b>0.58</b><span>accuracy on frames where the truth flips</span></div>
             <div><b>0.65</b><span>change-detection F1</span></div>
             <div><b>8 · 28</b><span>Kripke states · transitions</span></div>
           </div>
-        </section>
-
-        <section class="env pending" aria-labelledby="envCar">
-          <div class="env-head"><h4 id="envCar">Mountain car</h4><span>MountainCar-v0 · rocking up a hill</span></div>
-          <div class="env-vis">
-            <figure class="mini-gif">
-              <svg viewBox="0 0 150 120" aria-hidden="true">
-                <path class="rk" d="M4,106 C30,106 44,40 74,58 C98,72 108,110 124,90 C136,74 142,34 148,20" fill="none" stroke="#2b2925" stroke-width="2"/>
-                <rect class="rk" x="84" y="60" width="24" height="12" fill="#eb6834" stroke="#2b2925" stroke-width="1.4" data-fill="hachure" data-gap="3"/>
-                <circle class="rk" cx="89" cy="75" r="3.5" fill="#2b2925" stroke="#2b2925"/>
-                <circle class="rk" cx="104" cy="76" r="3.5" fill="#2b2925" stroke="#2b2925"/>
-                <path class="rk" d="M144,20 V5 L152,9 L144,13" fill="#e0848f" stroke="#2b2925" stroke-width="1.2"/>
-              </svg>
-              <figcaption>episode clip goes here</figcaption>
-            </figure>
-            <figure class="mini-kripke placeholder-box">
-              <span>Kripke structure from the mountain-car run</span>
-            </figure>
-          </div>
-          <div class="env-stats">
-            <div><b>–</b><span>turnarounds seen as latent-speed dips</span></div>
-            <div><b>–</b><span>accuracy where the truth flips</span></div>
-            <div><b>–</b><span>change-detection F1</span></div>
-            <div><b>–</b><span>Kripke states · transitions</span></div>
-          </div>
-        </section>
-      </div>
+        </div>
+      </section>
 
       <!-- Known limitations -->
       <div class="note pink limits-mini">
@@ -368,7 +341,6 @@
       <span class="aside">space reserved</span>
     </div>
     <div class="coming">
-      <div class="note yellow reveal" style="--tilt:-1.6deg"><span class="pin" aria-hidden="true"></span><h3>Mountain car results</h3><p>TOKW on MountainCar-v0, pinned into the card above.</p></div>
       <div class="note blue reveal" style="--tilt:1.2deg"><span class="pin" aria-hidden="true"></span><h3>Next model</h3><p>Each new model gets its own card: diagram, what, how, figures, limitations.</p></div>
       <div class="note pink reveal" style="--tilt:-.6deg"><span class="pin" aria-hidden="true"></span><h3>Closing the loop</h3><p>Self-taught theories tested against naturally shifting data.</p></div>
     </div>
@@ -387,6 +359,6 @@
 <div class="tip" id="tip" role="tooltip"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.js"></script>
-<script src="assets/js/board.js"></script>
+<script src="assets/js/board.js?v=20261123d"></script>
 </body>
 </html>
