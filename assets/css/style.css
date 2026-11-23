@@ -501,6 +501,27 @@ footer .wrap { border-top: 2px dashed var(--rule); padding-top: 18px; display: f
   .card-row, .card-row.wh { grid-template-columns: 1fr; }
   .limits-mini { grid-template-columns: 1fr; }
 }
+/* Spohn card extension: DiG-bench harness */
+.card-ext { position: relative; margin-top: 30px; padding-top: 26px; border-top: 2.5px dashed var(--ink-3); scroll-margin-top: 12px; }
+.ext-tab {
+  position: absolute; top: -16px; left: 18px; padding: 1px 14px 0;
+  font-family: var(--font-script); font-weight: 700; font-size: 20px;
+  background: var(--note-lilac); box-shadow: var(--shadow-note); transform: rotate(-1.5deg);
+}
+.card-head .ext-title { font-size: clamp(24px, 3vw, 30px); }
+#raceDig { display: block; width: 100%; height: auto; overflow: visible; margin-top: 2px; }
+#raceDig text { font-family: var(--font-hand); }
+.race-legend { margin-top: 2px; }
+.legend i.trk { width: 22px; height: 4px; border-radius: 2px; }
+.legend i.trk-a { background: #8b8477; } .legend i.trk-b { background: var(--series-1); }
+.legend i.lvl { width: 12px; height: 12px; border-radius: 50%; background: var(--series-1); }
+.legend b.x { color: var(--warn); font-weight: 700; }
+.legend i.rf { width: 18px; height: 10px; border: 1.4px solid var(--series-1); background: repeating-linear-gradient(-45deg, var(--series-1) 0 1.5px, transparent 1.5px 4px); }
+.know-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 10px; }
+.know-row .rule-card { font-size: 14.5px; padding: 10px 14px 8px; }
+.know-row .rule-card .eng { margin-top: 8px; line-height: 22px; }
+.know-row .rule-card .eng b { font-weight: 400; font-family: var(--font-script); font-size: 18px; }
+
 /* Spohn card: learnt DAG + two small charts */
 .project-card.compact + .project-card.compact { margin-top: 44px; scroll-margin-top: 12px; }
 #spohnCard { scroll-margin-top: 12px; }
@@ -520,12 +541,15 @@ footer .wrap { border-top: 2px dashed var(--rule); padding-top: 18px; display: f
 
 @media (max-width: 760px) {
   .rca-wide { grid-template-columns: 1fr; }
+  .know-row { grid-template-columns: 1fr; }
   .env-wide { grid-template-columns: 136px minmax(0, 1fr); }
   .env-stats { grid-column: 1 / -1; border-left: 0; padding-left: 0; border-top: 1.5px dashed var(--rule); padding-top: 10px; }
 }
 @media (max-width: 480px) {
   .env-wide { grid-template-columns: 1fr; justify-items: center; }
   .mini-dag, .rca-charts figure { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .card-ext .env { overflow-x: auto; }
+  #raceDig { min-width: 640px; }
   .mini-dag svg { min-width: 380px; }
   .rca-charts svg { min-width: 360px; }
   .env-stats { justify-self: stretch; }
@@ -539,6 +563,10 @@ footer .wrap { border-top: 2px dashed var(--rule); padding-top: 18px; display: f
   section { padding: 0; }
   #tokw { break-before: page; }
   #spohnCard { break-before: page; margin-top: 0; }
+  #spohnCard.project-card.compact { break-inside: auto; }
+  .card-ext { break-before: page; border-top: 0; }
+  .ext-tab { display: none; }
+  .know-row { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
   .project-card.compact { width: 960px; max-width: none; zoom: .74; box-shadow: none; break-inside: avoid; }
   /* keep the desktop card layout even though the printed page is narrow */
   .card-row { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }

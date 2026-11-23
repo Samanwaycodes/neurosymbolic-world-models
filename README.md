@@ -41,6 +41,7 @@ title + chips → architecture diagram (`.pipeline` SVG, with `class="rk"` on an
 ## Data sources
 
 - Architecture and design notes: `artpark-hub/neuro-sym-wm` (`explainable_kripke/README.md`, phyre-benchmark branch).
+- Spohn DiG-bench extension (A vs B): local `invariant_dig_cloud_digbench/runs/digbench_gpt_t123_001` (P-1, P-2, P-4, P-6, P-8; its RESULTS.md) and `digbench_gpt_p3_004` (P-3); level-ups from `level_reach.json` and the per-turn logs, refreshes from `refresh.json`, laws from `controller/symbolic/compact_world_model.json`.
 - Spohn RCA results: `artpark-hub/neuro-sym-wm`, `Spohn-Bayesian-Model-Discovery/results/causrca_b1/` (B1 summary, per-subsystem `benchmark_comparison.json` and `results_log.json`).
 - Pendulum results: local TOKW v0.4.0 runs:
   - `runs/pendulum`: 200 × 10 s, Qwen2.5-VL-3B
