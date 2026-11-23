@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Courier+Prime&family=Patrick+Hand&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css?v=20261123g">
+<link rel="stylesheet" href="assets/css/style.css?v=20261123h">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='6' width='52' height='52' rx='4' fill='%23fbf1a9' stroke='%232b2925' stroke-width='3'/%3E%3Ccircle cx='32' cy='30' r='10' fill='none' stroke='%232b2925' stroke-width='3'/%3E%3Cpath d='M20 50h24' stroke='%232b2925' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
 </head>
 <body>
@@ -436,8 +436,8 @@
         <div class="env-head"><h4 id="envRca">causRCA root-cause analysis</h4><span>CNC vertical lathe · probe, hydraulics, coolant · 170 real + 100 simulated fault runs · expert graph and causes held out</span></div>
         <div class="rca-wide">
           <figure class="mini-dag">
-            <svg id="dagHydraulics" width="440" height="305" viewBox="0 0 440 305" role="img" aria-label="Hydraulics subsystem: learnt causal graph against the expert graph, centred on the hub Hyd_Pump_On. 9 edges match, 1 is reversed, 3 are extra and 8 expert edges are missed."></svg>
-            <figcaption>Hydraulics, learnt vs expert graph (<span class="mono">Hyd_</span> prefix dropped): <span class="e-ok">9 correct</span> · <span class="e-rev">1 reversed</span> · <span class="e-extra">3 extra</span> · <span class="e-miss">8 missed</span></figcaption>
+            <svg id="dagCoolant" width="420" height="262" viewBox="0 0 420 262" role="img" aria-label="Coolant subsystem: learnt causal graph against the expert graph. 6 edges match, 2 are reversed, 3 are extra and 1 expert edge is missed. One further expert edge, LP_Pump_On to HP_Pump_isOff, is not drawn because the learning data shows no dependence between them."></svg>
+            <figcaption>Coolant, the closest match to the expert graph: <span class="e-ok">6 correct</span> · <span class="e-rev">2 reversed</span> · <span class="e-extra">3 extra</span> · <span class="e-miss">1 missed</span>.<br><span class="fine">Not drawn: LP_Pump_On → HP_Pump_isOff, which the learning data gives no evidence for.</span></figcaption>
           </figure>
           <div class="rca-charts">
             <figure>
@@ -493,6 +493,6 @@
 <div class="tip" id="tip" role="tooltip"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.js"></script>
-<script src="assets/js/board.js?v=20261123g"></script>
+<script src="assets/js/board.js?v=20261123h"></script>
 </body>
 </html>

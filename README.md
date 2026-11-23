@@ -26,6 +26,7 @@ assets/css/style.css        paper, sticky notes, tape, highlighters, layout
 assets/js/board.js          rough.js pass, goal-board connectors, Kripke graph, learnt-vs-expert DAG, bar charts
 assets/img/tokw/*.gif       pendulum episode with physics vs VLM labels overlaid
 tools/make_pendulum_assets.py  regenerates the GIFs from the local TOKW v0.4.0 run folders
+tools/edge_evidence.py      which missed expert edges the Spohn run could have found from its learning data
 ```
 
 ## Adding another model
