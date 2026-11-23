@@ -436,8 +436,8 @@
         <div class="env-head"><h4 id="envRca">causRCA root-cause analysis</h4><span>CNC vertical lathe · probe, hydraulics, coolant · 170 real + 100 simulated fault runs · expert graph and causes held out</span></div>
         <div class="rca-wide">
           <figure class="mini-dag">
-            <svg id="dagCoolant" width="420" height="262" viewBox="0 0 420 262" role="img" aria-label="Coolant subsystem: learnt causal graph against the expert graph. 6 edges match, 2 are reversed, 3 are extra and 1 expert edge is missed. One further expert edge, LP_Pump_On to HP_Pump_isOff, is not drawn because the learning data shows no dependence between them."></svg>
-            <figcaption>Coolant, the closest match to the expert graph: <span class="e-ok">6 correct</span> · <span class="e-rev">2 reversed</span> · <span class="e-extra">3 extra</span> · <span class="e-miss">1 missed</span>.<br><span class="fine">Not drawn: LP_Pump_On → HP_Pump_isOff, which the learning data gives no evidence for.</span></figcaption>
+            <svg id="dagHydraulics" width="440" height="305" viewBox="0 0 440 305" role="img" aria-label="Hydraulics subsystem: learnt causal graph against the expert graph, centred on the hub Hyd_Pump_On. 9 edges match, 1 is reversed, 3 are extra and 7 expert edges are missed; one expert edge with no evidence in the training data is not drawn."></svg>
+            <figcaption>Hydraulics, learnt vs expert graph (<span class="mono">Hyd_</span> prefix dropped): <span class="e-ok">9 correct</span> · <span class="e-rev">1 reversed</span> · <span class="e-extra">3 extra</span> · <span class="e-miss">7 missed</span>; 1 expert edge with no evidence in the training data is not drawn</figcaption>
           </figure>
           <div class="rca-charts">
             <figure>

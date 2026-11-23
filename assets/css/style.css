@@ -509,7 +509,6 @@ footer .wrap { border-top: 2px dashed var(--rule); padding-top: 18px; display: f
 .mini-dag svg, .rca-charts svg { display: block; width: 100%; height: auto; overflow: visible; }
 .mini-dag svg text, .rca-charts svg text { font-family: var(--font-hand); }
 .mini-dag figcaption { font-size: 12.5px; line-height: 1.25; color: var(--ink-2); margin-top: 4px; text-align: center; }
-.mini-dag figcaption .fine { font-size: 11.5px; color: var(--ink-3); }
 .e-ok { color: #1a9e6a; } .e-rev { color: #b07400; } .e-extra { color: #c03c3c; } .e-miss { color: var(--ink-3); }
 .rca-charts { display: grid; gap: 8px; }
 .mini-title { font-family: var(--font-script); font-weight: 700; font-size: 20px; line-height: 1.1; }

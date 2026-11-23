@@ -249,7 +249,7 @@
   }
 
   /* =======================================================================
-     4. Learnt-vs-expert causal graph (Spohn card, coolant subsystem)
+     4. Learnt-vs-expert causal graph (Spohn card, hydraulics subsystem)
         Edge status follows the B1 report: correct / reversed (drawn in the
         learnt direction) / extra (learnt, not in expert) / missed (expert only).
      ======================================================================= */
@@ -259,26 +259,28 @@
     extra: { stroke: "#d14b4b", width: 1.8, dash: [5, 4], label: "learnt, not in the expert graph" },
     miss: { stroke: "#8b8477", width: 1.6, dash: [2, 4], label: "expert edge the model missed" },
   };
-  // Coolant: the subsystem whose champion is closest to the expert graph.
-  // Missed expert edges are drawn only if the learning data shows evidence for
-  // them (tools/edge_evidence.py); LP_Pump_On -> HP_Pump_isOff has none.
-  const DAG_COOLANT = {
-    svg: "#dagCoolant",
+  // Hydraulics: laid out around the hub Hyd_Pump_On (degree 7 counting missed edges).
+  const DAG_HYDRAULICS = {
+    svg: "#dagHydraulics", prefix: "Hyd_",
     nodes: {
-      F_Filter_Ok: [62, 22], CLF_Filter_Ok: [206, 22], CLF_A_700307: [352, 22, "alarm"], F_A_700313: [352, 62, "alarm"],
-      LT_Level_Ok: [62, 120, "hub"], LT_Pump_Ok: [206, 106], LT_A_700317: [352, 106, "alarm"],
-      CLT_Level_lt_Min: [206, 148], CLT_A_700310: [352, 148, "alarm"],
-      LP_Pump_On: [62, 196], LP_Pump_Ok: [206, 196], LP_A_700301: [352, 196, "alarm"],
-      HP_Pump_isOff: [62, 240], HP_Pump_Ok: [206, 240], HP_A_700304: [352, 240, "alarm"],
+      Hyd_Filter_Ok: [55, 40], Hyd_A_700207: [155, 40, "alarm"], Hyd_A_700204: [290, 40, "alarm"], Hyd_Temp_lt_80: [390, 40],
+      Hyd_IsEnabled: [220, 100], Hyd_Temp_lt_70: [390, 110],
+      Hyd_Pump_Ok: [95, 160], Hyd_Pump_On: [220, 160, "hub"], Hyd_A_700203: [390, 175, "alarm"],
+      Hyd_Level_Ok: [45, 235], Hyd_A_700208: [130, 235, "alarm"], Hyd_Pump_isOff: [240, 240], Hyd_Pressure: [330, 235],
+      Hyd_A_700205: [45, 290, "alarm"], Hyd_A_700206: [150, 290, "alarm"], Hyd_A_700202: [300, 290, "alarm"], Hyd_Valve_P_Up: [400, 290],
     },
-    // [from, to, status, optional curve control point] from results_log.json champion_graph_vs_expert
+    // [from, to, status, optional curve control point] from results_log.json champion_graph_vs_expert.
+    // Expert edges with no evidence in the learning rows (tools/edge_evidence.py) are left out:
+    // Hyd_A_700207 -> Hyd_IsEnabled (p = 1.0; the alarm fires in 7 rows of 2 runs and IsEnabled never reacts).
     edges: [
-      ["CLF_Filter_Ok", "CLF_A_700307", "ok"], ["F_Filter_Ok", "F_A_700313", "ok", [200, 66]],
-      ["LT_Level_Ok", "LT_Pump_Ok", "ok"], ["CLT_Level_lt_Min", "CLT_A_700310", "ok"],
-      ["LP_Pump_Ok", "LP_A_700301", "ok"], ["HP_Pump_Ok", "HP_A_700304", "ok"],
-      ["HP_Pump_isOff", "HP_Pump_Ok", "rev"], ["LP_Pump_On", "LP_Pump_Ok", "rev"],
-      ["F_Filter_Ok", "CLF_Filter_Ok", "extra"], ["LT_Level_Ok", "CLT_Level_lt_Min", "extra"], ["LT_Pump_Ok", "LT_A_700317", "extra"],
-      ["LT_Level_Ok", "LT_A_700317", "miss", [210, 70]],
+      ["Hyd_Filter_Ok", "Hyd_A_700207", "ok"], ["Hyd_Level_Ok", "Hyd_A_700205", "ok"], ["Hyd_Level_Ok", "Hyd_A_700206", "ok"],
+      ["Hyd_Pressure", "Hyd_A_700202", "ok"], ["Hyd_Pump_Ok", "Hyd_A_700208", "ok"], ["Hyd_Pump_On", "Hyd_Pump_isOff", "ok"],
+      ["Hyd_Temp_lt_70", "Hyd_A_700203", "ok"], ["Hyd_Temp_lt_70", "Hyd_Temp_lt_80", "ok"], ["Hyd_Temp_lt_80", "Hyd_A_700204", "ok"],
+      ["Hyd_Valve_P_Up", "Hyd_Pressure", "rev"],
+      ["Hyd_IsEnabled", "Hyd_Pump_On", "extra"], ["Hyd_Pump_On", "Hyd_Pressure", "extra"], ["Hyd_Pump_On", "Hyd_Temp_lt_70", "extra"],
+      ["Hyd_A_700202", "Hyd_Pump_On", "miss", [292, 208]], ["Hyd_A_700202", "Hyd_Valve_P_Up", "miss"],
+      ["Hyd_A_700204", "Hyd_IsEnabled", "miss"], ["Hyd_A_700206", "Hyd_Pump_On", "miss"],
+      ["Hyd_Filter_Ok", "Hyd_Pump_Ok", "miss"], ["Hyd_Level_Ok", "Hyd_Pump_Ok", "miss"], ["Hyd_Pump_Ok", "Hyd_Pump_On", "miss"],
     ],
   };
 
@@ -296,7 +298,7 @@
       const fill = kind === "alarm" ? "#efe9dc" : hub ? "#fbf1a9" : "#ffffff";
       sketch(svg, "rectangle", [x - w / 2, y - h / 2, w, h], { stroke: C.ink, strokeWidth: hub ? 2.2 : 1.1, fill, fillStyle: "solid", roughness: 0.7 }, g);
       el("text", { x, y: y + 4, text: label, "text-anchor": "middle", "font-size": hub ? 13 : 11.5, fill: C.ink }, g);
-      bindTip(g, `<b>${name}</b>${kind === "alarm" ? "alarm" : hub ? "most connected variable" : "process variable"}`);
+      bindTip(g, `<b>${name}</b>${kind === "alarm" ? "alarm" : hub ? "hub: most connected variable" : "process variable"}`);
     }
     // point on a box edge in the direction of (tx, ty)
     const clip = (b, tx, ty, pad) => {
@@ -365,7 +367,7 @@
 
   /* ---------- boot ---------- */
   drawKripke(KRIPKE);
-  drawDag(DAG_COOLANT);
+  drawDag(DAG_HYDRAULICS);
   // CausalPrio-TimeRecency MAP@3 and edge F1 (B1_summary / benchmark_comparison.json)
   drawBars("#chartMap", SERIES, [[0.4485, 0.7439, 0.8333], [0.5833, 0.7439, 1.0], [0.3676, 0.4797, 0.8667]], 128);
   drawBars("#chartF1", [SERIES[0], SERIES[2]], [[0.5333, 0.5806, 0.5714], [0.3704, 0.4, 0.3]], 112);
