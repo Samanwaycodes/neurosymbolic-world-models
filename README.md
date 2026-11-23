@@ -3,7 +3,7 @@
 A single-page, hand-drawn GitHub Pages site that showcases the auto-didactic neuro-symbolic world-model work.
 
 - **§1 The goal**: a reproduction of the original board page, including the classical and autodidactic teacher–learner diagrams.
-- **§2 Recent models**: one card per model. TOKW is the first, with results from the Gymnasium forced-pendulum runs. The mountain-car slot is a placeholder until those results are added.
+- **§2 Recent models**: one compact card per model, sized to print on about ¾ of an A4 sheet (What → How → How does it perform? → Known limitations). TOKW is the first: forced pendulum filled in, mountain car waiting for its results.
 - **§3 Up next**: placeholders.
 
 No build step is needed: it's plain HTML, CSS and JS. rough.js (from jsDelivr) gives shapes their hand-drawn look. Without it, the same shapes render as clean SVG.
@@ -19,20 +19,21 @@ To preview locally, run `python -m http.server 8765` and open http://localhost:8
 ## Layout
 
 ```
-index.html                  all content; chart data for the signals figure is inlined
+index.html                  all content
 assets/css/style.css        paper, sticky notes, tape, highlighters, layout
-assets/js/board.js          rough.js pass, goal-board connectors, charts, Kripke graphs
-assets/img/tokw/*.gif       pendulum episodes with physics vs VLM labels overlaid
+assets/js/board.js          rough.js pass, goal-board connectors, the Kripke graph
+assets/img/tokw/*.gif       pendulum episode with physics vs VLM labels overlaid
 tools/make_pendulum_assets.py  regenerates the GIFs from the local TOKW v0.4.0 run folders
 ```
 
 ## Adding another model
 
-Copy the `<article class="project-card">` block in `index.html` and keep the same order:
-title + chips → architecture diagram (`.pipeline` SVG, with `class="rk"` on any shape you want hand-drawn) → **What** / **How** notes → **How does it perform?** (one `.testbed` block per environment) → **Known limitations**.
+Copy the `<article class="project-card compact">` block in `index.html` and keep the same order:
+title + chips → architecture diagram (`.pipeline` SVG, with `class="rk"` on any shape you want hand-drawn) → **What** / **How** notes → **How does it perform?** (one `.env` panel per environment) → **Known limitations**.
 
 - Any `rect`, `ellipse`, `circle`, `line`, `polygon` or `path` with `class="rk"` is redrawn in a sketchy style. Add `marker-end="url(#ah)"` to get an arrowhead.
-- Charts and Kripke graphs are drawn by `board.js` from small data objects (`RUNS`, `KRIPKE`). Add a new entry there and a matching `<div class="chart" id="…">` host.
+- The Kripke graph is drawn by `board.js` from the `KRIPKE` object (states with positions, transitions with probabilities). Add another object and an `<svg id="…">` host for a new environment.
+- Keep the card to about ¾ of an A4 page: on screen its height should stay under ~1.06 × its width, and printing (Ctrl+P, A4) puts it on its own page.
 
 ## Data sources
 

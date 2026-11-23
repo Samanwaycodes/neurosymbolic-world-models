@@ -197,266 +197,160 @@
       <span class="aside">one card per model, same layout every time</span>
     </div>
 
-    <article class="project-card" aria-labelledby="tokwTitle">
-      <div class="project-title">
+    <article class="project-card compact" id="tokwCard" aria-labelledby="tokwTitle">
+      <header class="card-head">
         <h2 id="tokwTitle"><span class="acr">TOKW</span>: Temporal Observable Kripke World-model</h2>
-      </div>
-      <div class="chips">
-        <span class="chip k">v0.4.0</span>
-        <span class="chip">Kripke structures · CTL</span>
-        <span class="chip">frozen DINOv2</span>
-        <span class="chip">Qwen2.5-VL labeller</span>
-        <span class="chip">Gymnasium testbeds</span>
-      </div>
+        <div class="chips">
+          <span class="chip k">v0.4.0</span>
+          <span class="chip">Kripke structures · CTL</span>
+          <span class="chip">frozen DINOv2</span>
+          <span class="chip">Qwen2.5-VL labeller</span>
+        </div>
+      </header>
 
       <!-- architecture diagram (blueprint, page 2) -->
-      <div class="pipeline">
-        <svg viewBox="0 0 960 330" role="img" aria-labelledby="pt pd">
+      <div class="pipeline compact">
+        <svg viewBox="0 0 960 214" role="img" aria-labelledby="pt pd">
           <title id="pt">TOKW architecture</title>
           <desc id="pd">Top row, the LeWM setup: video frames go into a DINOv2 encoder that produces a latent z_t, and a latent dynamics model g(z_t, a_t) predicts z_t+1. Bottom row: z_t feeds surprise segmentation, then VLM labelling into atomic propositions, giving a truth vector v_t; a truth dynamics model h(z_t, a_t, v_t) predicts v_t+1, and the predicted truth vectors become Kripke states and CTL rules.</desc>
           <g class="lbl">
-            <rect class="rk" x="8" y="12" width="807" height="140" fill="none" stroke="#e0848f" stroke-width="2" data-rough="0.9"/>
-            <text class="frame-label" x="830" y="88">LeWM setup</text>
+            <rect class="rk" x="8" y="8" width="807" height="98" fill="none" stroke="#e0848f" stroke-width="2" data-rough="0.9"/>
+            <text class="frame-label" x="830" y="64">LeWM setup</text>
 
-            <ellipse class="rk" cx="84" cy="70" rx="35" ry="23" fill="#ebe7de" stroke="#2b2925" stroke-width="1.4"/>
-            <text x="84" y="66" text-anchor="middle" class="sm">Video</text>
-            <text x="84" y="81" text-anchor="middle" class="sm">Frames</text>
-            <path class="rk" d="M119,70 H186" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+            <ellipse class="rk" cx="84" cy="56" rx="35" ry="22" fill="#ebe7de" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="84" y="52" text-anchor="middle" class="sm">Video</text>
+            <text x="84" y="67" text-anchor="middle" class="sm">Frames</text>
+            <path class="rk" d="M119,56 H186" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
 
-            <rect class="rk" x="188" y="42" width="104" height="56" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
-            <text x="240" y="66" text-anchor="middle">DINOv2</text>
-            <text x="240" y="84" text-anchor="middle">Encoder</text>
-            <text class="note-txt" x="240" y="124" text-anchor="middle">frozen · patch-pooled · PCA-128</text>
-            <path class="rk" d="M292,70 H354" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+            <rect class="rk" x="188" y="30" width="104" height="52" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="240" y="52" text-anchor="middle">DINOv2</text>
+            <text x="240" y="70" text-anchor="middle">Encoder</text>
+            <path class="rk" d="M292,56 H354" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
 
-            <ellipse class="rk" cx="380" cy="70" rx="25" ry="28" fill="#ebe7de" stroke="#2b2925" stroke-width="1.4"/>
-            <text x="380" y="67" text-anchor="middle">z<tspan dy="4" font-size="11">t</tspan></text>
-            <text x="380" y="84" text-anchor="middle" class="xs">(latent)</text>
-            <path class="rk" d="M405,70 H496" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+            <ellipse class="rk" cx="380" cy="56" rx="25" ry="27" fill="#ebe7de" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="380" y="53" text-anchor="middle">z<tspan dy="4" font-size="11">t</tspan></text>
+            <text x="380" y="70" text-anchor="middle" class="xs">(latent)</text>
+            <path class="rk" d="M405,56 H496" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
 
-            <path class="rk" d="M557,16 V38" fill="none" stroke="#57524a" stroke-width="1.2" marker-end="url(#ah-sm)"/>
-            <text class="xs" x="566" y="30">a<tspan dy="3" font-size="9">t</tspan><tspan dy="-3"> (torque)</tspan></text>
-            <rect class="rk" x="498" y="40" width="118" height="60" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
-            <text x="557" y="60" text-anchor="middle" class="sm">Latent Dynamics</text>
-            <text x="557" y="75" text-anchor="middle" class="sm">Model</text>
-            <text x="557" y="92" text-anchor="middle" class="xs">g(z<tspan dy="3" font-size="8">t</tspan><tspan dy="-3">, a</tspan><tspan dy="3" font-size="8">t</tspan><tspan dy="-3">) → z</tspan><tspan dy="3" font-size="8">t+1</tspan></text>
-            <text class="note-txt" x="557" y="126" text-anchor="middle">a GRU · its error = surprise</text>
-            <path class="rk" d="M616,70 H685" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+            <rect class="rk" x="498" y="26" width="118" height="60" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="557" y="45" text-anchor="middle" class="sm">Latent Dynamics</text>
+            <text x="557" y="60" text-anchor="middle" class="sm">Model</text>
+            <text x="557" y="77" text-anchor="middle" class="xs">g(z<tspan dy="3" font-size="8">t</tspan><tspan dy="-3">, a</tspan><tspan dy="3" font-size="8">t</tspan><tspan dy="-3">) → z</tspan><tspan dy="3" font-size="8">t+1</tspan></text>
+            <path class="rk" d="M616,56 H685" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
 
-            <ellipse class="rk" cx="712" cy="70" rx="26" ry="25" fill="#ebe7de" stroke="#2b2925" stroke-width="1.4"/>
-            <text x="712" y="73" text-anchor="middle">z<tspan dy="4" font-size="10">t+1</tspan></text>
+            <ellipse class="rk" cx="712" cy="56" rx="26" ry="24" fill="#ebe7de" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="712" y="59" text-anchor="middle">z<tspan dy="4" font-size="10">t+1</tspan></text>
 
             <!-- branch from z_t down to the symbolic row -->
-            <path class="rk" d="M380,98 V178 H150 V256 H176" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+            <path class="rk" d="M380,83 V124 H150 V176 H176" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
 
-            <rect class="rk" x="178" y="230" width="94" height="52" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
-            <text x="225" y="252" text-anchor="middle" class="sm">Surprise</text>
-            <text x="225" y="268" text-anchor="middle" class="sm">Segmentation</text>
-            <path class="rk" d="M272,256 H304" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+            <rect class="rk" x="178" y="152" width="94" height="48" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="225" y="172" text-anchor="middle" class="sm">Surprise</text>
+            <text x="225" y="188" text-anchor="middle" class="sm">Segmentation</text>
+            <path class="rk" d="M272,176 H304" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
 
-            <rect class="rk" x="306" y="228" width="110" height="56" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
-            <text x="361" y="248" text-anchor="middle" class="sm">VLM Labelling</text>
-            <text x="361" y="263" text-anchor="middle" class="xs">(Atomic</text>
-            <text x="361" y="277" text-anchor="middle" class="xs">propositions)</text>
-            <text class="note-txt" x="361" y="308" text-anchor="middle">Qwen2.5-VL</text>
-            <path class="rk" d="M416,256 H468" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+            <rect class="rk" x="306" y="148" width="110" height="56" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="361" y="168" text-anchor="middle" class="sm">VLM Labelling</text>
+            <text x="361" y="183" text-anchor="middle" class="xs">(Atomic</text>
+            <text x="361" y="197" text-anchor="middle" class="xs">propositions)</text>
+            <path class="rk" d="M416,176 H468" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
 
-            <ellipse class="rk" cx="516" cy="256" rx="46" ry="33" fill="#ebe7de" stroke="#2b2925" stroke-width="1.4"/>
-            <text x="516" y="247" text-anchor="middle">v<tspan dy="4" font-size="11">t</tspan></text>
-            <text x="516" y="263" text-anchor="middle" class="xs">(Truth vector</text>
-            <text x="516" y="277" text-anchor="middle" class="xs">of APs)</text>
-            <path class="rk" d="M562,256 H606" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+            <ellipse class="rk" cx="516" cy="176" rx="46" ry="32" fill="#ebe7de" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="516" y="167" text-anchor="middle">v<tspan dy="4" font-size="11">t</tspan></text>
+            <text x="516" y="183" text-anchor="middle" class="xs">(Truth vector</text>
+            <text x="516" y="197" text-anchor="middle" class="xs">of APs)</text>
+            <path class="rk" d="M562,176 H606" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
 
-            <path class="rk" d="M678,196 V218" fill="none" stroke="#57524a" stroke-width="1.2" marker-end="url(#ah-sm)"/>
-            <text class="xs" x="687" y="208">z<tspan dy="3" font-size="9">t</tspan><tspan dy="-3">, a</tspan><tspan dy="3" font-size="9">t</tspan></text>
-            <rect class="rk" x="608" y="220" width="140" height="72" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
-            <text x="678" y="243" text-anchor="middle" class="sm">Truth Dynamics</text>
-            <text x="678" y="259" text-anchor="middle" class="sm">Model</text>
-            <text x="678" y="278" text-anchor="middle" class="xs">h(z<tspan dy="3" font-size="8">t</tspan><tspan dy="-3">, a</tspan><tspan dy="3" font-size="8">t</tspan><tspan dy="-3">, v</tspan><tspan dy="3" font-size="8">t</tspan><tspan dy="-3">) → v</tspan><tspan dy="3" font-size="8">t+1</tspan></text>
-            <text class="note-txt" x="678" y="316" text-anchor="middle">causal Transformer · rolled out from v₀</text>
-            <path class="rk" d="M748,256 H784" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+            <path class="rk" d="M678,118 V138" fill="none" stroke="#57524a" stroke-width="1.2" marker-end="url(#ah-sm)"/>
+            <text class="xs" x="687" y="130">z<tspan dy="3" font-size="9">t</tspan><tspan dy="-3">, a</tspan><tspan dy="3" font-size="9">t</tspan></text>
+            <rect class="rk" x="608" y="140" width="140" height="70" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="678" y="162" text-anchor="middle" class="sm">Truth Dynamics</text>
+            <text x="678" y="178" text-anchor="middle" class="sm">Model</text>
+            <text x="678" y="197" text-anchor="middle" class="xs">h(z<tspan dy="3" font-size="8">t</tspan><tspan dy="-3">, a</tspan><tspan dy="3" font-size="8">t</tspan><tspan dy="-3">, v</tspan><tspan dy="3" font-size="8">t</tspan><tspan dy="-3">) → v</tspan><tspan dy="3" font-size="8">t+1</tspan></text>
+            <path class="rk" d="M748,176 H784" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
 
-            <ellipse class="rk" cx="811" cy="256" rx="26" ry="25" fill="#ebe7de" stroke="#2b2925" stroke-width="1.4"/>
-            <text x="811" y="259" text-anchor="middle">v<tspan dy="4" font-size="10">t+1</tspan></text>
+            <ellipse class="rk" cx="811" cy="176" rx="26" ry="24" fill="#ebe7de" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="811" y="179" text-anchor="middle">v<tspan dy="4" font-size="10">t+1</tspan></text>
 
-            <path class="rk" d="M839,256 H862" fill="none" stroke="#57524a" stroke-width="1.2" stroke-dasharray="4 4" marker-end="url(#ah-sm)"/>
-            <text class="note-txt" x="868" y="250">Kripke states</text>
-            <text class="note-txt" x="868" y="268">+ CTL rules</text>
+            <path class="rk" d="M839,176 H862" fill="none" stroke="#57524a" stroke-width="1.2" stroke-dasharray="4 4" marker-end="url(#ah-sm)"/>
+            <text class="note-txt" x="868" y="170">Kripke states</text>
+            <text class="note-txt" x="868" y="188">+ CTL rules</text>
           </g>
         </svg>
       </div>
 
       <!-- What / How -->
-      <div class="two-up">
-        <div class="note yellow reveal" style="--tilt:-.8deg">
-          <span class="tape" aria-hidden="true"></span>
+      <div class="card-row wh">
+        <div class="note yellow mini" style="--tilt:-.5deg">
           <h3>What</h3>
-          <p>The goal was to generate a symbolic substrate that allows for analysis using temporal logic (going one step beyond the simple If-Then rules of RIJEPA).</p>
-          <p>We use <b>Kripke structures</b>, which are state-transition graphs used in CTL model checking. Every state is a set of atomic propositions that hold; every edge is an observed transition, so rules like <span class="mono">AG(p → AX q)</span> can be checked directly.</p>
+          <p>A symbolic substrate for analysis with temporal logic, one step beyond the simple If-Then rules of RIJEPA. We use <b>Kripke structures</b>, the state-transition graphs of CTL model checking, so rules like <span class="mono">AG(p → AX q)</span> can be checked directly.</p>
         </div>
-        <div class="note green reveal" style="--tilt:.7deg">
-          <span class="tape" aria-hidden="true" style="--tape:2deg"></span>
+        <div class="note green mini" style="--tilt:.4deg">
           <h3>How</h3>
-          <ol class="how-steps">
-            <li><b>Segment.</b> Chop each video into event clips at moments of change. The design uses surprise over the latent vector; in the v0.4.0 Gym runs the cuts come from turning points in the recorded state, with surprise and latent speed logged as diagnostics.</li>
-            <li><b>Name.</b> A VLM observes the video segments to notice what visible change occurs across the transition boundaries.</li>
-            <li><b>Declare.</b> These visible changes are used to declare atomic propositions, <span class="filled-in">which, once declared, label every clip as a truth vector v<sub>t</sub>.</span></li>
-            <li><b>Roll forward.</b> <span class="filled-in">The truth-dynamics model learns to predict v<sub>t+1</sub>; frames sharing the same active propositions become Kripke states, and AG / AG-AX rules are mined from the transitions.</span></li>
+          <ol class="how-steps tight">
+            <li>Chop video into event clips at moments of change (latent surprise; v0.4.0 cuts at state turning points).</li>
+            <li>A VLM notes what visibly changes across each clip boundary.</li>
+            <li>Each change becomes an atomic proposition; every clip gets a truth vector v<sub>t</sub>.</li>
+            <li>h rolls v<sub>t</sub> forward; frames sharing a proposition set form Kripke states, and AG / AX rules are mined.</li>
           </ol>
         </div>
       </div>
 
       <!-- How does it perform? -->
-      <div class="perf-head">
-        <h3>How does it perform?</h3>
-        <span class="aside">two Gymnasium testbeds</span>
-      </div>
-
-      <!-- ===== Testbed 1: forced pendulum ===== -->
-      <div class="testbed" id="pendulum">
-        <div class="testbed-title">Forced pendulum <small>Pendulum-v1 · random smooth torque in [−2, 2]</small></div>
-
-        <div class="setup-row">
-          <figure class="polaroid reveal">
-            <span class="tape" aria-hidden="true"></span>
-            <img src="assets/img/tokw/pendulum15s_ep09.gif" width="256" height="272" loading="lazy" alt="A forced pendulum swinging for 15 seconds. The caption under each frame gives the physical quadrant and rotation, which keep changing, and the Qwen2.5-VL-7B label, which says 'pointing up, swinging left' throughout.">
-            <figcaption>15 s episode: physics vs the 7B labeller</figcaption>
-          </figure>
-          <figure class="polaroid reveal">
-            <span class="tape" aria-hidden="true" style="--tape:4deg"></span>
-            <img src="assets/img/tokw/pendulum10s_ep01.gif" width="256" height="272" loading="lazy" alt="A forced pendulum for 10 seconds with captions comparing the true quadrant and rotation to the Qwen2.5-VL-3B label, which alternates between 'pointing downwards, moving towards the top' and 'rotating clockwise'.">
-            <figcaption>10 s episode: physics vs the 3B labeller</figcaption>
-          </figure>
-          <div class="stack">
-            <div class="note setup-note reveal">
-              <span class="tape right" aria-hidden="true"></span>
-              <dl>
-                <dt>frames</dt><dd>224 px, 20 fps, actions = torque recorded per frame</dd>
-                <dt>state</dt><dd>angle θ and angular velocity ω, used only for scoring and run C</dd>
-                <dt>run A</dt><dd>200 × 10 s episodes (40 held out) · labels from Qwen2.5-VL-3B · 12 APs proposed</dd>
-                <dt>run B</dt><dd>30 × 15 s episodes (6 held out) · labels from Qwen2.5-VL-7B · 10 APs</dd>
-                <dt>run C</dt><dd>same 30 × 15 s episodes · labels computed from (θ, ω): 4 quadrants × 2 rotations</dd>
-              </dl>
-            </div>
-            <p class="legend-inline">In the clips: <span class="sw" style="background:var(--physics)"></span>physics (from θ, ω) &nbsp; <span class="sw" style="background:var(--vlm)"></span>what the VLM said about that clip</p>
+      <h3 class="card-h">How does it perform?</h3>
+      <div class="card-row">
+        <section class="env" aria-labelledby="envPend">
+          <div class="env-head"><h4 id="envPend">Forced pendulum</h4><span>Pendulum-v1 · random torque · 30 × 15 s episodes</span></div>
+          <div class="env-vis">
+            <figure class="mini-gif">
+              <img src="assets/img/tokw/pendulum15s_ep09.gif" width="256" height="272" alt="A forced pendulum swinging for 15 seconds. Captions compare the true quadrant and rotation, which keep changing, with the VLM's label, which stays 'pointing up, swinging left'.">
+              <figcaption>physics (green) vs VLM label (orange)</figcaption>
+            </figure>
+            <figure class="mini-kripke">
+              <svg id="kripkeGT" viewBox="0 0 300 270" role="img" aria-label="Kripke structure for the forced pendulum: an outer ring of four anticlockwise quadrant states and an inner ring of four clockwise ones, linked by reversal transitions."></svg>
+              <figcaption>Kripke, labels from θ, ω: <span class="k-ccw">↺ outer</span> / <span class="k-cw">↻ inner</span> ring, spokes = reversals</figcaption>
+            </figure>
           </div>
-        </div>
-
-        <div class="stats">
-          <div class="note stat reveal" style="--bg:var(--note-yellow)"><span class="big">99<small>%</small></span>of true reversals show up as dips in latent speed (±3 frames, precision 0.62; run B/C latents)</div>
-          <div class="note stat reveal" style="--bg:var(--note-blue)"><span class="big">+4.4<small> pts</small></span>next-frame accuracy over copy-the-last-label on 40 held-out episodes (run A: 0.896 vs 0.852)</div>
-          <div class="note stat reveal" style="--bg:var(--note-green)"><span class="big">0.58</span>transition accuracy with state labels (run C), vs 0.48–0.51 with VLM labels</div>
-          <div class="note stat reveal" style="--bg:var(--note-lilac)"><span class="big">8 <small>vs</small> 6</span>Kripke states: the full swing cycle from state labels, vs six variants of "pointing up" from the 7B labeller</div>
-        </div>
-
-        <!-- Figure: what the latent sees -->
-        <figure class="fig reveal">
-          <div class="fig-title">The latent slows down when the bob does</div>
-          <p class="fig-sub">One 15 s training episode (run B/C). Red ticks mark true reversals, where ω changes sign. Latent speed ‖z<sub>t+1</sub> − z<sub>t</sub>‖ dips at 13 of the 14. Surprise does not mark them: it runs slightly higher mid-swing, when the bob is fastest.</p>
-          <div class="legend"><span><i class="tick-red"></i>true reversal</span></div>
-          <div class="chart" id="chartSignals" data-height="380"></div>
-          <details class="numbers"><summary>see the numbers</summary>
-            <table>
-              <tr><th>signal</th><th>behaviour at reversals</th></tr>
-              <tr><td>latent speed minima</td><td>13 / 14 reversals within ±3 frames in this episode; 99.2% recall, 0.62 precision over all run B/C training videos</td></tr>
-              <tr><td>surprise</td><td>mean 0.41 within ±3 frames of a reversal vs 0.49 elsewhere; correlates with |ω| (r = 0.46)</td></tr>
-            </table>
-          </details>
-        </figure>
-
-        <div class="fig-grid">
-          <figure class="fig reveal">
-            <div class="fig-title">Beats copying the last label, barely</div>
-            <p class="fig-sub">Per-proposition next-frame accuracy on held-out episodes.</p>
-            <div class="legend"><span><i class="dot-hollow"></i>persistence (copy v<sub>t</sub>)</span><span><i class="dot-ink"></i>truth-dynamics model</span></div>
-            <div class="chart" id="chartDumbbell"></div>
-            <details class="numbers"><summary>see the numbers</summary>
-              <table>
-                <tr><th>run</th><th>held-out</th><th>model</th><th>persistence</th><th>reference</th></tr>
-                <tr><td>A · VLM-3B, 10 s</td><td class="n">40</td><td class="n">0.896</td><td class="n">0.852</td><td>VLM labels of held-out clips</td></tr>
-                <tr><td>B · VLM-7B, 15 s</td><td class="n">6</td><td class="n">0.968</td><td class="n">0.957</td><td>VLM labels of held-out clips</td></tr>
-                <tr><td>C · state labels, 15 s</td><td class="n">6</td><td class="n">0.968</td><td class="n">0.952</td><td>state ground truth (rollout 0.925)</td></tr>
-              </table>
-            </details>
-          </figure>
-          <figure class="fig reveal">
-            <div class="fig-title">Where it counts: frames where truth flips</div>
-            <p class="fig-sub">Copying the last label scores 0 on these frames by construction.</p>
-            <div class="legend"><span><i class="hatch-1"></i>transition accuracy</span><span><i class="hatch-2"></i>frame-change F1</span></div>
-            <div class="chart" id="chartTransitions"></div>
-            <details class="numbers"><summary>see the numbers</summary>
-              <table>
-                <tr><th>run</th><th>transition acc.</th><th>change F1</th><th>spurious flips</th><th>frames that flip</th></tr>
-                <tr><td>A · VLM-3B, 10 s</td><td class="n">0.511</td><td class="n">0.811</td><td class="n">0.037</td><td class="n">14.8%</td></tr>
-                <tr><td>B · VLM-7B, 15 s</td><td class="n">0.482</td><td class="n">0.696</td><td class="n">0.010</td><td class="n">4.3%</td></tr>
-                <tr><td>C · state labels, 15 s</td><td class="n">0.576</td><td class="n">0.654</td><td class="n">0.012</td><td class="n">4.8%</td></tr>
-              </table>
-            </details>
-          </figure>
-        </div>
-
-        <!-- Kripke structures -->
-        <div class="fig-title reveal" style="margin-bottom:4px">The Kripke structures it built</div>
-        <p class="fig-sub">Same 15 s episodes, same pipeline, two labellers. Node size = frames spent in the state, edge weight = transition probability. Hover or tap a state to read its propositions.</p>
-        <div class="kripke-pair">
-          <div class="note kripke-card reveal">
-            <h4>Labels from (θ, ω): run C</h4>
-            <div class="sub">8 states · 28 transitions (those under 5% not drawn). <span style="color:#2a6fb8">Outer ring ↺ anticlockwise</span>, <span style="color:#1a6e3c">inner ring ↻ clockwise</span>; spokes are reversals.</div>
-            <svg id="kripkeGT" viewBox="0 0 460 400" role="img" aria-label="Kripke structure from state labels: two rings of four quadrant states, one per rotation direction, linked by reversal transitions."></svg>
-            <div class="kripke-readout" id="kripkeGTReadout" aria-live="polite">Tap a state.</div>
+          <div class="env-stats">
+            <div><b>99%</b><span>reversals seen as latent-speed dips</span></div>
+            <div><b>0.58</b><span>accuracy where the truth flips</span></div>
+            <div><b>0.65</b><span>change-detection F1</span></div>
+            <div><b>8 · 28</b><span>Kripke states · transitions</span></div>
           </div>
-          <div class="note kripke-card reveal">
-            <h4>Labels from Qwen2.5-VL-7B: run B</h4>
-            <div class="sub">6 states · 10 transitions. Every state also asserts <i>pointing up · swinging left</i>.</div>
-            <svg id="kripkeVLM" viewBox="0 0 380 400" role="img" aria-label="Kripke structure from VLM labels: six states that all claim the pendulum points up and swings left, differing only in slowing or speeding up, reversing, and highest or lowest point."></svg>
-            <div class="kripke-readout" id="kripkeVLMReadout" aria-live="polite">Tap a state.</div>
-          </div>
-        </div>
+        </section>
 
-        <div class="fig-title reveal" style="margin:34px 0 4px">Mined temporal rules</div>
-        <p class="fig-sub">All hold at confidence 1.0, but on only 1–6 supporting segments, and they inherit whatever the labeller got wrong.</p>
-        <div class="rules">
-          <div class="rule-card reveal"><span class="formula">AG(down → to_top)</span><span class="eng">if <i>pointing downwards</i>, then <i>moving towards the top</i></span><span class="meta">run A · support 4 · conf 1.0</span></div>
-          <div class="rule-card reveal"><span class="formula">AG(to_right → AX down)</span><span class="eng">if <i>moving towards the right</i>, every next state is <i>pointing downwards</i></span><span class="meta">run A · support 1 · conf 1.0</span></div>
-          <div class="rule-card reveal"><span class="formula">AG(reversing → AX slowing)</span><span class="eng">if <i>reversing direction</i>, every next state is <i>slowing down</i></span><span class="meta">run B · support 4 · conf 1.0</span></div>
-          <div class="rule-card reveal"><span class="formula">AG(up → AX swing_left)</span><span class="eng">if <i>pointing up</i>, every next state is <i>swinging left</i>; true only because every clip was labelled that way</span><span class="meta">run B · support 6 · conf 1.0</span></div>
-        </div>
-      </div>
-
-      <!-- ===== Testbed 2: mountain car (placeholder) ===== -->
-      <div class="testbed" id="mountaincar">
-        <div class="testbed-title" style="background:var(--note-tan)">Mountain car <small>MountainCar-v0 · an under-powered car rocking its way up a hill</small></div>
-        <div class="placeholder">
-          <svg viewBox="0 0 200 130" aria-hidden="true">
-            <path class="rk" d="M6,112 C40,112 58,40 96,62 C128,80 140,120 160,96 C176,76 184,30 196,18" fill="none" stroke="#2b2925" stroke-width="2"/>
-            <rect class="rk" x="112" y="62" width="30" height="14" fill="#eb6834" stroke="#2b2925" stroke-width="1.4" data-fill="hachure" data-gap="3"/>
-            <circle class="rk" cx="118" cy="80" r="4" fill="#2b2925" stroke="#2b2925"/>
-            <circle class="rk" cx="137" cy="81" r="4" fill="#2b2925" stroke="#2b2925"/>
-            <path class="rk" d="M191,18 V2 L200,6 L191,10" fill="#e0848f" stroke="#2b2925" stroke-width="1.2"/>
-          </svg>
-          <div>
-            <h3 style="font-size:32px;margin-bottom:6px">Results being pinned up</h3>
-            <p style="margin:0">Same TOKW pipeline on the classic Gym hill climb: the car has to rock back and forth to build momentum, so the interesting events are the turnarounds on each slope. Figures go here in the same layout as the pendulum.</p>
+        <section class="env pending" aria-labelledby="envCar">
+          <div class="env-head"><h4 id="envCar">Mountain car</h4><span>MountainCar-v0 · rocking up a hill</span></div>
+          <div class="env-vis">
+            <figure class="mini-gif">
+              <svg viewBox="0 0 150 120" aria-hidden="true">
+                <path class="rk" d="M4,106 C30,106 44,40 74,58 C98,72 108,110 124,90 C136,74 142,34 148,20" fill="none" stroke="#2b2925" stroke-width="2"/>
+                <rect class="rk" x="84" y="60" width="24" height="12" fill="#eb6834" stroke="#2b2925" stroke-width="1.4" data-fill="hachure" data-gap="3"/>
+                <circle class="rk" cx="89" cy="75" r="3.5" fill="#2b2925" stroke="#2b2925"/>
+                <circle class="rk" cx="104" cy="76" r="3.5" fill="#2b2925" stroke="#2b2925"/>
+                <path class="rk" d="M144,20 V5 L152,9 L144,13" fill="#e0848f" stroke="#2b2925" stroke-width="1.2"/>
+              </svg>
+              <figcaption>episode clip goes here</figcaption>
+            </figure>
+            <figure class="mini-kripke placeholder-box">
+              <span>Kripke structure from the mountain-car run</span>
+            </figure>
           </div>
-        </div>
+          <div class="env-stats">
+            <div><b>–</b><span>turnarounds seen as latent-speed dips</span></div>
+            <div><b>–</b><span>accuracy where the truth flips</span></div>
+            <div><b>–</b><span>change-detection F1</span></div>
+            <div><b>–</b><span>Kripke states · transitions</span></div>
+          </div>
+        </section>
       </div>
 
       <!-- Known limitations -->
-      <div class="perf-head" style="margin-top:20px">
+      <div class="note pink limits-mini">
         <h3>Known limitations</h3>
-      </div>
-      <div class="limits">
-        <div class="note limit-main reveal">
-          <span class="pin" aria-hidden="true"></span>
-          <h3>The labeller is the bottleneck</h3>
-          <p>Labelling quality is a bottleneck, and hence the choice of the VLM makes or breaks the pipeline.</p>
-        </div>
-        <ul class="evidence reveal">
-          <li>Asked a scene-agnostic question ("which quadrant of the frame is the main object in?") on 48 short clips cut at turning points, Qwen2.5-VL answered <b>"upper-left" all 48 times</b>. The bob was in the lower half in 44 of them.</li>
-          <li>The 7B labeller tagged <b>every training clip "pointing up · swinging left"</b>, while the bob spends 80% of its frames in the lower half.</li>
-          <li>On the unforced pendulum (no torque), the VLM-labelled Kripke structure <b>collapsed to a single state</b> at both timescales.</li>
-          <li>With labels computed from (θ, ω) instead, the same pipeline recovers the <b>8-state swing cycle</b> and the best transition accuracy (0.58), so the dynamics models are not what's holding it back.</li>
-          <li>Held-out scores for runs A and B are measured against the <b>same VLM's labels</b> of the held-out clips: they measure agreement with the labeller, not with physics.</li>
+        <ul>
+          <li><b>Labelling quality is the bottleneck:</b> the choice of VLM makes or breaks the pipeline. Qwen2.5-VL tagged every 15 s pendulum clip "pointing up · swinging left", though the bob is in the lower half 80% of the time.</li>
+          <li>With VLM labels the Kripke collapses and flip accuracy falls to 0.48–0.51; the graph above uses labels from θ and ω.</li>
         </ul>
       </div>
     </article>
@@ -492,7 +386,6 @@
 
 <div class="tip" id="tip" role="tooltip"></div>
 
-<script type="application/json" id="dataSignals">{"fps":20,"theta_dot":[0.0,0.636,1.284,1.955,2.656,3.386,4.134,4.876,5.571,6.161,6.582,6.78,6.727,6.429,5.929,5.288,4.568,3.819,3.076,2.358,1.67,1.009,0.368,-0.267,-0.906,-1.563,-2.246,-2.959,-3.699,-4.449,-5.177,-5.835,-6.362,-6.695,-6.789,-6.63,-6.241,-5.673,-4.992,-4.254,-3.504,-2.77,-2.065,-1.389,-0.738,-0.101,0.534,1.18,1.847,2.542,3.268,4.015,4.76,5.466,6.076,6.529,6.765,6.752,6.492,6.02,5.397,4.685,3.938,3.193,2.47,1.777,1.113,0.469,-0.166,-0.804,-1.457,-2.135,-2.844,-3.58,-4.33,-5.065,-5.737,-6.289,-6.657,-6.791,-6.671,-6.316,-5.773,-5.105,-4.373,-3.623,-2.885,-2.175,-1.495,-0.84,-0.202,0.433,1.076,1.739,2.429,3.15,3.895,4.643,5.358,5.988,6.47,6.744,6.771,6.548,6.107,5.504,4.802,4.058,3.31,2.583,1.886,1.217,0.571,-0.065,-0.701,-1.351,-2.025,-2.729,-3.461,-4.211,-4.95,-5.637,-6.212,-6.613,-6.786,-6.707,-6.387,-5.87,-5.217,-4.492,-3.742,-3.001,-2.286,-1.601,-0.943,-0.303,0.331,0.972,1.631,2.317,3.034,3.775,4.525,5.248,5.896,6.405,6.716,6.784,6.6,6.19,5.608,4.918,4.177,3.428,2.697,1.995,1.322,0.673,0.036,-0.599,-1.246,-1.916,-2.615,-3.343,-4.091,-4.835,-5.533,-6.131,-6.563,-6.776,-6.737,-6.452,-5.963,-5.328,-4.61,-3.862,-3.118,-2.398,-1.708,-1.047,-0.404,0.23,0.869,1.525,2.206,2.918,3.656,4.406,5.137,5.8,6.336,6.682,6.79,6.645,6.268,5.71,5.033,4.297,3.547,2.812,2.104,1.427,0.775,0.137,-0.497,-1.142,-1.807,-2.501,-3.225,-3.971,-4.718,-5.427,-6.045,-6.508,-6.758,-6.76,-6.513,-6.052,-5.436,-4.728,-3.981,-3.235,-2.511,-1.816,-1.151,-0.506,0.129,0.767,1.419,2.095,2.802,3.537,4.287,5.023,5.702,6.262,6.642,6.79,6.685,6.342,5.808,5.146,4.416,3.666,2.927,2.215,1.533,0.878,0.238,-0.396,-1.038,-1.7,-2.389,-3.108,-3.852,-4.6,-5.319,-5.955,-6.447,-6.734,-6.777,-6.568,-6.137,-5.542,-4.844,-4.101,-3.353,-2.624,-1.925,-1.255,-0.608,0.028,0.664,1.313,1.986,2.688,3.419,4.168,4.909,5.6,6.183,6.596,6.783,6.718,6.411,5.904,5.257,4.535,3.785,3.043,2.326,1.64,0.981,0.34,-0.295,-0.935,-1.593,-2.277,-2.992,-3.732,-4.482],"surprise":[0.0,0.566,0.4938,0.3871,0.3367,0.433,0.3809,0.4722,0.4686,0.3477,0.3511,0.458,0.5734,0.5836,0.4745,0.4192,0.5566,0.4418,0.4079,0.3903,0.4427,0.4062,0.3524,0.3595,0.415,0.3631,0.3977,0.3711,0.4539,0.4996,0.3763,0.5034,0.6302,0.6336,0.6371,0.4991,0.5514,0.4129,0.4858,0.4635,0.4881,0.4067,0.4009,0.4194,0.3685,0.3772,0.3847,0.4252,0.4182,0.4355,0.4755,0.4057,0.4865,0.5151,0.4257,0.5571,0.5821,0.5565,0.3839,0.3872,0.4827,0.677,0.4048,0.4709,0.4201,0.4065,0.4237,0.3164,0.3626,0.4368,0.3865,0.4364,0.3505,0.4288,0.6085,0.5161,0.4688,0.5474,0.6163,0.4878,0.4346,0.5601,0.4938,0.4604,0.7093,0.7005,0.5989,0.4148,0.3433,0.3985,0.3378,0.3697,0.4605,0.4215,0.4633,0.4881,0.4948,0.436,0.4234,0.4983,0.5274,0.4699,0.5436,0.5991,0.5838,0.5149,0.6147,0.5492,0.438,0.3725,0.4136,0.4023,0.3524,0.3305,0.4255,0.5277,0.4455,0.5384,0.5495,0.4598,0.5311,0.4092,0.4422,0.3585,0.5633,0.5749,0.4062,0.3856,0.4566,0.6498,0.3907,0.5576,0.4311,0.3832,0.435,0.363,0.384,0.4571,0.4338,0.385,0.4213,0.5295,0.5561,0.486,0.429,0.4956,0.5316,0.6139,0.6513,0.5299,0.5242,0.4664,0.409,0.5198,0.4792,0.4149,0.4527,0.4576,0.2966,0.425,0.4112,0.5759,0.4816,0.5195,0.4771,0.5243,0.4906,0.4803,0.4635,0.5083,0.5408,0.5187,0.4505,0.5591,0.472,0.4465,0.4484,0.434,0.5539,0.4119,0.3531,0.3732,0.4142,0.3455,0.3968,0.5906,0.4998,0.5361,0.5263,0.4531,0.3727,0.4351,0.469,0.3975,0.3554,0.482,0.46,0.5538,0.5092,0.4112,0.4314,0.4578,0.4441,0.3194,0.3803,0.4052,0.3754,0.4309,0.3741,0.4852,0.5038,0.5613,0.4322,0.7221,1.3842,0.794,0.4655,0.4722,0.4878,0.5309,0.4157,0.4464,0.4354,0.4936,0.4646,0.3625,0.3981,0.385,0.439,0.3849,0.4561,0.4938,0.4069,0.4213,0.4932,0.432,0.4259,0.5063,0.6672,0.6069,0.5245,0.5119,0.5353,0.5491,0.3961,0.3874,0.4208,0.4467,0.3256,0.3888,0.368,0.4821,0.4476,0.4306,0.4572,0.4781,0.4374,0.4388,0.4463,0.4489,0.5018,0.4086,0.3651,0.3797,0.4991,0.4842,0.3926,0.4955,0.4505,0.4951,0.3786,0.3322,0.4317,0.4118,0.4057,0.3905,0.5141,0.4277,0.3975,0.4756,0.4873,0.5129,0.4028,0.4898,0.5277,0.4625,0.4414,0.5245,0.4264,0.456,0.4072,0.3939,0.355,0.3345,0.3924,0.4501,0.3695,0.4322,0.4195,0.4113,0.6306],"reversals":[1,23,46,68,91,113,136,159,181,204,226,249,271,294],"cuts":[23,46,68,91,113,136,159,181,204,226,249,271],"latent_speed":[null,22.3774,20.8409,32.7928,23.4933,54.9528,42.7004,50.3443,33.9554,28.8863,33.5709,60.5878,61.8412,34.7035,31.8045,28.1458,52.2736,47.9808,37.8568,19.4237,29.7501,21.5136,10.6728,13.1303,20.7471,18.3585,24.2413,33.9977,64.7664,63.6357,29.4669,34.8268,38.2906,50.5503,48.4807,40.3736,28.8719,30.7855,38.8561,56.8632,58.6488,30.7951,23.6329,23.7791,24.4462,10.1523,23.9375,20.643,41.7498,24.5521,54.1604,48.0541,57.39,35.2908,30.689,32.8587,78.2393,76.6191,34.5709,27.8287,36.654,57.7234,47.2118,44.2542,20.2901,21.4583,20.5969,9.2501,6.6509,20.0013,24.7596,21.3275,30.9064,63.9391,64.6504,36.8207,29.9023,33.0952,45.8757,43.6896,43.4611,34.5575,29.0673,37.1989,98.0508,93.4703,44.6411,26.2333,29.6951,18.1055,12.5141,19.1193,19.5421,35.7284,20.2858,50.0762,48.812,52.2313,34.9771,35.6281,38.7674,62.4193,68.3681,39.958,33.4871,34.1293,53.9337,36.3891,45.3517,23.7986,21.629,22.5815,11.3166,6.7653,20.2738,26.8725,18.4194,27.6348,58.9032,54.7263,39.5134,32.0205,28.4713,34.0686,54.4549,47.6533,35.5428,33.2931,38.967,66.9909,61.6381,44.0566,21.5398,26.2928,15.4534,17.6537,18.6634,13.7749,25.4543,18.7619,47.5117,56.3602,61.836,37.1931,33.2972,34.8728,54.2836,56.7382,33.6945,28.4771,30.4563,39.6303,45.627,51.51,27.6352,22.4563,27.0204,17.3213,0.0,15.7816,22.5849,21.8554,23.3309,48.4655,45.9124,48.9383,32.5523,33.0415,34.2005,61.6238,59.2661,33.1526,33.2148,32.4207,60.811,55.1801,46.2288,19.9847,33.2276,17.8753,19.1193,12.5141,18.1055,29.0972,26.1508,51.3191,69.4624,76.808,37.753,35.7321,32.6817,46.8442,42.1047,43.2563,38.8181,28.0609,31.3034,59.5731,60.3942,30.2557,20.7707,24.9277,19.4597,6.6509,9.8484,19.2679,21.5922,19.4299,47.0673,39.5773,56.3754,37.2782,31.4065,38.9291,94.6984,97.6119,34.2444,30.4909,34.4984,59.4476,43.0118,48.925,19.7904,28.9351,19.7959,19.1072,10.1523,24.4462,25.5647,25.4859,24.6075,63.8368,59.9628,40.5875,30.1697,28.6658,38.4892,46.142,48.4616,36.7529,39.7003,34.019,70.8,67.1597,35.398,28.8815,22.9453,15.644,10.4574,9.2501,22.0427,30.4275,20.2729,31.8381,47.6531,54.3766,27.6267,30.9344,37.5759,64.6596,64.4251,35.7937,27.309,34.574,51.9395,42.8873,50.4198,24.5755,27.7186,24.1908,26.3831,0.0,20.0899,17.844,30.0346,26.0406,53.9703,43.2992,47.2102,31.2428,29.8934,37.2857,52.0545,56.9078,35.7424,27.5105,29.7626,53.0417,51.2752,35.8264,22.2699,20.5852,17.4972,10.6684,12.1972,18.7215,18.1667,21.983,36.5091,58.3311,60.0591]}</script>
 <script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.js"></script>
 <script src="assets/js/board.js"></script>
 </body>
