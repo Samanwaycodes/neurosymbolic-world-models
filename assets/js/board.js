@@ -420,6 +420,103 @@
   }
 
   /* =======================================================================
+     5c. Presentation stage: Walsh acquisition (single-pixel camera, measured
+         Hadamard data). Risk of one fixed reconstruction under 49
+         presentations of the same scenes: patterns shown k (rows, low
+         sequency first) x repeats averaged e (columns).
+         rec = phi_hat_m100 + mean of the sealed field, ref = sealed E*,
+         policy + path from results/secondary.tsv, all from
+         data/w2_spi_battery_20260824 in noumenal-ai/anytime-anywhere-pac-bayes.
+     ======================================================================= */
+  const WALSH = {
+    svg: "#walshField",
+    k: [64, 128, 256, 512, 1024, 2048, 4096],
+    e: [1, 2, 3, 4, 5, 7, 10],
+    rec: [0.3698, 0.3637, 0.3614, 0.3606, 0.3602, 0.3582, 0.3592, 0.3571, 0.344, 0.3403, 0.3378, 0.3365, 0.3346, 0.3338,
+      0.3562, 0.3296, 0.3218, 0.3182, 0.3143, 0.3114, 0.3092, 0.3511, 0.3023, 0.2851, 0.2781, 0.2725, 0.2659, 0.2618,
+      0.3767, 0.285, 0.2511, 0.2365, 0.2251, 0.2125, 0.2041, 0.452, 0.282, 0.2165, 0.187, 0.1638, 0.1391, 0.1229,
+      0.5624, 0.3126, 0.1854, 0.1259, 0.0813, 0.033, 0.0002],
+    ref: [0.3702, 0.3636, 0.3616, 0.3609, 0.3602, 0.3594, 0.3589, 0.3571, 0.3437, 0.3397, 0.3381, 0.3367, 0.3352, 0.3342,
+      0.3562, 0.3296, 0.3212, 0.3178, 0.3148, 0.3118, 0.3097, 0.3507, 0.3025, 0.2853, 0.2786, 0.2728, 0.2665, 0.2624,
+      0.377, 0.2847, 0.2508, 0.237, 0.2252, 0.2127, 0.2044, 0.4509, 0.2813, 0.216, 0.1869, 0.1638, 0.1393, 0.1228,
+      0.5611, 0.3119, 0.1846, 0.1263, 0.081, 0.0327, 0.0],
+    // policy[k][e]: 0 = show more patterns, 1 = repeat and average once more, -1 = stop (best)
+    policy: [[0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0],
+      [1, 1, 0, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 0], [1, 1, 1, 1, 1, 1, -1]],
+    path: [[0, 0], [1, 0], [1, 1], [2, 1], [3, 1], [4, 1], [4, 2], [5, 2], [6, 2], [6, 3], [6, 4], [6, 5], [6, 6]],
+  };
+
+  // light = low risk, dark = high risk
+  const RAMP = [[0, [247, 243, 230]], [0.15, [169, 198, 230]], [0.35, [42, 111, 184]], [0.57, [23, 63, 107]]];
+  function rampColor(v) {
+    for (let i = 1; i < RAMP.length; i++) {
+      if (v <= RAMP[i][0]) {
+        const [a, ca] = RAMP[i - 1], [b, cb] = RAMP[i], f = (v - a) / (b - a);
+        return `rgb(${ca.map((c, j) => Math.round(c + f * (cb[j] - c))).join(",")})`;
+      }
+    }
+    return `rgb(${RAMP[RAMP.length - 1][1].join(",")})`;
+  }
+
+  function drawWalshField(spec) {
+    const svg = $(spec.svg); if (!svg) return;
+    const ML = 58, MT = 14, CW = 40, CH = 30, n = 7;
+    const cx = (e) => ML + e * CW + CW / 2, cy = (k) => MT + (n - 1 - k) * CH + CH / 2;
+    const g = el("g", {}, svg);
+    for (let k = 0; k < n; k++) {
+      for (let e = 0; e < n; e++) {
+        const i = k * n + e, v = spec.rec[i], x = ML + e * CW, y = MT + (n - 1 - k) * CH;
+        const cell = el("g", {}, g);
+        sketch(svg, "rectangle", [x + 1, y + 1, CW - 2, CH - 2], { stroke: "#ffffff", strokeWidth: 0.8, fill: rampColor(v), fillStyle: "solid", roughness: 0.5 }, cell);
+        const p = spec.policy[k][e], dark = v > 0.24, ink = dark ? "#ffffff" : C.ink2;
+        if (p === 0) { // show more patterns: arrow up
+          sketch(svg, "line", [cx(e), cy(k) + 7, cx(e), cy(k) - 6], { stroke: ink, strokeWidth: 1.2, roughness: 0.4 }, cell);
+          arrowhead(svg, cx(e), cy(k) - 7, -Math.PI / 2, ink, 5, 1.2, cell);
+        } else if (p === 1) { // repeat once more: arrow right
+          sketch(svg, "line", [cx(e) - 8, cy(k), cx(e) + 7, cy(k)], { stroke: ink, strokeWidth: 1.2, roughness: 0.4 }, cell);
+          arrowhead(svg, cx(e) + 8, cy(k), 0, ink, 5, 1.2, cell);
+        }
+        el("rect", { x, y, width: CW, height: CH, fill: "transparent" }, cell);
+        bindTip(cell, `<b>${spec.k[k]} patterns × ${spec.e[e]} repeat${spec.e[e] > 1 ? "s" : ""}</b>risk recovered ${spec.rec[i].toFixed(4)} · sealed reference ${spec.ref[i].toFixed(4)}` +
+          (p === 0 ? "<br>teacher: show more patterns" : p === 1 ? "<br>teacher: repeat and average" : "<br>best presentation"));
+      }
+    }
+    // the teacher's path from 64 x 1 to the best presentation
+    const pts = spec.path.map(([k, e]) => [cx(e), cy(k)]);
+    sketch(svg, "linearPath", [pts], { stroke: "#f6cf3c", strokeWidth: 4.2, roughness: 0.4, bowing: 0.2 }, g);
+    sketch(svg, "linearPath", [pts], { stroke: C.ink, strokeWidth: 1.4, roughness: 0.4, bowing: 0.2 }, g);
+    const [sx, sy] = pts[0], [ex, ey] = pts[pts.length - 1];
+    sketch(svg, "circle", [sx, sy, 9], { stroke: C.ink, strokeWidth: 1.4, fill: "#f6cf3c", fillStyle: "solid", roughness: 0.4 }, g);
+    sketch(svg, "circle", [ex, ey, 11], { stroke: C.ink, strokeWidth: 1.6, fill: "#f6cf3c", fillStyle: "solid", roughness: 0.4 }, g);
+    // axes
+    spec.k.forEach((k, i) => el("text", { x: ML - 6, y: cy(i) + 4, text: k, "text-anchor": "end", "font-size": 11.5, fill: C.ink2 }, g));
+    spec.e.forEach((e, i) => el("text", { x: cx(i), y: MT + n * CH + 14, text: e, "text-anchor": "middle", "font-size": 11.5, fill: C.ink2 }, g));
+    el("text", { x: ML + (n * CW) / 2, y: MT + n * CH + 30, text: "repeats averaged", "text-anchor": "middle", "font-size": 12.5, fill: C.ink }, g);
+    const mid = MT + (n * CH) / 2;
+    el("text", { x: 12, y: mid, text: "patterns shown", "text-anchor": "middle", "font-size": 12.5, fill: C.ink, transform: `rotate(-90 12 ${mid})` }, g);
+    el("text", { x: ex + 9, y: ey - 9, text: "best", "font-size": 15, fill: C.ink, "font-family": "Caveat, cursive", "font-weight": 700, stroke: "#fffdf7", "stroke-width": 3, "paint-order": "stroke" }, g);
+  }
+
+  /* =======================================================================
+     5d. Horizontal tally bars (typed stage card)
+     ======================================================================= */
+  function drawTally(sel, rows, total, opts = {}) {
+    const svg = $(sel); if (!svg) return;
+    const W = +svg.getAttribute("width"), ML = opts.ml || 112, MR = 44, RH = opts.rh || 26, T = 6;
+    const x = (v) => ML + (v / total) * (W - ML - MR);
+    const g = el("g", {}, svg);
+    rows.forEach((r, i) => {
+      const y = T + i * RH, col = r.color || tok("--series-1", "#2a78d6");
+      el("text", { x: ML - 8, y: y + RH / 2 + 4, text: r.label, "text-anchor": "end", "font-size": 13, fill: C.ink }, g);
+      sketch(svg, "rectangle", [ML, y + 4, x(total) - ML, RH - 10], { stroke: C.rule, strokeWidth: 1, roughness: 0.5 }, g);
+      sketch(svg, "rectangle", [ML, y + 4, Math.max(x(r.value) - ML, 2), RH - 10], { stroke: col, strokeWidth: 1.3, fill: col, fillStyle: "hachure", hachureAngle: -45, hachureGap: 4, fillWeight: 1.1, roughness: 0.7 }, g);
+      el("text", { x: x(r.value) + 6, y: y + RH / 2 + 4, text: r.value, "font-size": 13, fill: C.ink, "font-weight": 700 }, g);
+      const hit = el("rect", { x: 0, y, width: W, height: RH, fill: "transparent" }, g);
+      bindTip(hit, `<b>${r.label}</b>${r.tip || `${r.value} of ${total}`}`);
+    });
+  }
+
+  /* =======================================================================
      6. Reveal on scroll
      ======================================================================= */
   function reveal() {
@@ -438,6 +535,24 @@
   drawBars("#chartMap", SERIES, [[0.4485, 0.7439, 0.8333], [0.5833, 0.7439, 1.0], [0.3676, 0.4797, 0.8667]], 128);
   drawBars("#chartF1", [SERIES[0], SERIES[2]], [[0.5333, 0.5806, 0.5714], [0.3704, 0.4, 0.3]], 112);
   STEP_GAMES.forEach(drawSteps);
+  drawWalshField(WALSH);
+  // First Proof: gate passes over 85 typed steps, and the 26 steps that fail generalization robustness
+  // (tactic_data.csv in the released First Proof dataset: gate columns, Search Role, Rejection Source)
+  drawTally("#fpGates", [
+    { label: "assumption compliance", value: 85 },
+    { label: "inference validity", value: 83 },
+    { label: "goal completion", value: 65 },
+    { label: "generalization robustness", value: 59 },
+  ], 85, { ml: 168, rh: 26 });
+  const ORANGE = tok("--series-2", "#eb6834");
+  drawTally("#fpRobust", [
+    { label: "works locally only", value: 9, color: ORANGE, tip: "valid and complete, but does not extend beyond its case" },
+    { label: "route left undeveloped", value: 6, color: ORANGE, tip: "deferred: the route was not carried through" },
+    { label: "route ruled out by agent", value: 4, color: ORANGE, tip: "the loop eliminated the route itself" },
+    { label: "gap left to refine", value: 3, color: ORANGE, tip: "partial: a gap remains in the step" },
+    { label: "open bridge", value: 2, color: ORANGE, tip: "a connecting result is stated, not proved" },
+    { label: "invalid, caught by audit", value: 2, color: ORANGE, tip: "an invalid inference the audit caught" },
+  ], 26, { ml: 168, rh: 22 });
   reveal();
   let t;
   window.addEventListener("resize", () => { clearTimeout(t); t = setTimeout(layoutGoal, 120); });
