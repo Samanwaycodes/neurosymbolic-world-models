@@ -4,8 +4,8 @@ A single-page, hand-drawn GitHub Pages site that lays out the auto-didactic neur
 
 - **The goal**: a reproduction of the original board page, including the classical and autodidactic teacher–learner diagrams.
 - **The inquiry**: a map of the stages, each with its question and what it ran into or found; each stop links to its section.
-- **I. Encoding to a principled representation**: ontologies as the starting point (their structure as the teacher), causal (Panasonic motor-protection twin; Ather K383 spot-welder world model), causal Kripke (**TOKW**, forced pendulum) and typed (**First Proof**; **Metis**, a typed argmax-routing self-teacher), then what each form needed from outside the data.
-- **II. Presentation-relative encoding**: the system as its own teacher, changing how the input is presented (masking, order, repeats) at test and train time, with a Bayesian teacher; evidence from the anytime-anywhere PAC-Bayes paper (Walsh acquisition on measured single-pixel data).
+- **I. Encoding to a principled representation**: ontologies as the starting point (their structure as the teacher), causal (Panasonic motor-protection twin; Ather K383 spot-welder world model), causal Kripke (**TOKW**, forced pendulum) and typed (**First Proof**), then what each form needed from outside the data.
+- **II. Presentation-relative encoding**: the system as its own teacher, changing how the input is presented (masking, order, repeats) at test and train time, with a Bayesian teacher; **Metis**, a self-teacher that writes logical rules deciding which examples each learner sees (objective met, self-teaching not reached); evidence from the anytime-anywhere PAC-Bayes paper (Walsh acquisition on measured single-pixel data).
 - **III. Representation and presentation together**: **Spohn Bayesian Model Discovery** (causRCA root-cause analysis) and its DiG-bench harness extension.
 - **IV. Query discovery**: where → what → how, asked of a segmenter, a VLM and a world model.
 - **References**: papers, datasets and manuscripts the work builds on, grouped by stage.

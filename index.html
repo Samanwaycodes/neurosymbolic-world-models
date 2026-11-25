@@ -214,7 +214,7 @@
         <span class="stop-num">II</span>
         <h3>Presentation-relative encoding</h3>
         <p class="q">Fetch the extra information by changing how the input is presented, with the system as its own teacher. Masking was the motivation.</p>
-        <p class="found"><b>Found:</b> a teacher that measures its own presentations learns which one helps from a few trials: from 4.3% of the switches between 49 presentations it recovered the rest with 0.46% error.</p>
+        <p class="found"><b>Found:</b> Metis's logical rules met their objective but did not self-teach the representation. A teacher measuring its own presentations recovered the rest of 49 presentations from 4.3% of the switches, with 0.46% error.</p>
       </a>
       <div class="hop" aria-hidden="true">
         <svg viewBox="0 0 78 24"><path class="rk" d="M3,13 C22,7 48,18 72,12" fill="none" stroke="#8a5a2b" stroke-width="1.8" marker-end="url(#ah)"/></svg>
@@ -261,7 +261,7 @@
         <li><a href="#ontologyCard"><b>Ontology</b>types, relations and rules, used as the teacher<span class="where">the starting point: the world-model design</span></a></li>
         <li><a href="#causalCard"><b>Causal</b>variables and the mechanisms between them<span class="where">a motor twin with Panasonic; the K383 spot welder with Ather</span></a></li>
         <li><a href="#tokwCard"><b>Causal Kripke</b>states labelled by atomic propositions, with transitions<span class="where">TOKW, from video</span></a></li>
-        <li><a href="#typedCard"><b>Typed</b>objects that combine only when their types match<span class="where">First Proof, research mathematics; Metis, a self-teaching router</span></a></li>
+        <li><a href="#typedCard"><b>Typed</b>objects that combine only when their types match<span class="where">First Proof, research mathematics</span></a></li>
       </ul>
     </div>
 
@@ -787,95 +787,6 @@
       </div>
     </article>
 
-    <article class="project-card compact" id="metisCard" aria-labelledby="metisTitle">
-      <header class="card-head">
-        <h2 id="metisTitle">Metis: a typed router that earns its routes</h2>
-        <div class="chips">
-          <span class="chip k">self-teaching loop</span>
-          <span class="chip">argmax routing</span>
-          <span class="chip">sealed audits</span>
-          <span class="chip">Lean 4 decides, C computes</span>
-        </div>
-      </header>
-
-      <div class="pipeline compact">
-        <svg viewBox="0 0 960 194" role="img" aria-labelledby="mt md">
-          <title id="mt">Metis: the self-teaching loop</title>
-          <desc id="md">Metis starts from the null design, one cell that predicts persistence. A proposer suggests an edit to the routing design: split a cell, merge, retire, or add a feature. The edit passes evidence, kernel and geometry checks, then a sealed audit on fresh data must show a compression gain above a threshold. Kept edits join an append-only history and the next round starts from the kept design. The features and the routing axis are written by hand. A Dempster–Shafer belief over cells steers the proposer and can veto an edit but not admit one. Routes are the argmax over cells, and each cell holds a ridge fit computed in C.</desc>
-          <g class="lbl">
-            <rect class="rk" x="190" y="8" width="180" height="44" fill="#fbf1a9" stroke="#2b2925" stroke-width="1.4"/>
-            <text x="280" y="27" text-anchor="middle" class="sm">features, routing axis</text>
-            <text x="280" y="43" text-anchor="middle" class="xs">written by hand</text>
-            <path class="rk" d="M280,52 V68" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
-            <text class="note-txt" x="950" y="26" text-anchor="end">a Dempster–Shafer belief over cells steers the proposer</text>
-            <text class="note-txt" x="950" y="44" text-anchor="end">and can veto an edit but not admit one</text>
-
-            <rect class="rk" x="10" y="70" width="150" height="54" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
-            <text x="85" y="92" text-anchor="middle" class="sm">null design</text>
-            <text x="85" y="109" text-anchor="middle" class="xs">one cell: persistence</text>
-            <path class="rk" d="M160,97 H178" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
-
-            <rect class="rk" x="180" y="70" width="200" height="54" fill="#d3e6f4" stroke="#2b2925" stroke-width="1.4"/>
-            <text x="280" y="92" text-anchor="middle" class="sm">proposer</text>
-            <text x="280" y="109" text-anchor="middle" class="xs">split, merge, retire, add feature</text>
-            <path class="rk" d="M380,97 H398" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
-
-            <rect class="rk" x="400" y="70" width="160" height="54" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
-            <text x="480" y="92" text-anchor="middle" class="sm">checks</text>
-            <text x="480" y="109" text-anchor="middle" class="xs">evidence · kernel · geometry</text>
-            <path class="rk" d="M560,97 H578" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
-
-            <rect class="rk" x="580" y="70" width="190" height="54" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
-            <text x="675" y="92" text-anchor="middle" class="sm">sealed audit</text>
-            <text x="675" y="109" text-anchor="middle" class="xs">gain &gt; threshold on fresh data</text>
-            <path class="rk" d="M770,97 H788" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
-
-            <rect class="rk" x="790" y="70" width="160" height="54" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
-            <text x="870" y="92" text-anchor="middle" class="sm">kept</text>
-            <text x="870" y="109" text-anchor="middle" class="xs">append-only history</text>
-
-            <path class="rk" d="M870,124 V148 H300 V126" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
-            <text class="note-txt" x="585" y="166" text-anchor="middle">the next round starts from the kept design</text>
-            <text class="note-txt" x="10" y="188">routes: argmax over cells · each cell holds a ridge fit, computed in C</text>
-          </g>
-        </svg>
-      </div>
-
-      <div class="card-row wh">
-        <div class="note yellow mini" style="--tilt:-.4deg">
-          <h3>What</h3>
-          <p>Can a typed argmax-routing self-teacher recover a hidden program from a handful of partial execution traces, and reproduce it on inputs it did not see? Metis starts from the null design, one cell that predicts persistence, and grows its own routes. A change is kept only after a sealed audit on fresh data. Lean 4 makes the decisions and keeps the records; C computes the numbers.</p>
-        </div>
-        <div class="note green mini" style="--tilt:.4deg">
-          <h3>How</h3>
-          <ol class="how-steps tight">
-            <li>Routes are the argmax over cells; each cell holds a classical ridge fit over the declared features.</li>
-            <li>An enumerator proposes edits: split a cell on a feature threshold, merge, retire, add a feature. Split thresholds come from the data.</li>
-            <li>An edit is kept only if it passes the evidence, kernel and geometry checks and a sealed audit on a fresh panel shows a compression gain above a threshold; an anytime-valid e-process audits online.</li>
-            <li>Rejected edits are recorded and not retried on the same evidence; a Dempster–Shafer belief over cells points the proposer at open cells.</li>
-          </ol>
-        </div>
-      </div>
-
-      <h3 class="card-h">How does it perform?</h3>
-      <section class="env" aria-labelledby="envMetis">
-        <div class="env-head"><h4 id="envMetis">Hidden programs from partial traces</h4><span>recorded runs, Aug 2026 · scored on the whole domain, including untraced inputs</span></div>
-        <div class="know-row">
-          <div class="rule-card"><span class="formula fit">null → K=4 in 3 audited splits</span><span class="eng"><b>Earns its routes:</b> 12 errors → 0</span><span class="meta">a 4-bit S-box: each split cleared the sealed audit</span></div>
-          <div class="rule-card"><span class="formula fit">6-mux, addr given: 64/64</span><span class="eng"><b>With the address feature</b></span><span class="meta">addr = a0 + 2·a1 was supplied, and it is the selector; the 11-multiplexer likewise, 2048/2048</span></div>
-          <div class="rule-card"><span class="formula fit">6-mux, raw bits: 48/64</span><span class="eng"><b>Without it:</b> chance</span><span class="meta">K=2, untraced inputs 8/16: the search ran inside coordinates we wrote</span></div>
-        </div>
-      </section>
-
-      <div class="note pink limits-mini">
-        <h3>Known limitations</h3>
-        <ul>
-          <li><b>The representation is supplied, not discovered:</b> the feature basis and the routing axis are written by hand.</li>
-          <li>Routing is one level deep and the proposer ranks edits by compression estimates, with no model of program structure; recursion (Fibonacci) and a maximally non-linear S-box (PRESENT) stay out of reach.</li>
-        </ul>
-      </div>
-    </article>
-
     </div><!-- /.stage-cards -->
 
     <aside class="note obstacle" aria-labelledby="obstacleTitle">
@@ -885,7 +796,7 @@
         <li><b>Ontology</b>Each fragment has to be bound to the latent coordinates it governs and weighted against the data, and a person does both. The latent cannot represent what the ontology omits.</li>
         <li><b>Causal</b>At Panasonic experts built the graph: high signal and stable, but the human-built graph was often cited as a major limitation. At Ather an LLM proposing the world model gave generic pairs at 10% confidence, and the 320 links an LLM agent imagined could not be checked on plant data.</li>
         <li><b>Causal Kripke</b>The VLM chooses the propositions. On the forced pendulum its labels collapse the Kripke structure: flip accuracy 0.48–0.51, against 0.58 with labels from θ and ω.</li>
-        <li><b>Typed</b>First Proof steps lean on what the statements do not hold: premises left unproved, objects to invent, bridges left open; 59 of 85 generalize. Metis earned routes only inside coordinates we supplied: 64/64 on the 6-multiplexer with the address feature, 48/64 on raw bits.</li>
+        <li><b>Typed</b>First Proof steps lean on what the statements do not hold: premises left unproved, objects to invent, bridges left open; 59 of 85 generalize.</li>
       </ul>
     </aside>
 
@@ -910,7 +821,7 @@
     <div class="stage-intro">
       <div class="note white" style="--tilt:-.3deg">
         <p class="lead-q">Can the system fetch the extra information by changing how its input is presented, as a genuine self-teacher instead of an external teacher like an LLM or a human?</p>
-        <p>An external teacher adds information from outside. A self-teacher has only the input, and what it controls is the presentation: which parts are shown, which are masked, in what order, and how often. The encoding is then relative to the presentation, and the teacher's job is to find the presentation under which the learner extracts the most.</p>
+        <p>An external teacher adds information from outside. A self-teacher has only the input, and what it controls is the presentation: which parts are shown, which are masked, in what order, how often, and which learner sees which example. The encoding is then relative to the presentation, and the teacher's job is to find the presentation under which the learner extracts the most.</p>
       </div>
       <div class="note yellow" style="--tilt:.6deg">
         <h3>Why masking</h3>
@@ -969,13 +880,102 @@
       </div>
       <div class="note blue">
         <h3>At train time</h3>
-        <p>The teacher sets how training inputs are presented: what is masked, in what order, how often. The learner trains on that presentation, and the same paired measurement compares what two training presentations produce.</p>
+        <p>The teacher sets how training inputs are presented: what is masked, in what order, how often, and which learner sees which example. Metis writes this last part as logical rules. The same paired measurement compares what two training presentations produce.</p>
       </div>
       <div class="note yellow">
         <h3>A Bayesian teacher</h3>
         <p>The teacher holds a belief over presentations and updates it after each measured switch. Each measurement narrows the set of risk functions still possible, and the interval stays valid wherever the teacher decides to stop.</p>
       </div>
     </div>
+
+    <article class="project-card compact" id="metisCard" aria-labelledby="metisTitle">
+      <header class="card-head">
+        <h2 id="metisTitle">Metis: self-teaching with logical rules</h2>
+        <div class="chips">
+          <span class="chip k">logical rules modify the input</span>
+          <span class="chip">argmax routing</span>
+          <span class="chip">sealed audits</span>
+          <span class="chip">Lean 4 decides, C computes</span>
+        </div>
+      </header>
+
+      <div class="pipeline compact">
+        <svg viewBox="0 0 960 194" role="img" aria-labelledby="mt md">
+          <title id="mt">Metis: the self-teaching loop</title>
+          <desc id="md">Metis starts from the null design, one cell that predicts persistence. A proposer suggests a rule edit: split a cell on a feature threshold, merge, retire, or add a feature. Each rule decides which examples a cell's learner sees. The edit passes evidence, kernel and geometry checks, then a sealed audit on fresh data must show a compression gain above a threshold. Kept edits join an append-only history and the next round starts from the kept design. The input is the declared features a solver takes. A Dempster–Shafer belief over cells steers the proposer and can veto an edit but not admit one.</desc>
+          <g class="lbl">
+            <rect class="rk" x="190" y="8" width="180" height="44" fill="#fbf1a9" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="280" y="27" text-anchor="middle" class="sm">declared features</text>
+            <text x="280" y="43" text-anchor="middle" class="xs">what a solver takes as input</text>
+            <path class="rk" d="M280,52 V68" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+            <text class="note-txt" x="950" y="26" text-anchor="end">a Dempster–Shafer belief over cells steers the proposer</text>
+            <text class="note-txt" x="950" y="44" text-anchor="end">and can veto an edit but not admit one</text>
+
+            <rect class="rk" x="10" y="70" width="150" height="54" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="85" y="92" text-anchor="middle" class="sm">null design</text>
+            <text x="85" y="109" text-anchor="middle" class="xs">one cell: persistence</text>
+            <path class="rk" d="M160,97 H178" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+            <rect class="rk" x="180" y="70" width="200" height="54" fill="#d8ecc9" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="280" y="92" text-anchor="middle" class="sm">propose a rule</text>
+            <text x="280" y="109" text-anchor="middle" class="xs">split, merge, retire, add feature</text>
+            <path class="rk" d="M380,97 H398" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+            <rect class="rk" x="400" y="70" width="160" height="54" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="480" y="92" text-anchor="middle" class="sm">checks</text>
+            <text x="480" y="109" text-anchor="middle" class="xs">evidence · kernel · geometry</text>
+            <path class="rk" d="M560,97 H578" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+            <rect class="rk" x="580" y="70" width="190" height="54" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="675" y="92" text-anchor="middle" class="sm">sealed audit</text>
+            <text x="675" y="109" text-anchor="middle" class="xs">gain &gt; threshold on fresh data</text>
+            <path class="rk" d="M770,97 H788" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+            <rect class="rk" x="790" y="70" width="160" height="54" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="870" y="92" text-anchor="middle" class="sm">kept</text>
+            <text x="870" y="109" text-anchor="middle" class="xs">append-only history</text>
+
+            <path class="rk" d="M870,124 V148 H300 V126" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+            <text class="note-txt" x="585" y="166" text-anchor="middle">the next round starts from the kept design</text>
+            <text class="note-txt" x="10" y="188">each rule decides which examples a cell's ridge learner sees</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="card-row wh">
+        <div class="note yellow mini" style="--tilt:-.4deg">
+          <h3>What</h3>
+          <p>Can a self-teacher find the representation through presentation? Metis writes logical rules, splits on feature thresholds, that decide which examples each inner learner sees. It starts from the null design, one cell that predicts persistence, and keeps a rule only after a sealed audit on fresh data. Lean 4 makes the decisions and keeps the records; C computes the numbers.</p>
+        </div>
+        <div class="note green mini" style="--tilt:.4deg">
+          <h3>How</h3>
+          <ol class="how-steps tight">
+            <li>Routes are the argmax over cells; each cell's ridge learner sees only the examples its rules send it.</li>
+            <li>An enumerator proposes rule edits: split a cell on a feature threshold, merge, retire, add a feature. Split thresholds come from the data.</li>
+            <li>An edit is kept only if it passes the evidence, kernel and geometry checks and a sealed audit on a fresh panel shows a compression gain above a threshold; an anytime-valid e-process audits online.</li>
+            <li>Rejected edits are recorded and not retried on the same evidence; a Dempster–Shafer belief over cells points the proposer at open cells.</li>
+          </ol>
+        </div>
+      </div>
+
+      <h3 class="card-h">How does it perform?</h3>
+      <section class="env" aria-labelledby="envMetis">
+        <div class="env-head"><h4 id="envMetis">Hidden programs from partial traces</h4><span>recorded runs, Aug 2026 · scored on the whole domain, including untraced inputs</span></div>
+        <div class="know-row">
+          <div class="rule-card"><span class="formula fit">null → K=4 in 3 audited splits</span><span class="eng"><b>Earns its rules:</b> 12 errors → 0</span><span class="meta">a 4-bit S-box: each split cleared the sealed audit</span></div>
+          <div class="rule-card"><span class="formula fit">6-mux with the address: 64/64</span><span class="eng"><b>Objective:</b> met</span><span class="meta">given the input a good solver takes, the address feature; the 11-multiplexer likewise, 2048/2048</span></div>
+          <div class="rule-card"><span class="formula fit">6-mux from raw bits: 48/64</span><span class="eng"><b>Self-teaching:</b> not reached</span><span class="meta">the higher bar: find the address through presentation; from raw bits it stays at chance (K=2, untraced inputs 8/16)</span></div>
+        </div>
+      </section>
+
+      <div class="note pink limits-mini">
+        <h3>Known limitations</h3>
+        <ul>
+          <li><b>Met its objective, did not self-teach:</b> given the features a solver takes as input, it recovers the program; from raw bits it does not discover the representation through presentation.</li>
+          <li>Rules are one level deep and the proposer ranks edits by compression estimates; recursion (Fibonacci) and a maximally non-linear S-box (PRESENT) stay out of reach.</li>
+        </ul>
+      </div>
+    </article>
 
     <article class="project-card compact" id="pacCard" aria-labelledby="pacTitle">
       <header class="card-head">
@@ -1446,19 +1446,19 @@
         <ol class="refs" start="11">
           <li>Pearl, J. (2009). <i>Causality: Models, Reasoning, and Inference</i> (2nd ed.). Cambridge University Press.</li>
           <li>Abouzaid, M., Blumberg, A. J., Hairer, M., Kileel, J., et al. (2026). First Proof. <a href="https://arxiv.org/abs/2602.05192">arXiv:2602.05192</a>.</li>
-          <li>Shafer, G. (1976). <i>A Mathematical Theory of Evidence.</i> Princeton University Press. (Dempster–Shafer belief)</li>
           <li>Gupta, D. (2026). Participation in First Proof Challenge by Zetesis Labs leveraging our work on formal Epistemology for Proof Discovery. Preprint, Zenodo. <a href="https://doi.org/10.5281/zenodo.18629234">doi:10.5281/zenodo.18629234</a>. Typed steps and gate labels: <a href="https://github.com/Zetetic-Dhruv/First-Proof-Benchmark-Results">First-Proof-Benchmark-Results</a>.</li>
         </ol>
       </div>
       <div class="refs-group">
         <h3>Presentation-relative encoding</h3>
-        <ol class="refs" start="15">
+        <ol class="refs" start="14">
           <li>Devlin, J., Chang, M.-W., Lee, K., &amp; Toutanova, K. (2019). BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding. In <i>NAACL-HLT</i>. <a href="https://arxiv.org/abs/1810.04805">arXiv:1810.04805</a>.</li>
           <li>He, K., Chen, X., Xie, S., Li, Y., Dollár, P., &amp; Girshick, R. (2022). Masked Autoencoders Are Scalable Vision Learners. In <i>CVPR</i>. <a href="https://arxiv.org/abs/2111.06377">arXiv:2111.06377</a>.</li>
           <li>Assran, M., Duval, Q., Misra, I., Bojanowski, P., Vincent, P., Rabbat, M., LeCun, Y., &amp; Ballas, N. (2023). Self-Supervised Learning from Images with a Joint-Embedding Predictive Architecture. In <i>CVPR</i>. <a href="https://arxiv.org/abs/2301.08243">arXiv:2301.08243</a>.</li>
           <li><i>Anytime-Anywhere-Valid PAC–Bayes for Closed-Loop Performance Measurement</i> (2026). Preprint; records, Lean sources and scripts at <a href="https://github.com/noumenal-ai/anytime-anywhere-pac-bayes">noumenal-ai/anytime-anywhere-pac-bayes</a>.</li>
           <li>Walsh, J. L. (1923). A Closed Set of Normal Orthogonal Functions. <i>American Journal of Mathematics</i>, 45(1), 5–24.</li>
           <li>Zapata-Valencia, S. I., &amp; Tobon-Maya, H. (2026). Dataset and Reconstruction Pipeline for Hadamard-Based Single-Pixel Imaging. Zenodo. <a href="https://doi.org/10.5281/zenodo.18412991">doi:10.5281/zenodo.18412991</a>.</li>
+          <li>Shafer, G. (1976). <i>A Mathematical Theory of Evidence.</i> Princeton University Press. (Dempster–Shafer belief)</li>
         </ol>
       </div>
       <div class="refs-group">
