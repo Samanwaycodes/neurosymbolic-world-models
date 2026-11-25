@@ -801,14 +801,14 @@
       <div class="pipeline compact">
         <svg viewBox="0 0 960 194" role="img" aria-labelledby="mt md">
           <title id="mt">Metis: the self-teaching loop</title>
-          <desc id="md">Metis starts from the null design, one cell that predicts persistence. A proposer suggests an edit to the routing design: split a cell, merge, retire, or add a feature. The edit passes evidence, kernel and geometry checks, then a sealed audit on fresh data must show a compression gain above a threshold. Kept edits join an append-only history and the next round starts from the kept design. The features and the routing axis are written by hand. A Dempster–Shafer belief over cells steers the proposer and can veto an edit, never admit one. Routes are the argmax over cells, and each cell holds a ridge fit computed in C.</desc>
+          <desc id="md">Metis starts from the null design, one cell that predicts persistence. A proposer suggests an edit to the routing design: split a cell, merge, retire, or add a feature. The edit passes evidence, kernel and geometry checks, then a sealed audit on fresh data must show a compression gain above a threshold. Kept edits join an append-only history and the next round starts from the kept design. The features and the routing axis are written by hand. A Dempster–Shafer belief over cells steers the proposer and can veto an edit but not admit one. Routes are the argmax over cells, and each cell holds a ridge fit computed in C.</desc>
           <g class="lbl">
             <rect class="rk" x="190" y="8" width="180" height="44" fill="#fbf1a9" stroke="#2b2925" stroke-width="1.4"/>
             <text x="280" y="27" text-anchor="middle" class="sm">features, routing axis</text>
             <text x="280" y="43" text-anchor="middle" class="xs">written by hand</text>
             <path class="rk" d="M280,52 V68" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
             <text class="note-txt" x="950" y="26" text-anchor="end">a Dempster–Shafer belief over cells steers the proposer</text>
-            <text class="note-txt" x="950" y="44" text-anchor="end">and can veto an edit, never admit one</text>
+            <text class="note-txt" x="950" y="44" text-anchor="end">and can veto an edit but not admit one</text>
 
             <rect class="rk" x="10" y="70" width="150" height="54" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
             <text x="85" y="92" text-anchor="middle" class="sm">null design</text>
@@ -859,11 +859,11 @@
 
       <h3 class="card-h">How does it perform?</h3>
       <section class="env" aria-labelledby="envMetis">
-        <div class="env-head"><h4 id="envMetis">Hidden programs from partial traces</h4><span>recorded runs, Aug 2026 · scored on the whole domain, including inputs never traced</span></div>
+        <div class="env-head"><h4 id="envMetis">Hidden programs from partial traces</h4><span>recorded runs, Aug 2026 · scored on the whole domain, including untraced inputs</span></div>
         <div class="know-row">
           <div class="rule-card"><span class="formula fit">null → K=4 in 3 audited splits</span><span class="eng"><b>Earns its routes:</b> 12 errors → 0</span><span class="meta">a 4-bit S-box: each split cleared the sealed audit</span></div>
           <div class="rule-card"><span class="formula fit">6-mux, addr given: 64/64</span><span class="eng"><b>With the address feature</b></span><span class="meta">addr = a0 + 2·a1 was supplied, and it is the selector; the 11-multiplexer likewise, 2048/2048</span></div>
-          <div class="rule-card"><span class="formula fit">6-mux, raw bits: 48/64</span><span class="eng"><b>Without it:</b> chance</span><span class="meta">K=2, never-traced inputs 8/16: the search ran inside coordinates we wrote</span></div>
+          <div class="rule-card"><span class="formula fit">6-mux, raw bits: 48/64</span><span class="eng"><b>Without it:</b> chance</span><span class="meta">K=2, untraced inputs 8/16: the search ran inside coordinates we wrote</span></div>
         </div>
       </section>
 
