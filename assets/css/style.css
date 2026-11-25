@@ -650,7 +650,7 @@ footer .wrap { border-top: 2px dashed var(--rule); padding-top: 18px; display: f
 }
 .obstacle h3 { font-size: 32px; margin-bottom: 6px; }
 .obstacle > p { max-width: 860px; }
-.obstacle ul { list-style: none; margin: 10px 0 4px; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.obstacle ul { list-style: none; margin: 10px 0 4px; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
 .obstacle li { background: rgba(255, 255, 255, .45); padding: 9px 12px 8px; font-size: 14.5px; line-height: 1.32; border-radius: 2px; }
 .obstacle li b { display: block; font-family: var(--font-script); font-weight: 700; font-size: 21px; line-height: 1.05; margin-bottom: 2px; }
 
@@ -711,7 +711,8 @@ footer .wrap { border-top: 2px dashed var(--rule); padding-top: 18px; display: f
   .bridge { display: none; }
   .field-wrap { grid-template-columns: minmax(0, 360px) minmax(0, 1fr) !important; }
   .field-stats { border-top: 0 !important; padding-top: 0 !important; border-left: 1.5px dashed var(--rule) !important; padding-left: 18px !important; }
-  .modes, .obstacle ul, .gates-wrap, .qchain { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+  .modes, .gates-wrap, .qchain { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+  .obstacle ul { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
   .gates-wrap { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
   .stage-intro { grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr) !important; }
 }
@@ -721,3 +722,4 @@ footer .wrap { border-top: 2px dashed var(--rule); padding-top: 18px; display: f
 .know-row .rule-card .formula.fit { font-size: 12px; }
 @media (max-width: 900px) { .field-stats.ather-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 0; padding-top: 0; } }
 @media print { .field-stats.ather-stats { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; border: 0 !important; padding: 0 !important; } }
+@media (max-width: 1100px) and (min-width: 901px) { .obstacle ul { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

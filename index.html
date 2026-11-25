@@ -203,7 +203,7 @@
       <a class="stop note yellow" href="#representation">
         <span class="stop-num">I</span>
         <h3>Encoding to a principled representation</h3>
-        <p class="q">Encode raw data into a causal, a causal Kripke or a typed representation, and find ML methods that learn the encoding.</p>
+        <p class="q">Start from ontologies, then causal, causal Kripke and typed representations: encode raw data into them, and find ML methods that learn the encoding.</p>
         <p class="found"><b>Ran into:</b> each form needs a lot of non-dynamical information. An LLM or VLM with a human teacher in the loop supplied it with mixed outcomes.</p>
       </a>
       <div class="hop" aria-hidden="true">
@@ -255,9 +255,10 @@
     <div class="stage-intro">
       <div class="note white" style="--tilt:-.4deg">
         <p class="lead-q">Can raw data be encoded into a representation whose parts have fixed meanings, and can ML methods learn that encoding?</p>
-        <p>A causal graph says which variable acts on which. A Kripke structure says which propositions hold in which state and where the system can go next. A type says which objects can be combined. Each of them supports exact reasoning once the encoding exists; the research question was how to learn the encoding from data.</p>
+        <p>We started with ontologies: their types, relations and rules would teach the world model, and a formal layer would grow them. A causal graph says which variable acts on which. A Kripke structure says which propositions hold in which state and where the system can go next. A type says which objects can be combined. Each of them supports exact reasoning once the encoding exists; the research question was how to learn the encoding from data.</p>
       </div>
       <ul class="forms">
+        <li><a href="#ontologyCard"><b>Ontology</b>types, relations and rules, used as the teacher<span class="where">the starting point: the world-model design</span></a></li>
         <li><a href="#causalCard"><b>Causal</b>variables and the mechanisms between them<span class="where">a motor twin with Panasonic; the K383 spot welder with Ather</span></a></li>
         <li><a href="#tokwCard"><b>Causal Kripke</b>states labelled by atomic propositions, with transitions<span class="where">TOKW, from video</span></a></li>
         <li><a href="#typedCard"><b>Typed</b>objects that combine only when their types match<span class="where">First Proof, research mathematics</span></a></li>
@@ -265,6 +266,90 @@
     </div>
 
     <div class="stage-cards">
+
+    <article class="project-card compact" id="ontologyCard" aria-labelledby="ontologyTitle">
+      <header class="card-head">
+        <h2 id="ontologyTitle">Ontologies: their structure as the teacher</h2>
+        <div class="chips">
+          <span class="chip k">the starting point</span>
+          <span class="chip">ontology fragments as constraint factors</span>
+          <span class="chip">hierarchical JEPA world model</span>
+          <span class="chip">formal layer: PDDL/ASP, Lean</span>
+        </div>
+      </header>
+
+      <div class="pipeline compact">
+        <svg viewBox="0 0 960 206" role="img" aria-labelledby="ot od">
+          <title id="ot">Ontology-structured self-teaching</title>
+          <desc id="od">A domain ontology's types, relations and rules become constraint factors in the training loss of a hierarchical JEPA world model, which also learns from video and sensor data. The world model emits discrete symbols; a formal layer, PDDL or ASP first and Lean later, distils them into a theory and proves theorems, and the proved theorems become new constraint factors in the next training round. The open question marked on the diagram: which latent coordinates each ontology fragment governs.</desc>
+          <g class="lbl">
+            <text class="note-txt" x="425" y="19" text-anchor="middle" style="fill:#b8323f">binding: which latent coordinates does each fragment govern?</text>
+
+            <rect class="rk" x="10" y="26" width="170" height="54" fill="#fbf1a9" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="95" y="48" text-anchor="middle" class="sm">domain ontology</text>
+            <text x="95" y="65" text-anchor="middle" class="xs">types, relations, rules</text>
+            <path class="rk" d="M180,53 H218" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+            <rect class="rk" x="220" y="26" width="190" height="54" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="315" y="48" text-anchor="middle" class="sm">constraint factors</text>
+            <text x="315" y="65" text-anchor="middle" class="xs">one per fragment, in the loss</text>
+            <path class="rk" d="M410,53 H448" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+            <rect class="rk" x="450" y="26" width="210" height="54" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="555" y="48" text-anchor="middle" class="sm">world model (JEPA)</text>
+            <text x="555" y="65" text-anchor="middle" class="xs">frame · clip · event · episode</text>
+            <path class="rk" d="M660,53 H698" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+            <rect class="rk" x="700" y="26" width="250" height="54" fill="#d3e6f4" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="825" y="48" text-anchor="middle" class="sm">discrete symbols</text>
+            <text x="825" y="65" text-anchor="middle" class="xs">at the symbolic interface</text>
+            <path class="rk" d="M825,80 V126" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+            <ellipse class="rk" cx="410" cy="150" rx="58" ry="22" fill="#ebe7de" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="410" y="154" text-anchor="middle" class="sm">video, sensors</text>
+            <path class="rk" d="M446,132 L492,84" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+            <rect class="rk" x="700" y="128" width="250" height="54" fill="#d3e6f4" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="825" y="150" text-anchor="middle" class="sm">formal layer</text>
+            <text x="825" y="167" text-anchor="middle" class="xs">PDDL/ASP first, then Lean: proves theorems</text>
+
+            <path class="rk" d="M760,182 V196 H300 V82" fill="none" stroke="#2a6fb8" stroke-width="1.5" stroke-dasharray="6 5" marker-end="url(#ah)"/>
+            <text class="note-txt" x="590" y="182" text-anchor="middle" style="fill:#2a6fb8">theorems become new factors</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="card-row wh">
+        <div class="note yellow mini" style="--tilt:-.4deg">
+          <h3>What</h3>
+          <p>The starting point of the programme: use the structure of ontologies to teach the world model. Where a solid ontology exists, its types, relations and rules constrain what the model learns; a formal layer proves new rules from the model's own symbols, and they return as constraints in the next round. Industrial ontologies (ISA-95/88, FMEA) later gave the Ather welder graph its types.</p>
+        </div>
+        <div class="note green mini" style="--tilt:.4deg">
+          <h3>How</h3>
+          <ol class="how-steps tight">
+            <li>A hierarchical world model (frame, clip, event, episode) learns dynamics by predicting its own next embeddings.</li>
+            <li>Where a solid ontology exists, its fragments (types, relations, conservation laws, entailments) enter the loss as differentiable constraint factors beside the prediction terms; where none exists, symbols grow from the data.</li>
+            <li>A formal layer distils the model's symbols into a theory and proves theorems; proved theorems become new constraint factors in the next training round.</li>
+            <li>A bench of about 43 public datasets with naturally occurring shift, each with stated facts, hypotheses, intuitions and unknowns, scores whether the self-built theory survives.</li>
+          </ol>
+        </div>
+      </div>
+
+      <h3 class="card-h">What we ran into</h3>
+      <div class="know-row">
+        <div class="rule-card"><span class="formula fit">bind(fragment k) → z_subset_k</span><span class="eng"><b>Binding:</b> a person decides</span><span class="meta">which latent coordinates each ontology fragment governs, the hardest open decision in the design</span></div>
+        <div class="rule-card"><span class="formula fit">L = L_JEPA + Σ λ_k L_k</span><span class="eng"><b>Weights:</b> tuned by hand</span><span class="meta">the ontology terms and the data terms compete for the same parameters</span></div>
+        <div class="rule-card"><span class="formula fit">one turn = one training run</span><span class="eng"><b>Slow loop:</b> checked against itself</span><span class="meta">theorems re-enter only through a retrain, and they are proved from the model's own symbols, not tested on the environment</span></div>
+      </div>
+
+      <div class="note pink limits-mini">
+        <h3>Known limitations</h3>
+        <ul>
+          <li><b>Ontology rot:</b> a latent space constrained by an ontology cannot represent what the ontology omits.</li>
+          <li>Binding fragments to latents and weighting them against the data keep a person inside the loop, and the ontology itself comes from people.</li>
+        </ul>
+      </div>
+    </article>
 
     <article class="project-card compact" id="causalCard" aria-labelledby="causalTitle">
       <header class="card-head">
@@ -708,6 +793,7 @@
       <h3 id="obstacleTitle">What we ran into, each time</h3>
       <p>Each form needs a lot of non-dynamical information: what the variables mean, which propositions to track, which types exist. The data do not carry it. We supplied it with an LLM or a VLM and a human teacher in the loop, and the outcomes were mixed.</p>
       <ul>
+        <li><b>Ontology</b>Each fragment has to be bound to the latent coordinates it governs and weighted against the data, and a person does both. The latent cannot represent what the ontology omits.</li>
         <li><b>Causal</b>At Panasonic experts built the graph: high signal and stable, but the human-built graph was often cited as a major limitation. At Ather an LLM proposing the world model gave generic pairs at 10% confidence, and the 320 links an LLM agent imagined could not be checked on plant data.</li>
         <li><b>Causal Kripke</b>The VLM chooses the propositions. On the forced pendulum its labels collapse the Kripke structure: flip accuracy 0.48–0.51, against 0.58 with labels from θ and ω.</li>
         <li><b>Typed</b>The steps lean on what the statements do not hold: premises left unproved (P1, P7, P10), objects to invent (P3, P4), bridges left open (P2). 59 of 85 steps generalize.</li>
@@ -815,7 +901,7 @@
       <div class="card-row wh">
         <div class="note yellow mini" style="--tilt:-.4deg">
           <h3>What</h3>
-          <p>From our paper with Ayush Mittal. A system changes its own configuration and measures what the change did to a declared risk. The interval on each change holds at any stopping time and for any configuration chosen from the same data, so the teacher can try presentations, stop when the evidence says, and keep the one that helps.</p>
+          <p>From our anytime-anywhere PAC-Bayes paper. A system changes its own configuration and measures what the change did to a declared risk. The interval on each change holds at any stopping time and for any configuration chosen from the same data, so the teacher can try presentations, stop when the evidence says, and keep the one that helps.</p>
         </div>
         <div class="note green mini" style="--tilt:.4deg">
           <h3>How</h3>
@@ -1258,8 +1344,17 @@
         </ol>
       </div>
       <div class="refs-group">
-        <h3>Causal and typed representations</h3>
+        <h3>Ontologies and constraint factors</h3>
         <ol class="refs" start="7">
+          <li>Serafini, L., &amp; d'Avila Garcez, A. (2016). Logic Tensor Networks: Deep Learning and Logical Reasoning from Data and Knowledge. <a href="https://arxiv.org/abs/1606.04422">arXiv:1606.04422</a>.</li>
+          <li>Raissi, M., Perdikaris, P., &amp; Karniadakis, G. E. (2019). Physics-Informed Neural Networks: A Deep Learning Framework for Solving Forward and Inverse Problems Involving Nonlinear Partial Differential Equations. <i>Journal of Computational Physics</i>, 378, 686–707.</li>
+          <li>Pineda, L., Fan, T., Monge, M., Venkataraman, S., Sodhi, P., et al. (2022). Theseus: A Library for Differentiable Nonlinear Optimization. In <i>NeurIPS</i>. <a href="https://arxiv.org/abs/2207.09442">arXiv:2207.09442</a>.</li>
+          <li>IEC 62264-1:2013. <i>Enterprise-control system integration, Part 1: Models and terminology</i> (ISA-95). International Electrotechnical Commission.</li>
+        </ol>
+      </div>
+      <div class="refs-group">
+        <h3>Causal and typed representations</h3>
+        <ol class="refs" start="11">
           <li>Pearl, J. (2009). <i>Causality: Models, Reasoning, and Inference</i> (2nd ed.). Cambridge University Press.</li>
           <li>Abouzaid, M., Blumberg, A. J., Hairer, M., Kileel, J., et al. (2026). First Proof. <a href="https://arxiv.org/abs/2602.05192">arXiv:2602.05192</a>.</li>
           <li>Gupta, D. (2026). Participation in First Proof Challenge by Zetesis Labs leveraging our work on formal Epistemology for Proof Discovery. Preprint, Zenodo. <a href="https://doi.org/10.5281/zenodo.18629234">doi:10.5281/zenodo.18629234</a>. Typed steps and gate labels: <a href="https://github.com/Zetetic-Dhruv/First-Proof-Benchmark-Results">First-Proof-Benchmark-Results</a>.</li>
@@ -1267,18 +1362,18 @@
       </div>
       <div class="refs-group">
         <h3>Presentation-relative encoding</h3>
-        <ol class="refs" start="10">
+        <ol class="refs" start="14">
           <li>Devlin, J., Chang, M.-W., Lee, K., &amp; Toutanova, K. (2019). BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding. In <i>NAACL-HLT</i>. <a href="https://arxiv.org/abs/1810.04805">arXiv:1810.04805</a>.</li>
           <li>He, K., Chen, X., Xie, S., Li, Y., Dollár, P., &amp; Girshick, R. (2022). Masked Autoencoders Are Scalable Vision Learners. In <i>CVPR</i>. <a href="https://arxiv.org/abs/2111.06377">arXiv:2111.06377</a>.</li>
           <li>Assran, M., Duval, Q., Misra, I., Bojanowski, P., Vincent, P., Rabbat, M., LeCun, Y., &amp; Ballas, N. (2023). Self-Supervised Learning from Images with a Joint-Embedding Predictive Architecture. In <i>CVPR</i>. <a href="https://arxiv.org/abs/2301.08243">arXiv:2301.08243</a>.</li>
-          <li>Mittal, A., &amp; Gupta, D. (2026). Anytime-Anywhere-Valid PAC–Bayes for Closed-Loop Performance Measurement. Preprint; records, Lean sources and scripts at <a href="https://github.com/noumenal-ai/anytime-anywhere-pac-bayes">noumenal-ai/anytime-anywhere-pac-bayes</a>.</li>
+          <li><i>Anytime-Anywhere-Valid PAC–Bayes for Closed-Loop Performance Measurement</i> (2026). Preprint; records, Lean sources and scripts at <a href="https://github.com/noumenal-ai/anytime-anywhere-pac-bayes">noumenal-ai/anytime-anywhere-pac-bayes</a>.</li>
           <li>Walsh, J. L. (1923). A Closed Set of Normal Orthogonal Functions. <i>American Journal of Mathematics</i>, 45(1), 5–24.</li>
           <li>Zapata-Valencia, S. I., &amp; Tobon-Maya, H. (2026). Dataset and Reconstruction Pipeline for Hadamard-Based Single-Pixel Imaging. Zenodo. <a href="https://doi.org/10.5281/zenodo.18412991">doi:10.5281/zenodo.18412991</a>.</li>
         </ol>
       </div>
       <div class="refs-group">
         <h3>Spohn Bayesian Model Discovery</h3>
-        <ol class="refs" start="16">
+        <ol class="refs" start="20">
           <li>Spohn, W. (1988). Ordinal Conditional Functions: A Dynamic Theory of Epistemic States. In W. L. Harper &amp; B. Skyrms (Eds.), <i>Causation in Decision, Belief Change, and Statistics</i>, vol. II, 105–134. Kluwer.</li>
           <li>Spohn, W. (2012). <i>The Laws of Belief: Ranking Theory and Its Philosophical Applications.</i> Oxford University Press.</li>
           <li><i>Invariant Encoding and Bayesian Measure Revision: An End-to-End Algorithm with Explicit Costs and Prompt Files.</i> Algorithm draft (unpublished); the LEARN_AND_REVISE loop.</li>
@@ -1294,7 +1389,7 @@
       </div>
       <div class="refs-group">
         <h3>Knowledge-organising harness</h3>
-        <ol class="refs" start="27">
+        <ol class="refs" start="31">
           <li>Battleday, R. M., Sandbrink, K., Cullen-Drohan, J., Yan, Z., Muller, T., Maguire, C., Kubicek, A., Greenlee-Scott, F., Sumant, S., Dao, T., Schmidhuber, J., Valko, M., Tenenbaum, J., Griffiths, T. L., Kurth-Nelson, Z., &amp; Whittington, J. C. R. (2026). DiG-bench: Discovery in Games. <a href="https://arxiv.org/abs/2608.12593">arXiv:2608.12593</a>.</li>
         </ol>
       </div>
