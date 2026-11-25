@@ -880,7 +880,7 @@
       </div>
       <div class="note blue">
         <h3>At train time</h3>
-        <p>The teacher sets how training inputs are presented: what is masked, in what order, how often, and which learner sees which example. Metis writes this last part as logical rules. The same paired measurement compares what two training presentations produce.</p>
+        <p>The teacher sets how training inputs are presented: what is masked, in what order, how often, and which learner sees which example. Metis writes this last part as logical rules. The same paired measurement compares what two training presentations produce; on LeWM we used it to search over masks.</p>
       </div>
       <div class="note yellow">
         <h3>A Bayesian teacher</h3>
@@ -1029,6 +1029,91 @@
         </ul>
       </div>
     </article>
+
+    <article class="project-card compact" id="lewmCard" aria-labelledby="lewmTitle">
+      <header class="card-head">
+        <h2 id="lewmTitle">Masks over LeWM: searching for the ideal mask for a dataset</h2>
+        <div class="chips">
+          <span class="chip k">train-time presentation</span>
+          <span class="chip">LeWorldModel</span>
+          <span class="chip">DROID-100 robot video</span>
+          <span class="chip">scored by the PAC-Bayes interval</span>
+        </div>
+      </header>
+
+      <div class="pipeline compact">
+        <svg viewBox="0 0 960 180" role="img" aria-labelledby="lt ld">
+          <title id="lt">Mask revisions over LeWM, scored by the anytime-anywhere PAC-Bayes interval</title>
+          <desc id="ld">The three DROID camera views are stacked into one canvas. A mask revision zeroes view panels and applies tube masks at ratio 0.75 times the mask level. LeWM trains on the masked canvas. Each revision is scored by its change in a declared defect, pose error at horizons 1 to 16, with the anytime-anywhere PAC-Bayes interval against the unmasked arm, and a mask is kept only if its interval lies below zero. A second family reweights which training windows are sampled; the loss and the compute per step are identical across the arms. A gate runs before the arms: the data reader, the trivial baselines and the readout's own floor.</desc>
+          <g class="lbl">
+            <text class="note-txt" x="950" y="18" text-anchor="end" style="fill:#b8323f">a gate runs first: reader, trivial baselines, readout floor</text>
+
+            <ellipse class="rk" cx="64" cy="64" rx="58" ry="30" fill="#ebe7de" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="64" y="60" text-anchor="middle" class="sm">DROID-100</text>
+            <text x="64" y="75" text-anchor="middle" class="xs">3 views, one canvas</text>
+            <path class="rk" d="M122,64 H146" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+            <rect class="rk" x="148" y="36" width="196" height="56" fill="#d8ecc9" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="246" y="57" text-anchor="middle" class="sm">mask revision m_P</text>
+            <text x="246" y="74" text-anchor="middle" class="xs">zero views · tube masks 0.75·m_P</text>
+            <path class="rk" d="M344,64 H368" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+            <rect class="rk" x="370" y="36" width="150" height="56" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="445" y="57" text-anchor="middle" class="sm">LeWM trains</text>
+            <text x="445" y="74" text-anchor="middle" class="xs">on the masked canvas</text>
+            <path class="rk" d="M520,64 H544" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+            <rect class="rk" x="546" y="36" width="190" height="56" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="641" y="57" text-anchor="middle" class="sm">declared defect</text>
+            <text x="641" y="74" text-anchor="middle" class="xs">pose error at horizons 1–16</text>
+            <path class="rk" d="M736,64 H760" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+            <rect class="rk" x="762" y="36" width="188" height="56" fill="#fbf1a9" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="856" y="57" text-anchor="middle" class="sm">PAC-Bayes interval</text>
+            <text x="856" y="74" text-anchor="middle" class="xs">change vs the unmasked arm</text>
+
+            <path class="rk" d="M856,92 V116 H246 V94" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+            <text class="note-txt" x="550" y="136" text-anchor="middle">keep a mask only if its interval lies below 0</text>
+            <text class="note-txt" x="10" y="166">a second family reweights which windows are sampled (m_π); loss and compute per step are identical across the arms</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="card-row wh">
+        <div class="note yellow mini" style="--tilt:-.4deg">
+          <h3>What</h3>
+          <p>The PAC-Bayes measurement put to work on a world model: revise the mask over LeWM's input, score each revision's change in a declared defect with the anytime-valid interval, and keep the revisions that help, to find the ideal mask input for a dataset. On DROID-100 we set mask revisions against a second family that reweights which windows the model trains on.</p>
+        </div>
+        <div class="note green mini" style="--tilt:.4deg">
+          <h3>How</h3>
+          <ol class="how-steps tight">
+            <li>The three camera views are stacked into one fixed canvas; a mask revision zeroes view panels and applies VideoMAE-style tube masks at ratio 0.75·m_P, so full masking sits at MAE's measured optimum, 0.75.</li>
+            <li>The second family reweights which training windows are sampled toward a target stratum (m_π). Loss, token count and compute per step are identical across the arms.</li>
+            <li>Each arm is scored by its change in the declared defect with the anytime-anywhere PAC-Bayes interval; a mixed arm measures the interaction, Δd = B_P·m_P + B_π·m_π + C_Pπ·m_P·m_π.</li>
+            <li>Before the arms, a gate checks the data reader, reproduces the trivial baselines and tests the readout's floor.</li>
+          </ol>
+        </div>
+      </div>
+
+      <h3 class="card-h">How far it got</h3>
+      <section class="env" aria-labelledby="envLewm">
+        <div class="env-head"><h4 id="envLewm">DROID-100 · LeWM · Aug 2026</h4><span>5 arms + 2 replicates planned · the gate ran on 3 training runs, 12.4 GPU-hours</span></div>
+        <div class="know-row">
+          <div class="rule-card"><span class="formula fit">reader: 100 episodes, 32,212 frames</span><span class="eng"><b>Data:</b> checked in full</span><span class="meta">all three views decoded, state layout verified from the values</span></div>
+          <div class="rule-card"><span class="formula fit">number to beat: 0.009339</span><span class="eng"><b>Trivial baselines:</b> reproduced</span><span class="meta">persistence and constant velocity, to 3e-8 by two independent implementations</span></div>
+          <div class="rule-card"><span class="formula fit">readout floor: 13–15× the ceiling</span><span class="eng"><b>World model:</b> not yet scored</span><span class="meta">the frozen pose readout did no better than the mean pose, so the mask arms did not run</span></div>
+        </div>
+      </section>
+
+      <div class="note pink limits-mini">
+        <h3>Known limitations</h3>
+        <ul>
+          <li><b>The mask search has not run yet:</b> scoring the world model needs a readout that decodes pose from LeWM's latent; the frozen ridge probe does not.</li>
+          <li>The declared defect reads pose through that probe, so a better mask can only show up once the readout can see it.</li>
+        </ul>
+      </div>
+    </article>
+
 
     <p class="bridge">
       <svg viewBox="0 0 46 60" aria-hidden="true"><path class="rk" d="M10,4 C2,28 14,48 38,52" fill="none" stroke="#2b2925" stroke-width="1.8" marker-end="url(#ah)"/></svg>
@@ -1459,11 +1544,13 @@
           <li>Walsh, J. L. (1923). A Closed Set of Normal Orthogonal Functions. <i>American Journal of Mathematics</i>, 45(1), 5–24.</li>
           <li>Zapata-Valencia, S. I., &amp; Tobon-Maya, H. (2026). Dataset and Reconstruction Pipeline for Hadamard-Based Single-Pixel Imaging. Zenodo. <a href="https://doi.org/10.5281/zenodo.18412991">doi:10.5281/zenodo.18412991</a>.</li>
           <li>Shafer, G. (1976). <i>A Mathematical Theory of Evidence.</i> Princeton University Press. (Dempster–Shafer belief)</li>
+          <li>Tong, Z., Song, Y., Wang, J., &amp; Wang, L. (2022). VideoMAE: Masked Autoencoders are Data-Efficient Learners for Self-Supervised Video Pre-Training. In <i>NeurIPS</i>. <a href="https://arxiv.org/abs/2203.12602">arXiv:2203.12602</a>.</li>
+          <li>Khazatsky, A., Pertsch, K., Nair, S., Balakrishna, A., et al. (2024). DROID: A Large-Scale In-The-Wild Robot Manipulation Dataset. <a href="https://arxiv.org/abs/2403.12945">arXiv:2403.12945</a>.</li>
         </ol>
       </div>
       <div class="refs-group">
         <h3>Spohn Bayesian Model Discovery</h3>
-        <ol class="refs" start="21">
+        <ol class="refs" start="23">
           <li>Spohn, W. (1988). Ordinal Conditional Functions: A Dynamic Theory of Epistemic States. In W. L. Harper &amp; B. Skyrms (Eds.), <i>Causation in Decision, Belief Change, and Statistics</i>, vol. II, 105–134. Kluwer.</li>
           <li>Spohn, W. (2012). <i>The Laws of Belief: Ranking Theory and Its Philosophical Applications.</i> Oxford University Press.</li>
           <li><i>Invariant Encoding and Bayesian Measure Revision: An End-to-End Algorithm with Explicit Costs and Prompt Files.</i> Algorithm draft (unpublished); the LEARN_AND_REVISE loop.</li>
@@ -1479,7 +1566,7 @@
       </div>
       <div class="refs-group">
         <h3>Knowledge-organising harness</h3>
-        <ol class="refs" start="32">
+        <ol class="refs" start="34">
           <li>Battleday, R. M., Sandbrink, K., Cullen-Drohan, J., Yan, Z., Muller, T., Maguire, C., Kubicek, A., Greenlee-Scott, F., Sumant, S., Dao, T., Schmidhuber, J., Valko, M., Tenenbaum, J., Griffiths, T. L., Kurth-Nelson, Z., &amp; Whittington, J. C. R. (2026). DiG-bench: Discovery in Games. <a href="https://arxiv.org/abs/2608.12593">arXiv:2608.12593</a>.</li>
         </ol>
       </div>
