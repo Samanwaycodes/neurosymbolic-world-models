@@ -258,7 +258,7 @@
         <p>A causal graph says which variable acts on which. A Kripke structure says which propositions hold in which state and where the system can go next. A type says which objects can be combined. Each of them supports exact reasoning once the encoding exists; the research question was how to learn the encoding from data.</p>
       </div>
       <ul class="forms">
-        <li><a href="#causalCard"><b>Causal</b>variables and the mechanisms between them<span class="where">industrial fault analysis with Panasonic and Ather</span></a></li>
+        <li><a href="#causalCard"><b>Causal</b>variables and the mechanisms between them<span class="where">a motor twin with Panasonic; the K383 spot welder with Ather</span></a></li>
         <li><a href="#tokwCard"><b>Causal Kripke</b>states labelled by atomic propositions, with transitions<span class="where">TOKW, from video</span></a></li>
         <li><a href="#typedCard"><b>Typed</b>objects that combine only when their types match<span class="where">First Proof, research mathematics</span></a></li>
       </ul>
@@ -268,69 +268,44 @@
 
     <article class="project-card compact" id="causalCard" aria-labelledby="causalTitle">
       <header class="card-head">
-        <h2 id="causalTitle">Causal twins of industrial equipment</h2>
+        <h2 id="causalTitle">Panasonic: a causal twin of a motor and its protection</h2>
         <div class="chips">
-          <span class="chip k">structural causal models</span>
-          <span class="chip">Panasonic: motor protection</span>
-          <span class="chip">Ather: battery-module spot welding</span>
+          <span class="chip k">structural causal model</span>
+          <span class="chip">motor + breaker: magnetic and thermal trip</span>
           <span class="chip">LLM front end</span>
         </div>
       </header>
 
       <div class="pipeline compact">
-        <svg viewBox="0 0 960 200" role="img" aria-labelledby="ct cd">
-          <title id="ct">Causal representation in two industrial settings</title>
-          <desc id="cd">Top lane, the motor-protection twin: engineers supply the graph, the equations and the thresholds; an LLM turns a what-if or why question into an intervention or a query on the structural causal model, and the equations compute the answer and its reason. Bottom lane, the welding-station fault graph: the machine manual, FMEA sheets, fault logs and fault reports become a graph from causes through failure modes and effects to machine error codes; root-cause analysis walks back from an error code; an LLM agent proposes missing links, which could not be checked against plant data. Yellow boxes mark information the signals do not carry.</desc>
+        <svg viewBox="0 0 960 116" role="img" aria-labelledby="ct cd">
+          <title id="ct">The motor-protection twin</title>
+          <desc id="cd">Engineers supply the graph, the equations and the thresholds. An LLM turns a what-if or why question into an intervention or a query on the structural causal model, and the equations compute the answer and its reason. The yellow box marks information the signals do not carry.</desc>
           <g class="lbl">
-            <text class="frame-label" x="10" y="17" style="font-size:18px">Panasonic</text>
-            <rect class="rk" x="10" y="24" width="146" height="52" fill="#fbf1a9" stroke="#2b2925" stroke-width="1.4"/>
-            <text x="83" y="46" text-anchor="middle" class="sm">engineers' graph,</text>
-            <text x="83" y="62" text-anchor="middle" class="sm">equations, thresholds</text>
-            <path class="rk" d="M156,50 H178" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+            <rect class="rk" x="10" y="16" width="146" height="52" fill="#fbf1a9" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="83" y="38" text-anchor="middle" class="sm">engineers' graph,</text>
+            <text x="83" y="54" text-anchor="middle" class="sm">equations, thresholds</text>
+            <path class="rk" d="M156,42 H178" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
 
-            <rect class="rk" x="180" y="24" width="180" height="52" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
-            <text x="270" y="46" text-anchor="middle" class="sm">structural causal model</text>
-            <text x="270" y="63" text-anchor="middle" class="xs">motor, breaker: magnetic + thermal trip</text>
+            <rect class="rk" x="180" y="16" width="180" height="52" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="270" y="38" text-anchor="middle" class="sm">structural causal model</text>
+            <text x="270" y="55" text-anchor="middle" class="xs">motor, breaker: magnetic + thermal trip</text>
 
-            <path class="rk" d="M394,50 H362" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
-            <rect class="rk" x="396" y="24" width="160" height="52" fill="#d3e6f4" stroke="#2b2925" stroke-width="1.4"/>
-            <text x="476" y="46" text-anchor="middle" class="sm">LLM: question →</text>
-            <text x="476" y="63" text-anchor="middle" class="sm">intervention, query</text>
+            <path class="rk" d="M394,42 H362" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+            <rect class="rk" x="396" y="16" width="160" height="52" fill="#d3e6f4" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="476" y="38" text-anchor="middle" class="sm">LLM: question →</text>
+            <text x="476" y="55" text-anchor="middle" class="sm">intervention, query</text>
 
-            <path class="rk" d="M598,50 H558" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
-            <ellipse class="rk" cx="646" cy="50" rx="46" ry="24" fill="#ebe7de" stroke="#2b2925" stroke-width="1.4"/>
-            <text x="646" y="46" text-anchor="middle" class="sm">what if?</text>
-            <text x="646" y="61" text-anchor="middle" class="sm">why?</text>
+            <path class="rk" d="M598,42 H558" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+            <ellipse class="rk" cx="646" cy="42" rx="46" ry="24" fill="#ebe7de" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="646" y="38" text-anchor="middle" class="sm">what if?</text>
+            <text x="646" y="53" text-anchor="middle" class="sm">why?</text>
 
-            <rect class="rk" x="760" y="24" width="190" height="52" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
-            <text x="855" y="46" text-anchor="middle" class="sm">answer + reason</text>
-            <text x="855" y="63" text-anchor="middle" class="xs">computed by the equations</text>
-            <path class="rk" d="M270,76 V90 H855 V78" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+            <rect class="rk" x="760" y="16" width="190" height="52" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="855" y="38" text-anchor="middle" class="sm">answer + reason</text>
+            <text x="855" y="55" text-anchor="middle" class="xs">computed by the equations</text>
+            <path class="rk" d="M270,68 V84 H855 V70" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
 
-            <text class="note-txt" x="600" y="110" text-anchor="middle">yellow: information the signals do not carry</text>
-
-            <text class="frame-label" x="10" y="117" style="font-size:18px">Ather</text>
-            <rect class="rk" x="10" y="124" width="146" height="52" fill="#fbf1a9" stroke="#2b2925" stroke-width="1.4"/>
-            <text x="83" y="146" text-anchor="middle" class="sm">manual, FMEA sheets,</text>
-            <text x="83" y="162" text-anchor="middle" class="sm">fault logs + reports</text>
-            <path class="rk" d="M156,150 H178" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
-
-            <rect class="rk" x="180" y="124" width="206" height="52" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
-            <text x="283" y="146" text-anchor="middle" class="sm">cause → failure mode →</text>
-            <text x="283" y="162" text-anchor="middle" class="sm">effect → error code</text>
-            <path class="rk" d="M386,150 H410" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
-
-            <rect class="rk" x="412" y="124" width="172" height="52" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
-            <text x="498" y="146" text-anchor="middle" class="sm">root cause: walk back</text>
-            <text x="498" y="162" text-anchor="middle" class="sm">from an error code</text>
-
-            <rect class="rk" x="640" y="124" width="150" height="52" fill="#d3e6f4" stroke="#2b2925" stroke-width="1.4"/>
-            <text x="715" y="146" text-anchor="middle" class="sm">LLM agent proposes</text>
-            <text x="715" y="162" text-anchor="middle" class="sm">missing links</text>
-            <path class="rk" d="M715,176 V190 H283 V178" fill="none" stroke="#2a6fb8" stroke-width="1.4" stroke-dasharray="6 5" marker-end="url(#ah)"/>
-            <text class="note-txt" x="802" y="144" style="fill:#2a6fb8">could not be</text>
-            <text class="note-txt" x="802" y="161" style="fill:#2a6fb8">checked against</text>
-            <text class="note-txt" x="802" y="178" style="fill:#2a6fb8">plant data</text>
+            <text class="note-txt" x="560" y="106" text-anchor="middle">yellow: information the signals do not carry</text>
           </g>
         </svg>
       </div>
@@ -338,22 +313,21 @@
       <div class="card-row wh">
         <div class="note yellow mini" style="--tilt:-.4deg">
           <h3>What</h3>
-          <p>Causal models of industrial equipment that answer what-if and why questions: a motor and its protection circuit for Panasonic, and a battery-module spot-welding station for Ather.</p>
+          <p>A structural causal model of an induction motor and its protection, a breaker with a magnetic and a thermal trip. Questions in plain English become interventions and queries, and the equations answer them with a reason.</p>
         </div>
         <div class="note green mini" style="--tilt:.4deg">
           <h3>How</h3>
           <ol class="how-steps tight">
-            <li>Engineers' diagrams, the machine manual and FMEA sheets give the variables and the mechanisms between them.</li>
-            <li>Motor twin: each mechanism is an equation over its parents. An LLM turns a question into an intervention or a query, and the equations answer it.</li>
-            <li>Welding station: causes, failure modes, effects and error codes form one graph, tied to machine functions and I/O signals. Root-cause analysis walks back from an error code.</li>
-            <li>An LLM agent proposes the links the documents miss.</li>
+            <li>Engineers supply the graph, an equation for each node over its parents, and the trip thresholds.</li>
+            <li>An LLM turns a question ("what if the motor is just starting?") into an intervention or a query.</li>
+            <li>The equations compute the answer and its reason. A new mechanism, such as a soft starter, enters as new equations.</li>
           </ol>
         </div>
       </div>
 
       <h3 class="card-h">How does it perform?</h3>
       <section class="env" aria-labelledby="envMotor">
-        <div class="env-head"><h4 id="envMotor">Motor protection twin (Panasonic)</h4><span>questions in plain English · answers and reasons from the structural equations</span></div>
+        <div class="env-head"><h4 id="envMotor">Motor protection twin</h4><span>questions in plain English · answers and reasons from the structural equations</span></div>
         <div class="know-row">
           <div class="rule-card"><span class="formula">ω = 350 rad/s → I = 5.98 A</span><span class="eng"><b>Running:</b> the breaker holds</span><span class="meta">"How much current at 350 rad/s? Will the breaker trip?"</span></div>
           <div class="rule-card"><span class="formula">ω = 0 → I = 65.59 A &gt; 15 A</span><span class="eng"><b>Starting:</b> the magnetic trip fires</span><span class="meta">"Why?" The current exceeds the 15 A magnetic threshold; the thermal trip stays untriggered</span></div>
@@ -364,8 +338,126 @@
       <div class="note pink limits-mini">
         <h3>Known limitations</h3>
         <ul>
-          <li><b>The structure comes from outside the data:</b> the motor twin's graph, equations and thresholds from engineers; the welding graph from the manual, FMEA sheets and fault reports.</li>
+          <li><b>The structure comes from outside the data:</b> the graph, the equations and the thresholds come from engineers.</li>
           <li>The startup-protection equations (inrush limiter, soft starter) collapse fast electrical dynamics (RC charging, relay hysteresis, op-amp slew) into gains, steps and saturations.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="project-card compact" id="atherCard" aria-labelledby="atherTitle">
+      <header class="card-head">
+        <h2 id="atherTitle">Ather: a causal world model of a battery-module spot welder</h2>
+        <div class="chips">
+          <span class="chip k">K383 resistance spot welder, OP80</span>
+          <span class="chip">LFP module line</span>
+          <span class="chip">ISA-95 + FMEA ontology</span>
+          <span class="chip">2,889 nodes · 7,747 edges</span>
+        </div>
+      </header>
+
+      <div class="pipeline compact">
+        <svg viewBox="0 0 960 272" role="img" aria-labelledby="att atd">
+          <title id="att">Anatomy of the K383 world model</title>
+          <desc id="atd">Documents feed a typed causal graph. The EFMEA and PFMEA sheets give causes, failure modes and effects; the plant bug list and defect logs give machine error codes; the machine manual gives equipment modules and PLC I/O points. Causes lead to failure modes, failure modes to effects, and effects are observed as error codes. Controls prevent or detect failure modes; failure modes degrade functions; equipment modules and I/O points implement functions. Root-cause analysis walks back from an error code; predictive maintenance walks forward from a degrading function.</desc>
+          <g class="lbl">
+            <text class="note-txt" x="10" y="19">first full build (Mar 2026): 2,586 nodes · 7,934 edges · yellow = documents</text>
+
+            <rect class="rk" x="10" y="26" width="410" height="36" fill="#fbf1a9" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="215" y="49" text-anchor="middle" class="sm">EFMEA: 42 failure modes · PFMEA: 979 rows, 48 operations</text>
+            <rect class="rk" x="450" y="26" width="240" height="36" fill="#fbf1a9" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="570" y="49" text-anchor="middle" class="sm">plant bug list + defect logs</text>
+            <rect class="rk" x="700" y="26" width="250" height="36" fill="#fbf1a9" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="825" y="49" text-anchor="middle" class="sm">machine manual: I/O list, sequence</text>
+
+            <path class="rk" d="M80,62 V90" fill="none" stroke="#2b2925" stroke-width="1.3" marker-end="url(#ah)"/>
+            <path class="rk" d="M270,62 V90" fill="none" stroke="#2b2925" stroke-width="1.3" marker-end="url(#ah)"/>
+            <path class="rk" d="M645,62 V90" fill="none" stroke="#2b2925" stroke-width="1.3" marker-end="url(#ah)"/>
+            <path class="rk" d="M880,62 V188" fill="none" stroke="#2b2925" stroke-width="1.3" marker-end="url(#ah)"/>
+
+            <rect class="rk" x="10" y="92" width="140" height="46" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="80" y="112" text-anchor="middle" class="b">cause</text>
+            <text x="80" y="129" text-anchor="middle" class="xs">278</text>
+            <path class="rk" d="M150,115 H188" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+            <rect class="rk" x="190" y="92" width="160" height="46" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="270" y="112" text-anchor="middle" class="b">failure mode</text>
+            <text x="270" y="129" text-anchor="middle" class="xs">1,021</text>
+            <path class="rk" d="M350,115 H388" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+            <rect class="rk" x="390" y="92" width="140" height="46" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="460" y="112" text-anchor="middle" class="b">effect</text>
+            <text x="460" y="129" text-anchor="middle" class="xs">348</text>
+            <path class="rk" d="M530,115 H568" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+            <rect class="rk" x="570" y="92" width="170" height="46" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="655" y="112" text-anchor="middle" class="b">error code</text>
+            <text x="655" y="129" text-anchor="middle" class="xs">138 → 452 with defect logs</text>
+
+            <path class="rk" d="M720,156 H24" fill="none" stroke="#2a6fb8" stroke-width="1.5" stroke-dasharray="6 5" marker-end="url(#ah)"/>
+            <text class="note-txt" x="445" y="176" text-anchor="middle" style="fill:#2a6fb8">RCA walks back from an error code</text>
+
+            <rect class="rk" x="10" y="190" width="170" height="46" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="95" y="210" text-anchor="middle" class="b">controls</text>
+            <text x="95" y="227" text-anchor="middle" class="xs">210 prevent · 202 detect</text>
+            <path class="rk" d="M180,213 H212 V140" fill="none" stroke="#2b2925" stroke-width="1.3" marker-end="url(#ah)"/>
+
+            <path class="rk" d="M250,138 V188" fill="none" stroke="#2b2925" stroke-width="1.3" marker-end="url(#ah)"/>
+            <text class="xs" x="256" y="178">degrades</text>
+            <rect class="rk" x="230" y="190" width="210" height="46" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="335" y="210" text-anchor="middle" class="b">function</text>
+            <text x="335" y="227" text-anchor="middle" class="xs">machine functions, line operations</text>
+
+            <rect class="rk" x="600" y="190" width="300" height="46" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="750" y="210" text-anchor="middle" class="b">equipment modules · 78</text>
+            <text x="750" y="227" text-anchor="middle" class="xs">PLC I/O points · 160</text>
+            <path class="rk" d="M600,222 H442" fill="none" stroke="#2b2925" stroke-width="1.3" marker-end="url(#ah)"/>
+            <text class="xs" x="452" y="214">implements</text>
+
+            <text class="note-txt" x="952" y="264" text-anchor="end">predictive maintenance walks forward from a degrading function</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="card-row wh">
+        <div class="note yellow mini" style="--tilt:-.4deg">
+          <h3>What</h3>
+          <p>A causal world model of Ather's K383 resistance spot welder, the OP80 station that welds 168 cell terminals per cycle on the LFP module line, and of the stations around it. Root-cause analysis walks back from a machine error code to failure modes, causes and the signals to inspect; predictive maintenance walks forward from a degrading function.</p>
+        </div>
+        <div class="note green mini" style="--tilt:.4deg">
+          <h3>How</h3>
+          <ol class="how-steps tight">
+            <li>First attempt: an LLM discovery loop received a one-line description of the machine with the manual, FMEA sheets, station data and bug list, and proposed the world model itself.</li>
+            <li>Then we built it from the documents: the ISA-95/88 equipment breakdown and the PLC I/O list from the manual; failure modes, causes, effects and controls from the EFMEA and the line PFMEA; error codes from the plant bug list and defect logs.</li>
+            <li>An LLM agent ran passes that connect the links the documents state, imagine the missing ones and try to verify them: error codes to effects, and causes that propagate from upstream stations to welding failure modes.</li>
+            <li>Engineers' 8D fault reports were folded in: they sharpened error-to-effect links, added four confirmed causes and contradicted imagined upstream causes of weld offset.</li>
+          </ol>
+        </div>
+      </div>
+
+      <h3 class="card-h">How does it perform?</h3>
+      <section class="env" aria-labelledby="envAther1">
+        <div class="env-head"><h4 id="envAther1">First attempt: the LLM proposes the world model</h4><span>Feb 2026 · one-line system description + manual, FMEA sheets, station data, bug list</span></div>
+        <div class="know-row">
+          <div class="rule-card"><span class="formula fit">power supply → welding quality</span><span class="eng"><b>Proposed:</b> marked coherent by the loop</span><span class="meta">true of any welder; names no variable of this machine</span></div>
+          <div class="rule-card"><span class="formula fit">lean practices → waste reduction</span><span class="eng"><b>Proposed:</b> a management slogan</span><span class="meta">generic concepts, mostly in disconnected pairs</span></div>
+          <div class="rule-card"><span class="formula fit">empirical validation: 10%</span><span class="eng"><b>Confidence:</b> the loop's own score</span><span class="meta">for the graph it synthesised from the documents</span></div>
+        </div>
+      </section>
+
+      <section class="env" aria-labelledby="envAther2" style="margin-top:12px">
+        <div class="env-head"><h4 id="envAther2">Built from the documents</h4><span>Mar → Nov 2026 · the K383 welder modelled in full, the rest of the line mapped by process flow</span></div>
+        <div class="field-stats ather-stats">
+          <div><b>418 / 452</b><span>machine error codes reach a cause; the other 34 have no documented effect</span></div>
+          <div><b>6</b><span>upstream stations reached from "weld offset" once cross-station causes were added</span></div>
+          <div><b>320</b><span>links imagined by the LLM agent; none could be checked against plant data</span></div>
+          <div><b>12</b><span>imagined upstream links downweighted after an 8D report traced weld offset to Z-axis misalignment after a changeover</span></div>
+          <div class="wide"><span>A rebuild from documents and 8D reports alone (2,614 nodes, 6,808 edges) dropped the 320 imagined links and 11 imagined nodes. On a public synthetic diagnosis benchmark (DFKI's nesy_diag_bench, 39 cases × 129 components), the diagnosis engine over this kind of graph recovers the exact fault path in 39 of 39 cases with perfect component classifiers and in 18 of 39 with noisy ones.</span></div>
+        </div>
+      </section>
+
+      <div class="note pink limits-mini">
+        <h3>Known limitations</h3>
+        <ul>
+          <li><b>The structure comes from documents, not signals:</b> the equipment breakdown, the meaning of each PLC tag, the FMEA rows and the mapping from effects to error codes.</li>
+          <li>Defect logs are outcome counts, not signal pairs, and the station archives were inaccessible, so no imagined link could be tested on plant data.</li>
+          <li>No hit rate on real plant incidents yet: the 39-case benchmark run checks how the engine is built, not factory accuracy.</li>
         </ul>
       </div>
     </article>
@@ -600,7 +692,7 @@
       <h3 id="obstacleTitle">What we ran into, each time</h3>
       <p>Each form needs a lot of non-dynamical information: what the variables mean, which propositions to track, which types exist. The data do not carry it. We supplied it with an LLM or a VLM and a human teacher in the loop, and the outcomes were mixed.</p>
       <ul>
-        <li><b>Causal</b>The graph, the parent sets and the thresholds came from engineers, manuals and FMEA sheets. Links an LLM agent proposed could not be checked against plant data, and fault reports contradicted some of them.</li>
+        <li><b>Causal</b>The graphs, parent sets and thresholds came from engineers, manuals and FMEA sheets. Asked to propose the welder's world model, an LLM gave generic pairs at 10% confidence; the 320 links an LLM agent imagined could not be checked on plant data, and an 8D report contradicted some.</li>
         <li><b>Causal Kripke</b>The VLM chooses the propositions. On the forced pendulum its labels collapse the Kripke structure: flip accuracy 0.48–0.51, against 0.58 with labels from θ and ω.</li>
         <li><b>Typed</b>The steps lean on what the statements do not hold: premises left unproved (P1, P7, P10), objects to invent (P3, P4), bridges left open (P2). 59 of 85 steps generalize.</li>
       </ul>

@@ -715,3 +715,9 @@ footer .wrap { border-top: 2px dashed var(--rule); padding-top: 18px; display: f
   .gates-wrap { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
   .stage-intro { grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr) !important; }
 }
+
+/* Ather card: a full-width stats grid inside its panel; formulas that need a smaller face to fit */
+.field-stats.ather-stats { grid-template-columns: repeat(4, minmax(0, 1fr)); border-left: 0; padding-left: 0; }
+.know-row .rule-card .formula.fit { font-size: 12px; }
+@media (max-width: 900px) { .field-stats.ather-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 0; padding-top: 0; } }
+@media print { .field-stats.ather-stats { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; border: 0 !important; padding: 0 !important; } }
