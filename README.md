@@ -1,10 +1,16 @@
 # Neuro-Symbolic World Models: project board
 
-A single-page, hand-drawn GitHub Pages site that showcases the auto-didactic neuro-symbolic world-model work.
+A single-page, hand-drawn GitHub Pages site that lays out the auto-didactic neuro-symbolic world-model work as one inquiry, stage by stage.
 
-- **§1 The goal**: a reproduction of the original board page, including the classical and autodidactic teacher–learner diagrams.
-- **§2 Recent models**: one compact card per model, sized to print on about ¾ of an A4 sheet (What → How → How does it perform? → Known limitations). Current cards: **TOKW** (forced pendulum) and **Spohn Bayesian Model Discovery** (causRCA root-cause analysis).
-- **§3 References**: papers, datasets and manuscripts the work builds on.
+- **The goal**: a reproduction of the original board page, including the classical and autodidactic teacher–learner diagrams.
+- **The inquiry**: a map of the stages, each with its question and what it ran into or found; each stop links to its section.
+- **I. Encoding to a principled representation**: causal (Panasonic motor-protection twin, Ather spot-welding fault graph), causal Kripke (**TOKW**, forced pendulum) and typed (**First Proof**), then what each form needed from outside the data.
+- **II. Presentation-relative encoding**: the system as its own teacher, changing how the input is presented (masking, order, repeats) at test and train time, with a Bayesian teacher; evidence from the anytime-anywhere PAC-Bayes paper (Walsh acquisition on measured single-pixel data).
+- **III. Representation and presentation together**: **Spohn Bayesian Model Discovery** (causRCA root-cause analysis) and its DiG-bench harness extension.
+- **IV. Query discovery**: where → what → how, asked of a segmenter, a VLM and a world model.
+- **References**: papers, datasets and manuscripts the work builds on, grouped by stage.
+
+Model cards keep one layout, sized to print on about ¾ of an A4 sheet (What → How → How does it perform? → Known limitations).
 
 No build step is needed: it's plain HTML, CSS and JS. rough.js (from jsDelivr) gives shapes their hand-drawn look. Without it, the same shapes render as clean SVG.
 
@@ -21,9 +27,10 @@ GitHub Pages lets browsers cache files for 10 minutes. After editing `style.css`
 ## Layout
 
 ```
-index.html                  all content
-assets/css/style.css        paper, sticky notes, tape, highlighters, layout
-assets/js/board.js          rough.js pass, goal-board connectors, Kripke graph, learnt-vs-expert DAG, bar charts
+index.html                  all content: goal board, inquiry map, the stages, references
+assets/css/style.css        paper, sticky notes, tape, highlighters, layout, inquiry map and stage blocks
+assets/js/board.js          rough.js pass, goal-board connectors, Kripke graph, learnt-vs-expert DAG, bar charts,
+                            DiG-bench level races, Walsh presentation field, First Proof tallies
 assets/img/tokw/*.gif       pendulum episode with physics vs VLM labels overlaid
 tools/make_pendulum_assets.py  regenerates the GIFs from the local TOKW v0.4.0 run folders
 tools/edge_evidence.py      which expert causRCA edges the training data holds evidence for (no-evidence edges are not drawn as missed)
@@ -31,7 +38,7 @@ tools/edge_evidence.py      which expert causRCA edges the training data holds e
 
 ## Adding another model
 
-Copy the `<article class="project-card compact">` block in `index.html` and keep the same order:
+Put the card in the stage it belongs to (`section.stage`), and add a line for it to that stage's `.forms` list if the stage has one. Copy the `<article class="project-card compact">` block in `index.html` and keep the same order:
 title + chips → architecture diagram (`.pipeline` SVG, with `class="rk"` on any shape you want hand-drawn) → **What** / **How** notes → **How does it perform?** (one `.env` panel per environment) → **Known limitations**.
 
 - Any `rect`, `ellipse`, `circle`, `line`, `polygon` or `path` with `class="rk"` is redrawn in a sketchy style. Add `marker-end="url(#ah)"` to get an arrowhead.
@@ -49,3 +56,6 @@ title + chips → architecture diagram (`.pipeline` SVG, with `class="rk"` on an
   - `runs/pendulum_15s/…_grounded_gtuni`: labels from θ and ω
   - `runs/pendulum_15s/exp_forced_position`: the VLM quadrant probe
   - `runs/pendulum_notorque`: the unforced pendulum
+- First Proof: the released dataset in `Zetetic-Dhruv/First-Proof-Benchmark-Results` (`tactic_data.csv`: the four gate columns over 85 typed steps; `Search Role` and `Rejection Source` for the 26 steps that fail generalization robustness).
+- Walsh acquisition (presentation stage): `noumenal-ai/anytime-anywhere-pac-bayes`, `data/w2_spi_battery_20260824`: sealed field `sealed/E_star.tsv`, recovered field `results/phi_hat_m100.tsv` (plus the mean of the sealed field), teacher policy and path `results/secondary.tsv`, held-out error `results/primary.tsv`.
+- Motor-protection twin (Panasonic): the recorded demo of the causal twin (question, intervention, answer and reason; the soft-starter mechanism added in the session).

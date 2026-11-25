@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Neuro-Symbolic World Models</title>
-<meta name="description" content="A hand-drawn project board for auto-didactic neuro-symbolic world models: the framework goal and recent models, starting with TOKW (Temporal Observable Kripke World-model).">
+<meta name="description" content="A hand-drawn project board for auto-didactic neuro-symbolic world models, laid out as one inquiry: principled representations, presentation-relative encoding, the two together, and query discovery.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Courier+Prime&family=Patrick+Hand&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css?v=20261124c">
+<link rel="stylesheet" href="assets/css/style.css?v=20261125a">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='6' width='52' height='52' rx='4' fill='%23fbf1a9' stroke='%232b2925' stroke-width='3'/%3E%3Ccircle cx='32' cy='30' r='10' fill='none' stroke='%232b2925' stroke-width='3'/%3E%3Cpath d='M20 50h24' stroke='%232b2925' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
 </head>
 <body>
@@ -30,12 +30,15 @@
     <div>
       <div class="kicker">neuro-sym-wm · project board</div>
       <h1>Auto-Didactic <span class="squiggle">Neuro-Symbolic<svg width="300" height="18" viewBox="0 0 300 18" preserveAspectRatio="none" aria-hidden="true"><path class="rk" d="M2,10 C40,2 70,16 110,9 S180,3 220,10 S280,14 298,6" fill="none" stroke="#e0848f" stroke-width="3" data-rough="1.4"/></svg></span> World&nbsp;Models</h1>
-      <p class="lede">A working board for the framework and the models we build with it. Everything here is pinned up straight from the experiment logs, warts and all.</p>
+      <p class="lede">A working board for one line of inquiry: a framework that outputs world models which teach themselves. Each stage is pinned up in the order we took it, with the question it asked, the models we built for it and what the experiment logs say, warts and all.</p>
     </div>
     <nav class="tabs" aria-label="Sections">
       <a href="#goal">The goal</a>
-      <a href="#tokw">TOKW</a>
-      <a href="#spohnCard">Spohn</a>
+      <a href="#inquiry">The inquiry</a>
+      <a href="#representation">Representation</a>
+      <a href="#presentation">Presentation</a>
+      <a href="#together">Both together</a>
+      <a href="#query">Query discovery</a>
       <a href="#refs">References</a>
     </nav>
   </div>
@@ -49,7 +52,6 @@
 <section id="goal">
   <div class="wrap">
     <div class="section-head">
-      <span class="num">1</span>
       <h2>The goal</h2>
       <span class="aside">what we're actually building</span>
     </div>
@@ -188,15 +190,185 @@
 </section>
 
 <!-- ======================================================================
-     §2  TOKW  (project template: title → diagram → what/how → performance → limitations)
+     THE INQUIRY  (map of the stages; each stop links to its section)
      ====================================================================== -->
-<section id="tokw">
+<section id="inquiry">
   <div class="wrap">
     <div class="section-head">
-      <span class="num">2</span>
-      <h2>Recent models</h2>
-      <span class="aside">one card per model, same layout every time</span>
+      <h2>The inquiry</h2>
+      <span class="aside">each question came out of the answer to the one before</span>
     </div>
+
+    <div class="inquiry">
+      <a class="stop note yellow" href="#representation">
+        <span class="stop-num">I</span>
+        <h3>Encoding to a principled representation</h3>
+        <p class="q">Encode raw data into a causal, a causal Kripke or a typed representation, and find ML methods that learn the encoding.</p>
+        <p class="found"><b>Ran into:</b> each form needs a lot of non-dynamical information. An LLM or VLM with a human teacher in the loop supplied it with mixed outcomes.</p>
+      </a>
+      <div class="hop" aria-hidden="true">
+        <svg viewBox="0 0 78 24"><path class="rk" d="M3,13 C22,7 48,18 72,12" fill="none" stroke="#8a5a2b" stroke-width="1.8" marker-end="url(#ah)"/></svg>
+        <span>a self-teacher instead of an external one</span>
+      </div>
+      <a class="stop note green" href="#presentation">
+        <span class="stop-num">II</span>
+        <h3>Presentation-relative encoding</h3>
+        <p class="q">Fetch the extra information by changing how the input is presented, with the system as its own teacher. Masking was the motivation.</p>
+        <p class="found"><b>Found:</b> a teacher that measures its own presentations learns which one helps from a few trials: from 4.3% of the switches between 49 presentations it recovered the rest with 0.46% error.</p>
+      </a>
+      <div class="hop" aria-hidden="true">
+        <svg viewBox="0 0 78 24"><path class="rk" d="M3,13 C22,7 48,18 72,12" fill="none" stroke="#8a5a2b" stroke-width="1.8" marker-end="url(#ah)"/></svg>
+        <span>combine the two</span>
+      </div>
+      <a class="stop note lilac" href="#together">
+        <span class="stop-num">III</span>
+        <h3>Representation and presentation together</h3>
+        <p class="q">Search over a fixed representation, updated by a self-teaching loop that changes the encoding and presentation of the problem for an inner classical learner.</p>
+        <p class="found"><b>Found:</b> on causRCA hydraulics the learnt graph ranks root causes as well as the expert graph; on DiG-bench an LLM reading the world model went faster and farther.</p>
+      </a>
+      <div class="hop" aria-hidden="true">
+        <svg viewBox="0 0 78 24"><path class="rk" d="M3,13 C22,7 48,18 72,12" fill="none" stroke="#8a5a2b" stroke-width="1.8" marker-end="url(#ah)"/></svg>
+        <span>presentation is tied to the query</span>
+      </div>
+      <a class="stop note tan" href="#query">
+        <span class="stop-num">IV</span>
+        <h3>Query discovery</h3>
+        <p class="q">Ask the right questions in the right order, and let the answers write the presentation. The process can improve itself.</p>
+        <p class="found"><b>Found:</b> <i>where → what → how</i>, asked of a segmenter, a VLM and a world model, builds the typed and causal representations stage I could not.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     STAGE I  ENCODING TO A PRINCIPLED REPRESENTATION
+     causal (Panasonic, Ather) · causal Kripke (TOKW) · typed (First Proof)
+     ====================================================================== -->
+<section id="representation" class="stage">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="num">I</span>
+      <h2>Encoding to a principled representation</h2>
+      <span class="aside">the first object of research</span>
+    </div>
+
+    <div class="stage-intro">
+      <div class="note white" style="--tilt:-.4deg">
+        <p class="lead-q">Can raw data be encoded into a representation whose parts have fixed meanings, and can ML methods learn that encoding?</p>
+        <p>A causal graph says which variable acts on which. A Kripke structure says which propositions hold in which state and where the system can go next. A type says which objects can be combined. Each of them supports exact reasoning once the encoding exists; the research question was how to learn the encoding from data.</p>
+      </div>
+      <ul class="forms">
+        <li><a href="#causalCard"><b>Causal</b>variables and the mechanisms between them<span class="where">industrial fault analysis with Panasonic and Ather</span></a></li>
+        <li><a href="#tokwCard"><b>Causal Kripke</b>states labelled by atomic propositions, with transitions<span class="where">TOKW, from video</span></a></li>
+        <li><a href="#typedCard"><b>Typed</b>objects that combine only when their types match<span class="where">First Proof, research mathematics</span></a></li>
+      </ul>
+    </div>
+
+    <div class="stage-cards">
+
+    <article class="project-card compact" id="causalCard" aria-labelledby="causalTitle">
+      <header class="card-head">
+        <h2 id="causalTitle">Causal twins of industrial equipment</h2>
+        <div class="chips">
+          <span class="chip k">structural causal models</span>
+          <span class="chip">Panasonic: motor protection</span>
+          <span class="chip">Ather: battery-module spot welding</span>
+          <span class="chip">LLM front end</span>
+        </div>
+      </header>
+
+      <div class="pipeline compact">
+        <svg viewBox="0 0 960 200" role="img" aria-labelledby="ct cd">
+          <title id="ct">Causal representation in two industrial settings</title>
+          <desc id="cd">Top lane, the motor-protection twin: engineers supply the graph, the equations and the thresholds; an LLM turns a what-if or why question into an intervention or a query on the structural causal model, and the equations compute the answer and its reason. Bottom lane, the welding-station fault graph: the machine manual, FMEA sheets, fault logs and fault reports become a graph from causes through failure modes and effects to machine error codes; root-cause analysis walks back from an error code; an LLM agent proposes missing links, which could not be checked against plant data. Yellow boxes mark information the signals do not carry.</desc>
+          <g class="lbl">
+            <text class="frame-label" x="10" y="17" style="font-size:18px">Panasonic</text>
+            <rect class="rk" x="10" y="24" width="146" height="52" fill="#fbf1a9" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="83" y="46" text-anchor="middle" class="sm">engineers' graph,</text>
+            <text x="83" y="62" text-anchor="middle" class="sm">equations, thresholds</text>
+            <path class="rk" d="M156,50 H178" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+            <rect class="rk" x="180" y="24" width="180" height="52" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="270" y="46" text-anchor="middle" class="sm">structural causal model</text>
+            <text x="270" y="63" text-anchor="middle" class="xs">motor, breaker: magnetic + thermal trip</text>
+
+            <path class="rk" d="M394,50 H362" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+            <rect class="rk" x="396" y="24" width="160" height="52" fill="#d3e6f4" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="476" y="46" text-anchor="middle" class="sm">LLM: question →</text>
+            <text x="476" y="63" text-anchor="middle" class="sm">intervention, query</text>
+
+            <path class="rk" d="M598,50 H558" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+            <ellipse class="rk" cx="646" cy="50" rx="46" ry="24" fill="#ebe7de" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="646" y="46" text-anchor="middle" class="sm">what if?</text>
+            <text x="646" y="61" text-anchor="middle" class="sm">why?</text>
+
+            <rect class="rk" x="760" y="24" width="190" height="52" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="855" y="46" text-anchor="middle" class="sm">answer + reason</text>
+            <text x="855" y="63" text-anchor="middle" class="xs">computed by the equations</text>
+            <path class="rk" d="M270,76 V90 H855 V78" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+            <text class="note-txt" x="600" y="110" text-anchor="middle">yellow: information the signals do not carry</text>
+
+            <text class="frame-label" x="10" y="117" style="font-size:18px">Ather</text>
+            <rect class="rk" x="10" y="124" width="146" height="52" fill="#fbf1a9" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="83" y="146" text-anchor="middle" class="sm">manual, FMEA sheets,</text>
+            <text x="83" y="162" text-anchor="middle" class="sm">fault logs + reports</text>
+            <path class="rk" d="M156,150 H178" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+            <rect class="rk" x="180" y="124" width="206" height="52" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="283" y="146" text-anchor="middle" class="sm">cause → failure mode →</text>
+            <text x="283" y="162" text-anchor="middle" class="sm">effect → error code</text>
+            <path class="rk" d="M386,150 H410" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+            <rect class="rk" x="412" y="124" width="172" height="52" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="498" y="146" text-anchor="middle" class="sm">root cause: walk back</text>
+            <text x="498" y="162" text-anchor="middle" class="sm">from an error code</text>
+
+            <rect class="rk" x="640" y="124" width="150" height="52" fill="#d3e6f4" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="715" y="146" text-anchor="middle" class="sm">LLM agent proposes</text>
+            <text x="715" y="162" text-anchor="middle" class="sm">missing links</text>
+            <path class="rk" d="M715,176 V190 H283 V178" fill="none" stroke="#2a6fb8" stroke-width="1.4" stroke-dasharray="6 5" marker-end="url(#ah)"/>
+            <text class="note-txt" x="802" y="144" style="fill:#2a6fb8">could not be</text>
+            <text class="note-txt" x="802" y="161" style="fill:#2a6fb8">checked against</text>
+            <text class="note-txt" x="802" y="178" style="fill:#2a6fb8">plant data</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="card-row wh">
+        <div class="note yellow mini" style="--tilt:-.4deg">
+          <h3>What</h3>
+          <p>Causal models of industrial equipment that answer what-if and why questions: a motor and its protection circuit for Panasonic, and a battery-module spot-welding station for Ather.</p>
+        </div>
+        <div class="note green mini" style="--tilt:.4deg">
+          <h3>How</h3>
+          <ol class="how-steps tight">
+            <li>Engineers' diagrams, the machine manual and FMEA sheets give the variables and the mechanisms between them.</li>
+            <li>Motor twin: each mechanism is an equation over its parents. An LLM turns a question into an intervention or a query, and the equations answer it.</li>
+            <li>Welding station: causes, failure modes, effects and error codes form one graph, tied to machine functions and I/O signals. Root-cause analysis walks back from an error code.</li>
+            <li>An LLM agent proposes the links the documents miss.</li>
+          </ol>
+        </div>
+      </div>
+
+      <h3 class="card-h">How does it perform?</h3>
+      <section class="env" aria-labelledby="envMotor">
+        <div class="env-head"><h4 id="envMotor">Motor protection twin (Panasonic)</h4><span>questions in plain English · answers and reasons from the structural equations</span></div>
+        <div class="know-row">
+          <div class="rule-card"><span class="formula">ω = 350 rad/s → I = 5.98 A</span><span class="eng"><b>Running:</b> the breaker holds</span><span class="meta">"How much current at 350 rad/s? Will the breaker trip?"</span></div>
+          <div class="rule-card"><span class="formula">ω = 0 → I = 65.59 A &gt; 15 A</span><span class="eng"><b>Starting:</b> the magnetic trip fires</span><span class="meta">"Why?" The current exceeds the 15 A magnetic threshold; the thermal trip stays untriggered</span></div>
+          <div class="rule-card"><span class="formula">do(add soft starter)</span><span class="eng"><b>New mechanism:</b> accepted, logic updated</span><span class="meta">asked again, the twin answers from the new structure: 0 A at standstill, the breaker holds</span></div>
+        </div>
+      </section>
+
+      <div class="note pink limits-mini">
+        <h3>Known limitations</h3>
+        <ul>
+          <li><b>The structure comes from outside the data:</b> the motor twin's graph, equations and thresholds from engineers; the welding graph from the manual, FMEA sheets and fault reports.</li>
+          <li>The motor twin collapses fast electrical dynamics (RC charging, relay hysteresis, op-amp slew) into gains, steps and saturations.</li>
+        </ul>
+      </div>
+    </article>
 
     <article class="project-card compact" id="tokwCard" aria-labelledby="tokwTitle">
       <header class="card-head">
@@ -328,6 +500,281 @@
         </ul>
       </div>
     </article>
+
+    <article class="project-card compact" id="typedCard" aria-labelledby="typedTitle">
+      <header class="card-head">
+        <h2 id="typedTitle">First Proof: proof steps as typed objects</h2>
+        <div class="chips">
+          <span class="chip k">typed step schema</span>
+          <span class="chip">GPT-5.2 discovery loop</span>
+          <span class="chip">LLM jury + human audit</span>
+        </div>
+      </header>
+
+      <div class="pipeline compact">
+        <svg viewBox="0 0 960 170" role="img" aria-labelledby="fpt fpd">
+          <title id="fpt">First Proof: the typed-step loop</title>
+          <desc id="fpd">A problem statement goes to a GPT-5.2 loop that imagines, filters, scores and validates candidate steps. Each candidate becomes a typed step with premises, inference, goal and role in the search, and is scored on the gates: assumption compliance, inference validity, goal completion and generalization robustness. A jury accepts, rejects or remands it; remanded steps return to the loop. A recorder agent keeps what is known and what is open, and the group audits the steps after the run.</desc>
+          <g class="lbl">
+            <text class="note-txt" x="436" y="17" text-anchor="middle">a recorder agent keeps what is known and what is open</text>
+
+            <ellipse class="rk" cx="62" cy="72" rx="54" ry="32" fill="#ebe7de" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="62" y="68" text-anchor="middle" class="sm">problem</text>
+            <text x="62" y="83" text-anchor="middle" class="sm">statement</text>
+            <path class="rk" d="M116,72 H140" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+            <rect class="rk" x="142" y="44" width="170" height="56" fill="#d3e6f4" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="227" y="64" text-anchor="middle" class="sm">GPT-5.2 loop</text>
+            <text x="227" y="80" text-anchor="middle" class="xs">imagine · filter · score</text>
+            <text x="227" y="93" text-anchor="middle" class="xs">· validate</text>
+            <path class="rk" d="M312,72 H336" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+            <rect class="rk" x="338" y="30" width="196" height="84" fill="#fbf1a9" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="436" y="51" text-anchor="middle" class="sm">typed step</text>
+            <text x="436" y="68" text-anchor="middle" class="xs">premises · inference</text>
+            <text x="436" y="82" text-anchor="middle" class="xs">goal · role in the search</text>
+            <text x="436" y="102" text-anchor="middle" class="xs">(85 steps over 10 problems)</text>
+            <path class="rk" d="M534,72 H558" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+            <rect class="rk" x="560" y="30" width="200" height="84" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="660" y="48" text-anchor="middle" class="sm">gates</text>
+            <text x="660" y="64" text-anchor="middle" class="xs">assumption compliance</text>
+            <text x="660" y="77" text-anchor="middle" class="xs">inference validity</text>
+            <text x="660" y="90" text-anchor="middle" class="xs">goal completion</text>
+            <text x="660" y="103" text-anchor="middle" class="xs">generalization robustness</text>
+            <path class="rk" d="M760,72 H784" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+            <rect class="rk" x="786" y="44" width="166" height="56" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="869" y="66" text-anchor="middle" class="sm">jury verdict</text>
+            <text x="869" y="83" text-anchor="middle" class="xs">accept · reject · remand</text>
+
+            <path class="rk" d="M869,100 V134 H227 V102" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+            <text class="note-txt" x="548" y="153" text-anchor="middle">remanded steps go back to the loop</text>
+            <text class="note-txt" x="952" y="160" text-anchor="end">audited by our group after the run</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="card-row wh">
+        <div class="note yellow mini" style="--tilt:-.4deg">
+          <h3>What</h3>
+          <p>First Proof is a set of ten research-level questions taken from mathematicians' unpublished work (Abouzaid et al., Feb 2026). We encoded each attempt as typed proof steps: a step records its premises, the inference it makes, the goal it serves and its role in the search, and has to pass the gates.</p>
+        </div>
+        <div class="note green mini" style="--tilt:.4deg">
+          <h3>How</h3>
+          <ol class="how-steps tight">
+            <li>A GPT-5.2 loop proposes candidate steps, filters them, scores them on the gates and validates them; a jury accepts, rejects or remands each one.</li>
+            <li>A recorder agent keeps what is known and what is open; the loop stops when the gate rates pass 0.99.</li>
+            <li>After the run our group audited the steps, cross-checked by a council of LLMs.</li>
+          </ol>
+        </div>
+      </div>
+
+      <h3 class="card-h">How does it perform?</h3>
+      <section class="env" aria-labelledby="envFp">
+        <div class="env-head"><h4 id="envFp">First Proof</h4><span>10 research problems, all attempted · 85 typed steps · public dataset and preprint</span></div>
+        <div class="gates-wrap">
+          <figure>
+            <div class="mini-title">Steps passing each gate (of 85)</div>
+            <svg id="fpGates" width="430" height="112" viewBox="0 0 430 112" role="img" aria-label="Steps passing each gate, of 85: assumption compliance 85, inference validity 83, goal completion 65, generalization robustness 59."></svg>
+          </figure>
+          <figure>
+            <div class="mini-title">Why 26 steps do not generalize</div>
+            <svg id="fpRobust" width="430" height="140" viewBox="0 0 430 140" role="img" aria-label="The 26 steps that fail generalization robustness: 9 work locally only, 6 routes left undeveloped, 4 routes ruled out by the agent, 3 gaps left to refine, 2 open bridges, 2 invalid inferences caught by the audit."></svg>
+          </figure>
+        </div>
+      </section>
+
+      <div class="note pink limits-mini">
+        <h3>Known limitations</h3>
+        <ul>
+          <li><b>Typed, not machine-checked:</b> the types are a schema judged by an LLM jury and our audit, not by a proof assistant.</li>
+          <li>The loop cannot construct a new coordinate system: P3's combinatorial object and P4's replacement for non-additive invariants at degree ≥ 4 stayed out of reach.</li>
+        </ul>
+      </div>
+    </article>
+
+    </div><!-- /.stage-cards -->
+
+    <aside class="note obstacle" aria-labelledby="obstacleTitle">
+      <h3 id="obstacleTitle">What we ran into, each time</h3>
+      <p>Each form needs a lot of non-dynamical information: what the variables mean, which propositions to track, which types exist. The data do not carry it. We supplied it with an LLM or a VLM and a human teacher in the loop, and the outcomes were mixed.</p>
+      <ul>
+        <li><b>Causal</b>The graph, the parent sets and the thresholds came from engineers, manuals and FMEA sheets. Links an LLM agent proposed could not be checked against plant data, and fault reports contradicted some of them.</li>
+        <li><b>Causal Kripke</b>The VLM chooses the propositions. On the forced pendulum its labels collapse the Kripke structure: flip accuracy 0.48–0.51, against 0.58 with labels from θ and ω.</li>
+        <li><b>Typed</b>The steps lean on what the statements do not hold: premises left unproved (P1, P7, P10), objects to invent (P3, P4), bridges left open (P2). 59 of 85 steps generalize.</li>
+      </ul>
+    </aside>
+
+    <p class="bridge">
+      <svg viewBox="0 0 46 60" aria-hidden="true"><path class="rk" d="M10,4 C2,28 14,48 38,52" fill="none" stroke="#2b2925" stroke-width="1.8" marker-end="url(#ah)"/></svg>
+      <span>Could the system fetch that information itself, by changing how its input is presented? <a href="#presentation">Stage II</a></span>
+    </p>
+  </div>
+</section>
+
+<!-- ======================================================================
+     STAGE II  PRESENTATION-RELATIVE ENCODING
+     ====================================================================== -->
+<section id="presentation" class="stage">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="num">II</span>
+      <h2>Presentation-relative encoding</h2>
+      <span class="aside">the system as its own teacher</span>
+    </div>
+
+    <div class="stage-intro">
+      <div class="note white" style="--tilt:-.3deg">
+        <p class="lead-q">Can the system fetch the extra information by changing how its input is presented, as a genuine self-teacher instead of an external teacher like an LLM or a human?</p>
+        <p>An external teacher adds information from outside. A self-teacher has only the input, and what it controls is the presentation: which parts are shown, which are masked, in what order, and how often. The encoding is then relative to the presentation, and the teacher's job is to find the presentation under which the learner extracts the most.</p>
+      </div>
+      <div class="note yellow" style="--tilt:.6deg">
+        <h3>Why masking</h3>
+        <p>Masked prediction teaches without labels. BERT hides words, MAE hides image patches, I-JEPA hides blocks and predicts their representations. The data and the loss stay the same, and the choice of what to hide changes what the learner extracts (the masking ablations in MAE and I-JEPA). Masking is a presentation, set by hand. We asked whether a teacher could set it, and more of the presentation, by itself.</p>
+      </div>
+    </div>
+
+    <div class="pipeline compact wide">
+      <svg viewBox="0 0 960 196" role="img" aria-labelledby="prt prd">
+        <title id="prt">Presentation-relative encoding: the self-teaching loop</title>
+        <desc id="prd">A raw input goes to the self-teacher, which picks a presentation: what to mask, in what order, how often to repeat. The presented input goes to the learner, fixed at test time and trained on the presentation at train time. The change in the learner's risk is measured on paired draws with a PAC-Bayes interval valid at any stopping time. The measurement updates the teacher's belief over presentations, a Bayesian update, and the belief steers its next choice. A switch is accepted only when the whole interval lies below zero. No labels and no outside knowledge enter the loop.</desc>
+        <g class="lbl">
+          <ellipse class="rk" cx="58" cy="66" rx="50" ry="30" fill="#ebe7de" stroke="#2b2925" stroke-width="1.4"/>
+          <text x="58" y="70" text-anchor="middle" class="sm">raw input</text>
+          <path class="rk" d="M108,66 H134" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+          <rect class="rk" x="136" y="36" width="178" height="60" fill="#d8ecc9" stroke="#2b2925" stroke-width="1.4"/>
+          <text x="225" y="56" text-anchor="middle" class="sm">self-teacher picks</text>
+          <text x="225" y="71" text-anchor="middle" class="sm">a presentation</text>
+          <text x="225" y="87" text-anchor="middle" class="xs">mask · order · repeats</text>
+          <path class="rk" d="M314,66 H340" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+          <ellipse class="rk" cx="390" cy="66" rx="48" ry="30" fill="#ebe7de" stroke="#2b2925" stroke-width="1.4"/>
+          <text x="390" y="62" text-anchor="middle" class="sm">presented</text>
+          <text x="390" y="77" text-anchor="middle" class="sm">input</text>
+          <path class="rk" d="M438,66 H464" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+          <rect class="rk" x="466" y="36" width="170" height="60" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
+          <text x="551" y="56" text-anchor="middle" class="sm">learner</text>
+          <text x="551" y="72" text-anchor="middle" class="xs">fixed at test time,</text>
+          <text x="551" y="86" text-anchor="middle" class="xs">trained on it at train time</text>
+          <path class="rk" d="M636,66 H662" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+          <rect class="rk" x="664" y="36" width="288" height="60" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
+          <text x="808" y="56" text-anchor="middle" class="sm">measured change in risk</text>
+          <text x="808" y="72" text-anchor="middle" class="xs">paired draws · PAC-Bayes interval</text>
+          <text x="808" y="86" text-anchor="middle" class="xs">valid at any stopping time</text>
+
+          <path class="rk" d="M808,96 V151 H560" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+          <rect class="rk" x="320" y="124" width="238" height="54" fill="#fbf1a9" stroke="#2b2925" stroke-width="1.4"/>
+          <text x="439" y="146" text-anchor="middle" class="sm">teacher's belief over presentations</text>
+          <text x="439" y="163" text-anchor="middle" class="xs">Bayesian update after each switch</text>
+          <path class="rk" d="M320,151 H225 V98" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+          <text class="note-txt" x="58" y="124" text-anchor="middle">no labels, no</text>
+          <text class="note-txt" x="58" y="141" text-anchor="middle">outside knowledge</text>
+          <text class="note-txt" x="800" y="120" text-anchor="end">accept a switch only if its interval lies below 0</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="modes">
+      <div class="note green">
+        <h3>At test time</h3>
+        <p>The learner's weights stay fixed. The teacher changes how each input is presented at inference and keeps a change only when the learner's measured risk drops.</p>
+      </div>
+      <div class="note blue">
+        <h3>At train time</h3>
+        <p>The teacher sets how training inputs are presented: what is masked, in what order, how often. The learner trains on that presentation, and the same paired measurement compares what two training presentations produce.</p>
+      </div>
+      <div class="note yellow">
+        <h3>A Bayesian teacher</h3>
+        <p>The teacher holds a belief over presentations and updates it after each measured switch. Each measurement narrows the set of risk functions still possible, and the interval stays valid wherever the teacher decides to stop.</p>
+      </div>
+    </div>
+
+    <article class="project-card compact" id="pacCard" aria-labelledby="pacTitle">
+      <header class="card-head">
+        <h2 id="pacTitle">A teacher that measures its own presentations</h2>
+        <div class="chips">
+          <span class="chip k">anytime-anywhere-valid PAC-Bayes</span>
+          <span class="chip">bound checked in Lean 4</span>
+          <span class="chip">measured single-pixel camera data</span>
+        </div>
+      </header>
+
+      <div class="card-row wh">
+        <div class="note yellow mini" style="--tilt:-.4deg">
+          <h3>What</h3>
+          <p>From our paper with Ayush Mittal. A system changes its own configuration and measures what the change did to a declared risk. The interval on each change holds at any stopping time and for any configuration chosen from the same data, so the teacher can try presentations, stop when the evidence says, and keep the one that helps.</p>
+        </div>
+        <div class="note green mini" style="--tilt:.4deg">
+          <h3>How</h3>
+          <ol class="how-steps tight">
+            <li>The teacher walks through presentations; each switch is scored on paired draws, 32,768 per switch.</li>
+            <li>A PAC-Bayes interval brackets the change in risk at any time; a switch counts as an improvement only when the whole interval lies below zero.</li>
+            <li>The measured switches are differences of one risk function over presentations. Connected switches and one anchor determine it, so the teacher's belief covers switches it did not try.</li>
+            <li>The teacher reads off what to do at each presentation and the path to the best one.</li>
+          </ol>
+        </div>
+      </div>
+
+      <h3 class="card-h">How does it perform?</h3>
+      <section class="env" aria-labelledby="envWalsh">
+        <div class="env-head"><h4 id="envWalsh">Single-pixel camera: which Walsh patterns to show, how often to repeat</h4><span>measured 64 × 64 Hadamard data · 7 pattern budgets × 7 repeat depths · 100 of 2,352 possible switches measured</span></div>
+        <div class="field-wrap">
+          <figure>
+            <svg id="walshField" width="360" height="262" viewBox="0 0 360 262" role="img" aria-label="Risk of a fixed reconstruction over 49 presentations, 7 pattern budgets from 64 to 4096 by 7 repeat depths from 1 to 10, recovered from 100 measured switches. Risk is highest with 4096 patterns and 1 repeat (0.56) and lowest with 4096 patterns and 10 repeats (0). The teacher's path climbs from 64 patterns and 1 repeat to 4096 patterns and 10 repeats in 12 steps."></svg>
+            <figcaption>Risk of one fixed reconstruction under 49 presentations, recovered from the measured switches (light = low). Arrows: the teacher's choice at each presentation, show more patterns (↑) or repeat and average (→). Yellow: its path from 64 patterns × 1 repeat to the best presentation.</figcaption>
+          </figure>
+          <div class="field-stats">
+            <div><b>100 / 100</b><span>measured intervals contain the exact change, at all four stopping points</span></div>
+            <div><b>4.3%</b><span>of the 2,352 possible switches measured</span></div>
+            <div><b>0.46%</b><span>error on the 2,252 switches not measured</span></div>
+            <div><b>48 / 48</b><span>teacher choices match the exact policy; path regret 0</span></div>
+            <div class="wide"><span>Same loop on super-resolution (35 configurations, 5 smear scales × 7 predictor settings): 8.1% of switches measured, 0.41% error on the rest, and the same best configuration as the sealed reference.</span></div>
+          </div>
+        </div>
+      </section>
+
+      <div class="note pink limits-mini">
+        <h3>Known limitations</h3>
+        <ul>
+          <li><b>Finite menus:</b> the guarantees cover a finite set of presentations and a risk declared before the audit.</li>
+          <li>The teacher's map holds among the presentations its trajectory visited. Here the reconstruction stays fixed, so these switches act at test time.</li>
+        </ul>
+      </div>
+    </article>
+
+    <p class="bridge">
+      <svg viewBox="0 0 46 60" aria-hidden="true"><path class="rk" d="M10,4 C2,28 14,48 38,52" fill="none" stroke="#2b2925" stroke-width="1.8" marker-end="url(#ah)"/></svg>
+      <span>Combine the two: keep a principled representation, and let the self-teaching loop change how the problem is presented to the learner inside it. <a href="#together">Stage III</a></span>
+    </p>
+  </div>
+</section>
+
+<!-- ======================================================================
+     STAGE III  REPRESENTATION AND PRESENTATION TOGETHER
+     ====================================================================== -->
+<section id="together" class="stage">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="num">III</span>
+      <h2>Representation and presentation together</h2>
+      <span class="aside">the current attempt</span>
+    </div>
+
+    <div class="stage-intro">
+      <div class="note white" style="--tilt:-.3deg">
+        <p class="lead-q">Search over a fixed representation, updated by a self-teaching loop that changes the encoding and presentation of the problem for an inner classical learner.</p>
+        <p>The representation stays principled, as in stage I. What the loop changes is how the problem reaches the inner learner, as in stage II. The inner learner is classical, and the audit labels that score it stay sealed from the LLM that proposes the rewrites.</p>
+      </div>
+      <ul class="forms">
+        <li><a href="#spohnCard"><b>causRCA root-cause analysis</b>representation: a categorical Bayesian network · inner learner: DAGs fitted under Dirichlet priors · loop: encoder redesign and evolutionary rewrites against a sealed audit<span class="where">CNC lathe, real and simulated faults</span></a></li>
+        <li><a href="#spohnDig"><b>DiG-bench games</b>representation: named screen variables and laws · inner learner: laws checked on sealed transitions · loop: explorer bursts and rediscovery when the player stalls<span class="where">the world model handed to an LLM player</span></a></li>
+      </ul>
+    </div>
 
     <article class="project-card compact" id="spohnCard" aria-labelledby="spohnTitle">
       <header class="card-head">
@@ -568,6 +1015,116 @@
         </div>
       </section>
     </article>
+
+    <p class="bridge">
+      <svg viewBox="0 0 46 60" aria-hidden="true"><path class="rk" d="M10,4 C2,28 14,48 38,52" fill="none" stroke="#2b2925" stroke-width="1.8" marker-end="url(#ah)"/></svg>
+      <span>Presentation is directly tied to query: the question asked decides what the learner is shown. <a href="#query">Stage IV</a></span>
+    </p>
+  </div>
+</section>
+
+<!-- ======================================================================
+     STAGE IV  QUERY DISCOVERY
+     ====================================================================== -->
+<section id="query" class="stage">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="num">IV</span>
+      <h2>Query discovery</h2>
+      <span class="aside">the presentation follows from the question</span>
+    </div>
+
+    <div class="stage-intro">
+      <div class="note white" style="--tilt:-.3deg">
+        <p class="lead-q">Which questions, asked in which order, generate the right presentation?</p>
+        <p>A query decides what to show, in what order and what to leave out, so presentation is tied to query. Asking the right questions in order generates the right presentation, and the answers to one question can rewrite the input for the next, so the process can improve itself.</p>
+      </div>
+      <div class="note tan" style="--tilt:.5deg">
+        <h3>Where, then what, then how</h3>
+        <p>Asked in that order, of a segmenter, a VLM and a world model, the questions build the typed and causal representations that stage I could not get from an LLM, a VLM or a human teacher. Each answer narrows the presentation for the next question.</p>
+      </div>
+    </div>
+
+    <article class="project-card compact" id="queryCard" aria-labelledby="queryTitle">
+      <header class="card-head">
+        <h2 id="queryTitle">Where → what → how</h2>
+        <div class="chips">
+          <span class="chip k">in progress</span>
+          <span class="chip">segmenter</span>
+          <span class="chip">VLM</span>
+          <span class="chip">world model</span>
+          <span class="chip">inference-time input edits</span>
+        </div>
+      </header>
+
+      <div class="pipeline compact">
+        <svg viewBox="0 0 960 196" role="img" aria-labelledby="qt qd">
+          <title id="qt">Where, what, how: queries that write the presentation</title>
+          <desc id="qd">Video frames go to a segmenter that answers where: object masks. A VLM answers what for each masked object: names and attributes, which give types. A world model answers how: the dynamics of each object. Together they give a typed and causal representation. Below, the answer to where also edits the input at inference: the masks move objects around in the frames before the world model sees them, and the world model stops merging objects into one.</desc>
+          <g class="lbl">
+            <text class="note-txt" x="380" y="18" text-anchor="middle">each answer narrows the presentation for the next question</text>
+
+            <ellipse class="rk" cx="52" cy="62" rx="44" ry="26" fill="#ebe7de" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="52" y="58" text-anchor="middle" class="sm">video</text>
+            <text x="52" y="73" text-anchor="middle" class="sm">frames</text>
+            <path class="rk" d="M96,62 H118" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+            <rect class="rk" x="120" y="34" width="150" height="56" fill="#d3e6f4" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="195" y="54" text-anchor="middle" class="b">where?</text>
+            <text x="195" y="70" text-anchor="middle" class="sm">segmenter</text>
+            <text x="195" y="84" text-anchor="middle" class="xs">→ object masks</text>
+            <path class="rk" d="M270,62 H292" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+            <rect class="rk" x="294" y="34" width="150" height="56" fill="#d3e6f4" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="369" y="54" text-anchor="middle" class="b">what?</text>
+            <text x="369" y="70" text-anchor="middle" class="sm">VLM, per mask</text>
+            <text x="369" y="84" text-anchor="middle" class="xs">→ named, typed objects</text>
+            <path class="rk" d="M444,62 H466" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+            <rect class="rk" x="468" y="34" width="170" height="56" fill="#d3e6f4" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="553" y="54" text-anchor="middle" class="b">how?</text>
+            <text x="553" y="70" text-anchor="middle" class="sm">world model</text>
+            <text x="553" y="84" text-anchor="middle" class="xs">→ dynamics per object</text>
+            <path class="rk" d="M638,62 H660" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+            <rect class="rk" x="662" y="28" width="290" height="68" fill="#fbf1a9" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="807" y="52" text-anchor="middle" class="sm">typed + causal representation</text>
+            <text x="807" y="69" text-anchor="middle" class="xs">objects with types and states,</text>
+            <text x="807" y="83" text-anchor="middle" class="xs">and the mechanisms between them</text>
+
+            <path class="rk" d="M195,90 V152 H298" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+            <rect class="rk" x="300" y="126" width="250" height="52" fill="#d8ecc9" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="425" y="147" text-anchor="middle" class="sm">the query edits the input:</text>
+            <text x="425" y="164" text-anchor="middle" class="sm">move objects with their masks</text>
+            <path class="rk" d="M550,152 H600 V92" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+            <text class="note-txt" x="614" y="146">at inference: the world model</text>
+            <text class="note-txt" x="614" y="164">stops merging objects into one</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="card-row wh">
+        <div class="note yellow mini" style="--tilt:-.4deg">
+          <h3>What</h3>
+          <p>Questions asked in a fixed order: where are the objects, what are they, how do they move and act on each other. A segmenter answers where, a VLM answers what for each masked object, and a world model answers how.</p>
+        </div>
+        <div class="note green mini" style="--tilt:.4deg">
+          <h3>How</h3>
+          <ol class="how-steps tight">
+            <li><b>Where:</b> the segmenter splits each frame into object masks.</li>
+            <li><b>What:</b> the VLM names each masked object and its attributes, which gives the object a type.</li>
+            <li><b>How:</b> the world model learns the dynamics object by object; transitions and interactions become the causal structure.</li>
+            <li>The answer to <i>where</i> also edits the input: at inference the masks move objects around in the video before the world model sees it.</li>
+          </ol>
+        </div>
+      </div>
+
+      <h3 class="card-h">What we see so far</h3>
+      <div class="know-row two">
+        <div class="rule-card"><span class="formula">where → what → how</span><span class="eng"><b>Representations:</b> typed and causal, built from video</span><span class="meta">the forms that stage I could not get from an LLM, a VLM or a human teacher</span></div>
+        <div class="rule-card"><span class="formula">move(object, mask) at inference</span><span class="eng"><b>Dynamics:</b> objects stay separate</span><span class="meta">the world model avoids merging objects into one, and its dynamics understanding improves drastically</span></div>
+      </div>
+    </article>
   </div>
 </section>
 
@@ -577,7 +1134,6 @@
 <section id="refs">
   <div class="wrap">
     <div class="section-head">
-      <span class="num">3</span>
       <h2>References</h2>
       <span class="aside">papers and datasets the work above builds on</span>
     </div>
@@ -594,8 +1150,27 @@
         </ol>
       </div>
       <div class="refs-group">
-        <h3>Spohn Bayesian Model Discovery</h3>
+        <h3>Causal and typed representations</h3>
         <ol class="refs" start="7">
+          <li>Pearl, J. (2009). <i>Causality: Models, Reasoning, and Inference</i> (2nd ed.). Cambridge University Press.</li>
+          <li>Abouzaid, M., Blumberg, A. J., Hairer, M., Kileel, J., et al. (2026). First Proof. <a href="https://arxiv.org/abs/2602.05192">arXiv:2602.05192</a>.</li>
+          <li>Gupta, D. (2026). Participation in First Proof Challenge by Zetesis Labs leveraging our work on formal Epistemology for Proof Discovery. Preprint, Zenodo. <a href="https://doi.org/10.5281/zenodo.18629234">doi:10.5281/zenodo.18629234</a>. Typed steps and gate labels: <a href="https://github.com/Zetetic-Dhruv/First-Proof-Benchmark-Results">First-Proof-Benchmark-Results</a>.</li>
+        </ol>
+      </div>
+      <div class="refs-group">
+        <h3>Presentation-relative encoding</h3>
+        <ol class="refs" start="10">
+          <li>Devlin, J., Chang, M.-W., Lee, K., &amp; Toutanova, K. (2019). BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding. In <i>NAACL-HLT</i>. <a href="https://arxiv.org/abs/1810.04805">arXiv:1810.04805</a>.</li>
+          <li>He, K., Chen, X., Xie, S., Li, Y., Dollár, P., &amp; Girshick, R. (2022). Masked Autoencoders Are Scalable Vision Learners. In <i>CVPR</i>. <a href="https://arxiv.org/abs/2111.06377">arXiv:2111.06377</a>.</li>
+          <li>Assran, M., Duval, Q., Misra, I., Bojanowski, P., Vincent, P., Rabbat, M., LeCun, Y., &amp; Ballas, N. (2023). Self-Supervised Learning from Images with a Joint-Embedding Predictive Architecture. In <i>CVPR</i>. <a href="https://arxiv.org/abs/2301.08243">arXiv:2301.08243</a>.</li>
+          <li>Mittal, A., &amp; Gupta, D. (2026). Anytime-Anywhere-Valid PAC–Bayes for Closed-Loop Performance Measurement. Preprint; records, Lean sources and scripts at <a href="https://github.com/noumenal-ai/anytime-anywhere-pac-bayes">noumenal-ai/anytime-anywhere-pac-bayes</a>.</li>
+          <li>Walsh, J. L. (1923). A Closed Set of Normal Orthogonal Functions. <i>American Journal of Mathematics</i>, 45(1), 5–24.</li>
+          <li>Zapata-Valencia, S. I., &amp; Tobon-Maya, H. (2026). Dataset and Reconstruction Pipeline for Hadamard-Based Single-Pixel Imaging. Zenodo. <a href="https://doi.org/10.5281/zenodo.18412991">doi:10.5281/zenodo.18412991</a>.</li>
+        </ol>
+      </div>
+      <div class="refs-group">
+        <h3>Spohn Bayesian Model Discovery</h3>
+        <ol class="refs" start="16">
           <li>Spohn, W. (1988). Ordinal Conditional Functions: A Dynamic Theory of Epistemic States. In W. L. Harper &amp; B. Skyrms (Eds.), <i>Causation in Decision, Belief Change, and Statistics</i>, vol. II, 105–134. Kluwer.</li>
           <li>Spohn, W. (2012). <i>The Laws of Belief: Ranking Theory and Its Philosophical Applications.</i> Oxford University Press.</li>
           <li><i>Invariant Encoding and Bayesian Measure Revision: An End-to-End Algorithm with Explicit Costs and Prompt Files.</i> Algorithm draft (unpublished); the LEARN_AND_REVISE loop.</li>
@@ -611,7 +1186,7 @@
       </div>
       <div class="refs-group">
         <h3>Knowledge-organising harness</h3>
-        <ol class="refs" start="18">
+        <ol class="refs" start="27">
           <li>Battleday, R. M., Sandbrink, K., Cullen-Drohan, J., Yan, Z., Muller, T., Maguire, C., Kubicek, A., Greenlee-Scott, F., Sumant, S., Dao, T., Schmidhuber, J., Valko, M., Tenenbaum, J., Griffiths, T. L., Kurth-Nelson, Z., &amp; Whittington, J. C. R. (2026). DiG-bench: Discovery in Games. <a href="https://arxiv.org/abs/2608.12593">arXiv:2608.12593</a>.</li>
         </ol>
       </div>
@@ -623,7 +1198,7 @@
 
 <footer>
   <div class="wrap">
-    <span>Figures from the TOKW v0.4.0 Gymnasium runs, the causRCA B1 runs and the DiG-bench A/B runs · design notes from artpark-hub/neuro-sym-wm</span>
+    <span>Figures from the TOKW v0.4.0 Gymnasium runs, the First Proof dataset, the Walsh acquisition records of the anytime-anywhere PAC-Bayes release, the causRCA B1 runs and the DiG-bench A/B runs · design notes from artpark-hub/neuro-sym-wm</span>
     <span>hand-drawn with rough.js</span>
   </div>
 </footer>
@@ -631,6 +1206,6 @@
 <div class="tip" id="tip" role="tooltip"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.js"></script>
-<script src="assets/js/board.js?v=20261124c"></script>
+<script src="assets/js/board.js?v=20261125a"></script>
 </body>
 </html>

@@ -82,14 +82,14 @@ sub { font-size: .7em; }
    Masthead + nav
    -------------------------------------------------------------------------- */
 .masthead { padding: 42px 0 18px; position: relative; }
-.masthead .wrap { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; }
+.masthead .wrap { display: grid; grid-template-columns: 1fr; gap: 22px; align-items: end; }
 .masthead h1 { font-size: clamp(46px, 7vw, 84px); letter-spacing: .5px; }
 .masthead h1 .squiggle { position: relative; white-space: nowrap; }
 .masthead h1 .squiggle svg { position: absolute; left: -2%; bottom: -10px; width: 104%; height: 18px; overflow: visible; }
 .masthead .kicker { font-family: var(--font-script); font-size: 26px; color: var(--ink-2); margin-bottom: 6px; }
-.masthead .lede { max-width: 640px; color: var(--ink-2); margin-top: 14px; }
+.masthead .lede { max-width: 760px; color: var(--ink-2); margin-top: 14px; }
 
-.tabs { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+.tabs { display: flex; gap: 12px 10px; flex-wrap: wrap; justify-content: flex-start; }
 .tabs a {
   display: inline-block; text-decoration: none; padding: 8px 16px 6px;
   font-family: var(--font-script); font-size: 24px; font-weight: 700;
@@ -101,6 +101,9 @@ sub { font-size: .7em; }
 .tabs a:nth-child(2) { --r: 1.5deg; background: var(--note-blue); }
 .tabs a:nth-child(3) { --r: -1deg; background: var(--note-yellow); }
 .tabs a:nth-child(4) { --r: 1deg; background: var(--note-green); }
+.tabs a:nth-child(5) { --r: -1.5deg; background: var(--note-lilac); }
+.tabs a:nth-child(6) { --r: 2deg; background: var(--note-tan); }
+.tabs a:nth-child(7) { --r: -.5deg; background: var(--note-white); }
 .tabs a:hover { transform: rotate(0) translateY(-3px); box-shadow: var(--shadow-lift); }
 
 /* --------------------------------------------------------------------------
@@ -558,14 +561,17 @@ footer .wrap { border-top: 2px dashed var(--rule); padding-top: 18px; display: f
   .env-stats { justify-self: stretch; }
 }
 
-/* print: the goal board on page 1, the model card on its own A4 page */
+/* print: the goal board on page 1, the inquiry map on page 2, then each stage and each model card on its own A4 page */
 @media print {
   @page { size: A4; margin: 10mm; }
   body { background: #fff; }
   .masthead, #next, footer, .tip, .section-head .aside { display: none !important; }
   section { padding: 0; }
-  #tokw { break-before: page; }
-  #spohnCard { break-before: page; margin-top: 0; }
+  #inquiry { break-before: page; }
+  .project-card.compact { break-before: page; margin-top: 0 !important; }
+  .stage-intro + .stage-cards > .project-card.compact:first-child,
+  .stage-intro + .project-card.compact,
+  .modes + .project-card.compact { break-before: auto; }
   #spohnCard.project-card.compact { break-inside: auto; }
   .card-ext { break-before: page; border-top: 0; }
   .ext-tab { display: none; }
@@ -597,3 +603,115 @@ footer .wrap { border-top: 2px dashed var(--rule); padding-top: 18px; display: f
 .refs li { margin: 3px 0; padding-left: 4px; }
 .refs li::marker { font-family: var(--font-script); font-weight: 700; color: var(--ink-3); }
 .refs a { word-break: break-word; }
+
+/* ==========================================================================
+   The inquiry: map of the stages, stage intros, bridges between stages
+   ========================================================================== */
+.inquiry {
+  display: grid; align-items: stretch;
+  grid-template-columns: minmax(0, 1fr) 92px minmax(0, 1fr) 92px minmax(0, 1fr) 92px minmax(0, 1fr);
+}
+.stop {
+  display: block; color: inherit; text-decoration: none;
+  padding: 14px 16px 12px; font-size: 15.5px; line-height: 1.34;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.stop:nth-of-type(odd) { --tilt: -.8deg; }
+.stop:nth-of-type(even) { --tilt: .7deg; }
+.stop:hover, .stop:focus-visible { transform: rotate(0) translateY(-3px); box-shadow: var(--shadow-lift); }
+.stop .stop-num { display: block; font-family: var(--font-script); font-weight: 700; font-size: 30px; line-height: 1; color: var(--ink-3); }
+.stop h3 { font-size: 26px; margin: 2px 0 8px; }
+.stop .q { margin: 0; }
+.stop .found { margin: 9px 0 0; padding-top: 8px; border-top: 1.6px dashed rgba(43, 41, 37, .28); color: var(--ink-2); }
+.stop .found b { font-weight: 400; color: var(--ink); }
+.hop {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  padding: 0 6px; text-align: center; font-family: var(--font-script); font-size: 17px; line-height: 1.05; color: #8a5a2b;
+}
+.hop svg { width: 78px; height: 24px; overflow: visible; flex: none; }
+
+.stage-intro { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr); gap: 30px; align-items: start; max-width: 1080px; margin: 0 auto 34px; }
+.stage-intro > .note { font-size: 17px; }
+.stage-intro .lead-q { font-family: var(--font-script); font-weight: 700; font-size: clamp(25px, 2.7vw, 31px); line-height: 1.16; margin: 0 0 10px; }
+.forms { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.forms li { position: relative; padding: 10px 14px 9px 16px; background: var(--note-white); box-shadow: var(--shadow-note); font-size: 16px; line-height: 1.3; transform: rotate(var(--tilt, -.4deg)); }
+.forms li:nth-child(2) { --tilt: .5deg; }
+.forms li:nth-child(3) { --tilt: -.2deg; }
+.forms a { text-decoration: none; display: block; }
+.forms a:hover b { text-decoration: underline; text-decoration-color: var(--hl-tan); text-decoration-thickness: 3px; }
+.forms b { font-family: var(--font-script); font-weight: 700; font-size: 23px; line-height: 1.05; display: block; }
+.forms .where { display: block; font-size: 14px; color: var(--ink-3); margin-top: 2px; }
+
+.stage-cards > .project-card.compact + .project-card.compact { margin-top: 44px; }
+
+.obstacle {
+  --bg: var(--note-pink); --tilt: -.35deg;
+  max-width: 1040px; margin: 46px auto 0; padding: 20px 26px 16px; font-size: 16.5px;
+}
+.obstacle h3 { font-size: 32px; margin-bottom: 6px; }
+.obstacle > p { max-width: 860px; }
+.obstacle ul { list-style: none; margin: 10px 0 4px; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.obstacle li { background: rgba(255, 255, 255, .45); padding: 9px 12px 8px; font-size: 14.5px; line-height: 1.32; border-radius: 2px; }
+.obstacle li b { display: block; font-family: var(--font-script); font-weight: 700; font-size: 21px; line-height: 1.05; margin-bottom: 2px; }
+
+.bridge {
+  display: flex; align-items: center; gap: 14px; max-width: 1040px; margin: 30px auto 0;
+  font-family: var(--font-script); font-size: clamp(22px, 2.4vw, 27px); line-height: 1.18;
+}
+.bridge svg { flex: none; width: 46px; height: 60px; overflow: visible; }
+.bridge a { text-decoration-color: var(--hl-yellow); }
+
+/* presentation stage */
+.modes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; max-width: 1080px; margin: 0 auto 34px; }
+.modes .note { font-size: 15.5px; line-height: 1.35; padding: 14px 18px 12px; }
+.modes .note h3 { font-size: 27px; margin-bottom: 4px; }
+.modes .note:nth-child(1) { --tilt: -.6deg; }
+.modes .note:nth-child(2) { --tilt: .5deg; }
+.modes .note:nth-child(3) { --tilt: -.3deg; }
+.pipeline.wide { max-width: 1080px; margin: 0 auto 26px; }
+
+.field-wrap { display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); gap: 22px; align-items: center; }
+.field-wrap figure { margin: 0; min-width: 0; }
+.field-wrap svg { display: block; width: 100%; height: auto; overflow: visible; }
+.field-wrap svg text { font-family: var(--font-hand); }
+.field-wrap figcaption { font-size: 12.5px; line-height: 1.25; color: var(--ink-2); margin-top: 4px; }
+.field-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 16px; padding-left: 18px; border-left: 1.5px dashed var(--rule); }
+.field-stats b { display: block; font-family: var(--font-script); font-weight: 700; font-size: 30px; line-height: 1; margin-bottom: 2px; }
+.field-stats span { display: block; font-size: 13.5px; line-height: 1.22; color: var(--ink-2); }
+.field-stats .wide { grid-column: 1 / -1; }
+.legend i.ramp { width: 70px; height: 11px; border-radius: 2px; background: linear-gradient(90deg, #f7f3e6, #a9c6e6 35%, #2a6fb8 70%, #173f6b); border: 1px solid var(--rule); }
+
+/* typed stage card: gates */
+.gates-wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 22px; align-items: start; }
+.gates-wrap figure { margin: 0; min-width: 0; }
+.gates-wrap svg { display: block; width: 100%; height: auto; overflow: visible; }
+.gates-wrap svg text { font-family: var(--font-hand); }
+
+/* query stage */
+.qchain { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin: 4px 0 12px; }
+.qchain .note { padding: 10px 14px 9px; font-size: 14.5px; line-height: 1.33; }
+.qchain .note h3 { font-size: 25px; margin-bottom: 1px; }
+.qchain .note .tool { display: block; font-size: 13px; color: var(--ink-2); margin-bottom: 4px; }
+
+@media (max-width: 1100px) {
+  .inquiry { grid-template-columns: minmax(0, 620px); justify-content: center; }
+  .hop { flex-direction: row; gap: 10px; padding: 6px 0; }
+  .hop svg { transform: rotate(90deg); width: 52px; height: 22px; margin: 12px -10px; }
+  .stop { --tilt: 0deg !important; }
+}
+@media (max-width: 900px) {
+  .stage-intro, .modes, .obstacle ul, .gates-wrap, .qchain { grid-template-columns: 1fr; }
+  .field-wrap { grid-template-columns: 1fr; }
+  .field-wrap figure { max-width: 380px; margin-inline: auto; }
+  .field-stats { border-left: 0; padding-left: 0; border-top: 1.5px dashed var(--rule); padding-top: 10px; }
+}
+@media print {
+  .inquiry { grid-template-columns: minmax(0, 1fr) 70px minmax(0, 1fr) 70px minmax(0, 1fr) 70px minmax(0, 1fr) !important; }
+  .stage { break-before: page; }
+  .bridge { display: none; }
+  .field-wrap { grid-template-columns: minmax(0, 360px) minmax(0, 1fr) !important; }
+  .field-stats { border-top: 0 !important; padding-top: 0 !important; border-left: 1.5px dashed var(--rule) !important; padding-left: 18px !important; }
+  .modes, .obstacle ul, .gates-wrap, .qchain { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+  .gates-wrap { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .stage-intro { grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr) !important; }
+}
