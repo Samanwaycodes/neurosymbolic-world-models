@@ -271,41 +271,56 @@
         <h2 id="causalTitle">Panasonic: a causal twin of a motor and its protection</h2>
         <div class="chips">
           <span class="chip k">structural causal model</span>
-          <span class="chip">motor + breaker: magnetic and thermal trip</span>
+          <span class="chip">expert-built graph</span>
+          <span class="chip">automatic data encoding</span>
           <span class="chip">LLM front end</span>
         </div>
       </header>
 
       <div class="pipeline compact">
-        <svg viewBox="0 0 960 116" role="img" aria-labelledby="ct cd">
+        <svg viewBox="0 0 960 152" role="img" aria-labelledby="ct cd">
           <title id="ct">The motor-protection twin</title>
-          <desc id="cd">Engineers supply the graph, the equations and the thresholds. An LLM turns a what-if or why question into an intervention or a query on the structural causal model, and the equations compute the answer and its reason. The yellow box marks information the signals do not carry.</desc>
+          <desc id="cd">Human experts build the causal graph, which carries the world knowledge. Line data is encoded onto the graph automatically for calculation, and small counterfactual extensions of the graph, such as adding a soft starter, are made automatically. An LLM turns a what-if or why question into an intervention or a query on the structural causal model, and the equations compute the answer and its reason.</desc>
           <g class="lbl">
-            <rect class="rk" x="10" y="16" width="146" height="52" fill="#fbf1a9" stroke="#2b2925" stroke-width="1.4"/>
-            <text x="83" y="38" text-anchor="middle" class="sm">engineers' graph,</text>
-            <text x="83" y="54" text-anchor="middle" class="sm">equations, thresholds</text>
-            <path class="rk" d="M156,42 H178" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+            <rect class="rk" x="10" y="18" width="170" height="52" fill="#fbf1a9" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="95" y="39" text-anchor="middle" class="sm">human experts build</text>
+            <text x="95" y="55" text-anchor="middle" class="sm">the causal graph</text>
+            <path class="rk" d="M180,44 H206" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
 
-            <rect class="rk" x="180" y="16" width="180" height="52" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
-            <text x="270" y="38" text-anchor="middle" class="sm">structural causal model</text>
-            <text x="270" y="55" text-anchor="middle" class="xs">motor, breaker: magnetic + thermal trip</text>
+            <rect class="rk" x="208" y="18" width="184" height="52" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="300" y="40" text-anchor="middle" class="sm">structural causal model</text>
+            <text x="300" y="57" text-anchor="middle" class="xs">motor, breaker: magnetic + thermal trip</text>
 
-            <path class="rk" d="M394,42 H362" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
-            <rect class="rk" x="396" y="16" width="160" height="52" fill="#d3e6f4" stroke="#2b2925" stroke-width="1.4"/>
-            <text x="476" y="38" text-anchor="middle" class="sm">LLM: question →</text>
-            <text x="476" y="55" text-anchor="middle" class="sm">intervention, query</text>
+            <path class="rk" d="M428,44 H394" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+            <rect class="rk" x="430" y="18" width="160" height="52" fill="#d3e6f4" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="510" y="40" text-anchor="middle" class="sm">LLM: question →</text>
+            <text x="510" y="57" text-anchor="middle" class="sm">intervention, query</text>
 
-            <path class="rk" d="M598,42 H558" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
-            <ellipse class="rk" cx="646" cy="42" rx="46" ry="24" fill="#ebe7de" stroke="#2b2925" stroke-width="1.4"/>
-            <text x="646" y="38" text-anchor="middle" class="sm">what if?</text>
-            <text x="646" y="53" text-anchor="middle" class="sm">why?</text>
+            <path class="rk" d="M636,44 H592" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+            <ellipse class="rk" cx="684" cy="44" rx="46" ry="24" fill="#ebe7de" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="684" y="40" text-anchor="middle" class="sm">what if?</text>
+            <text x="684" y="55" text-anchor="middle" class="sm">why?</text>
 
-            <rect class="rk" x="760" y="16" width="190" height="52" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
-            <text x="855" y="38" text-anchor="middle" class="sm">answer + reason</text>
-            <text x="855" y="55" text-anchor="middle" class="xs">computed by the equations</text>
-            <path class="rk" d="M270,68 V84 H855 V70" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+            <rect class="rk" x="770" y="18" width="180" height="52" fill="#e2ddd2" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="860" y="40" text-anchor="middle" class="sm">answer + reason</text>
+            <text x="860" y="57" text-anchor="middle" class="xs">computed by the equations</text>
+            <path class="rk" d="M300,18 V7 H860 V16" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
 
-            <text class="note-txt" x="560" y="106" text-anchor="middle">yellow: information the signals do not carry</text>
+            <ellipse class="rk" cx="58" cy="124" rx="48" ry="22" fill="#ebe7de" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="58" y="128" text-anchor="middle" class="sm">line data</text>
+            <path class="rk" d="M106,124 H130" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+            <rect class="rk" x="132" y="100" width="206" height="48" fill="#d8ecc9" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="235" y="120" text-anchor="middle" class="sm">encoded onto the graph</text>
+            <text x="235" y="137" text-anchor="middle" class="xs">automatic, for calculation</text>
+            <path class="rk" d="M240,100 V72" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+            <rect class="rk" x="420" y="100" width="250" height="48" fill="#d8ecc9" stroke="#2b2925" stroke-width="1.4"/>
+            <text x="545" y="120" text-anchor="middle" class="sm">small counterfactual extensions</text>
+            <text x="545" y="137" text-anchor="middle" class="xs">automatic, e.g. add a soft starter</text>
+            <path class="rk" d="M450,100 V86 H370 V72" fill="none" stroke="#2b2925" stroke-width="1.4" marker-end="url(#ah)"/>
+
+            <text class="note-txt" x="950" y="118" text-anchor="end">yellow: from human experts</text>
+            <text class="note-txt" x="950" y="136" text-anchor="end">green: automatic</text>
           </g>
         </svg>
       </div>
@@ -313,32 +328,33 @@
       <div class="card-row wh">
         <div class="note yellow mini" style="--tilt:-.4deg">
           <h3>What</h3>
-          <p>A structural causal model of an induction motor and its protection, a breaker with a magnetic and a thermal trip. Questions in plain English become interventions and queries, and the equations answer them with a reason.</p>
+          <p>A structural causal model of an induction motor and its protection, a breaker with a magnetic and a thermal trip. The world knowledge came from human experts, who built the causal graph. Encoding line data onto the graph and small counterfactual extensions of it were automatic.</p>
         </div>
         <div class="note green mini" style="--tilt:.4deg">
           <h3>How</h3>
           <ol class="how-steps tight">
-            <li>Engineers supply the graph, an equation for each node over its parents, and the trip thresholds.</li>
-            <li>An LLM turns a question ("what if the motor is just starting?") into an intervention or a query.</li>
-            <li>The equations compute the answer and its reason. A new mechanism, such as a soft starter, enters as new equations.</li>
+            <li>Experts build the causal graph: the variables, an equation for each node over its parents, the trip thresholds.</li>
+            <li>Line data is encoded onto the graph automatically, so the equations calculate.</li>
+            <li>An LLM turns a question ("what if the motor is just starting?") into an intervention or a query; the equations answer with a reason.</li>
+            <li>Small counterfactual extensions are automatic: asked about a soft starter, the twin adds it as new equations and answers from the new structure.</li>
           </ol>
         </div>
       </div>
 
       <h3 class="card-h">How does it perform?</h3>
       <section class="env" aria-labelledby="envMotor">
-        <div class="env-head"><h4 id="envMotor">Motor protection twin</h4><span>questions in plain English · answers and reasons from the structural equations</span></div>
+        <div class="env-head"><h4 id="envMotor">Motor protection twin</h4><span>high signal and stable: answers are computed by the expert-built equations, with the mechanism that produced them</span></div>
         <div class="know-row">
           <div class="rule-card"><span class="formula">ω = 350 rad/s → I = 5.98 A</span><span class="eng"><b>Running:</b> the breaker holds</span><span class="meta">"How much current at 350 rad/s? Will the breaker trip?"</span></div>
           <div class="rule-card"><span class="formula">ω = 0 → I = 65.59 A &gt; 15 A</span><span class="eng"><b>Starting:</b> the magnetic trip fires</span><span class="meta">"Why?" The current exceeds the 15 A magnetic threshold; the thermal trip stays untriggered</span></div>
-          <div class="rule-card"><span class="formula">do(add soft starter)</span><span class="eng"><b>New mechanism:</b> accepted, logic updated</span><span class="meta">asked again, the twin answers from the new structure: 0 A at standstill, the breaker holds</span></div>
+          <div class="rule-card"><span class="formula">do(add soft starter)</span><span class="eng"><b>Counterfactual extension:</b> automatic</span><span class="meta">asked again, the twin answers from the new structure: 0 A at standstill, the breaker holds</span></div>
         </div>
       </section>
 
       <div class="note pink limits-mini">
         <h3>Known limitations</h3>
         <ul>
-          <li><b>The structure comes from outside the data:</b> the graph, the equations and the thresholds come from engineers.</li>
+          <li><b>The human-built graph</b> was often cited as a major limitation: the world knowledge comes from experts, not from the data.</li>
           <li>The startup-protection equations (inrush limiter, soft starter) collapse fast electrical dynamics (RC charging, relay hysteresis, op-amp slew) into gains, steps and saturations.</li>
         </ul>
       </div>
@@ -692,7 +708,7 @@
       <h3 id="obstacleTitle">What we ran into, each time</h3>
       <p>Each form needs a lot of non-dynamical information: what the variables mean, which propositions to track, which types exist. The data do not carry it. We supplied it with an LLM or a VLM and a human teacher in the loop, and the outcomes were mixed.</p>
       <ul>
-        <li><b>Causal</b>The graphs, parent sets and thresholds came from engineers, manuals and FMEA sheets. Asked to propose the welder's world model, an LLM gave generic pairs at 10% confidence; the 320 links an LLM agent imagined could not be checked on plant data, and an 8D report contradicted some.</li>
+        <li><b>Causal</b>At Panasonic experts built the graph: high signal and stable, but the human-built graph was often cited as a major limitation. At Ather an LLM proposing the world model gave generic pairs at 10% confidence, and the 320 links an LLM agent imagined could not be checked on plant data.</li>
         <li><b>Causal Kripke</b>The VLM chooses the propositions. On the forced pendulum its labels collapse the Kripke structure: flip accuracy 0.48–0.51, against 0.58 with labels from θ and ω.</li>
         <li><b>Typed</b>The steps lean on what the statements do not hold: premises left unproved (P1, P7, P10), objects to invent (P3, P4), bridges left open (P2). 59 of 85 steps generalize.</li>
       </ul>
