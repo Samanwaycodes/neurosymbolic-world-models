@@ -4,7 +4,7 @@ A single-page, hand-drawn GitHub Pages site that lays out the auto-didactic neur
 
 - **The goal**: a reproduction of the original board page, including the classical and autodidactic teacher–learner diagrams.
 - **The inquiry**: a map of the stages, each with its question and what it ran into or found; each stop links to its section.
-- **I. Encoding to a principled representation**: ontologies as the starting point (their structure as the teacher), causal (Panasonic motor-protection twin; Ather K383 spot-welder world model), causal Kripke (**TOKW**, forced pendulum) and typed (**First Proof**), then what each form needed from outside the data.
+- **I. Encoding to a principled representation**: ontologies as the starting point (their structure as the teacher), causal (Panasonic motor-protection twin; Ather K383 spot-welder world model), causal Kripke (**TOKW**, forced pendulum) and typed (**First Proof**; **Metis**, a typed argmax-routing self-teacher), then what each form needed from outside the data.
 - **II. Presentation-relative encoding**: the system as its own teacher, changing how the input is presented (masking, order, repeats) at test and train time, with a Bayesian teacher; evidence from the anytime-anywhere PAC-Bayes paper (Walsh acquisition on measured single-pixel data).
 - **III. Representation and presentation together**: **Spohn Bayesian Model Discovery** (causRCA root-cause analysis) and its DiG-bench harness extension.
 - **IV. Query discovery**: where → what → how, asked of a segmenter, a VLM and a world model.
@@ -61,3 +61,4 @@ title + chips → architecture diagram (`.pipeline` SVG, with `class="rk"` on an
 - Motor-protection twin (Panasonic): the recorded demo of the causal twin (question, intervention, answer and reason; the soft-starter mechanism added in the session).
 - Ather K383 world model: the v6 graph JSON and its user guide (node and edge counts by type), the build log through v13 (error-code coverage, LLM-imagined links, 8D folding), the v14 rebuild report, the Feb 2026 discovery-loop recording, and the synthetic-benchmark write-up (DFKI nesy_diag_bench sample).
 - Ontology card: the neuro-sym-wm design document (`design-docs/explorations.md`, 2026-05-02: top-down ontology vs bottom-up symbols, constraint factors, the formal-layer loop) and its test-suite README (the evaluation bench).
+- Metis: the design-lab `metis/` archive (README, the recorded experiment panels in `panel/*.json` and their notebook, and the raw-bit 6-multiplexer control `MetisBench6MuxRaw.lean`).
